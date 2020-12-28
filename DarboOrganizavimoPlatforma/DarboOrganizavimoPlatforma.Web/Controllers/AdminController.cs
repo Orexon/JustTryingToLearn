@@ -35,7 +35,7 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
         }
         public async Task<IActionResult> GetUserList()
         {
-            var users = await _userManager.Users.ToListAsync();
+            var users = await _userManager.Users.Include(x=>x.Company).ToListAsync();
             var userRolesViewModel = new List<UserRolesViewModel>();
 
             foreach (AppUser user in users)
@@ -60,7 +60,7 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
         public IActionResult NewUser()
         {
             ViewBag.allRoles = new SelectList(_roleManager.Roles.ToList(), "Name", "Name");
-            
+            ViewBag.AllCompanies = new SelectList(_companyService.GetCompaniesList(), "CompanyId", "CompanyName");
             return View();
         }
 
@@ -68,6 +68,7 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> NewUser(NewUserViewModel model)
         {
+            ViewBag.AllCompanies = new SelectList(_companyService.GetCompaniesList(), "CompanyId", "CompanyName");
             ViewBag.allRoles = new SelectList(_roleManager.Roles.ToList(), "Name", "Name");
 
             if (ModelState.IsValid)
@@ -77,20 +78,26 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
                     Email = model.Email,
                     UserName = model.Email,
                     MemberName = model.MemberName,
-                    JoinDateTime = DateTime.Now
+                    JoinDateTime = DateTime.Now,
+                    CompanyId = model.CompanyID
                 };
 
                 var result = await _userManager.CreateAsync(newUser, model.ConfirmPassword);
                 if (result.Succeeded)
                 {
                     await _userManager.AddToRoleAsync(newUser, model.UserRole);
-                    
+                    Company company = await _companyService.GetCompanyById(model.CompanyID);
+                    if (company.AppUsers.Count >= (int)company.CompanyMemberSize)
+                    {
+                        ViewBag.SizeExceeded = "Company Membership Size Exceeded";
+                        return View(model);
+                    }
+                    company.AppUsers.Add(newUser);
                     return RedirectToAction("GetUserList");
                 }
             }
             return View("~/Views/Admin/NewUser.cshtml", model);
         }
-     
 
         [HttpGet]
         public async Task<IActionResult> EditUser(string id)
@@ -101,7 +108,7 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
                 Email = user.Email,
                 MemberName = user.MemberName,
                 UserName = user.UserName,
-                PhoneNumber = user.PhoneNumber
+                PhoneNumber = user.PhoneNumber,       
             };
             return View(model);
         }
@@ -145,7 +152,6 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             return RedirectToAction("GetUserList", "Admin");
         }
 
-        //add user to a company : find conpany by id. If company user list is < than company plan enum add member, else error msg. 
         //Errors
         [HttpGet]
         public async Task<IActionResult> AdminAddUserToCompany()

@@ -2,11 +2,13 @@ using DarboOrganizavimoPlatforma.Data;
 using DarboOrganizavimoPlatforma.Domains;
 using DarboOrganizavimoPlatforma.Services;
 using DarboOrganizavimoPlatforma.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -38,9 +40,7 @@ namespace DarboOrganizavimoPlatforma.Web
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = "/Auth/Login";
-            });
-
-            
+            }); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

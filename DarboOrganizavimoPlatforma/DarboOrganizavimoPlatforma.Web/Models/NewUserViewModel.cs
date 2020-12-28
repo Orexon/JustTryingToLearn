@@ -34,5 +34,8 @@ namespace DarboOrganizavimoPlatforma.Web.Models
         [Required]
         public string UserRole { get; set; }
 
+        [Required(ErrorMessage = "Please choose a company")]
+        public Guid CompanyID { get; set; }
+
     }
 }

@@ -20,8 +20,9 @@
             <th scope="col"> @Html.DisplayNameFor(model => model.User.UserName)</th>
             <th scope="col"> @Html.DisplayNameFor(model => model.User.Email)</th>
             <th scope="col"> @Html.DisplayNameFor(model => model.User.MemberName)</th>
+            <th scope="col"> Company</th>
             <th scope="col"> @Html.DisplayNameFor(model => model.Roles)</th>
-            <th scope="col"> Manage User Roles</th>
+            <th scope="col"> Manage Roles</th>
             <th scope="col"> Manage User</th>
         </tr>
     </thead>
@@ -32,6 +33,7 @@
             <td>@Html.DisplayFor(modelItem => item.User.UserName)</td>
             <td>@Html.DisplayFor(modelItem => item.User.Email)</td>
             <td>@Html.DisplayFor(modelItem => item.User.MemberName)</td>
+            <td>@Html.DisplayFor(modelItem => item.User.Company.CompanyName)</td>
             <td>@string.Join(" , ", item.Roles.ToList())</td>
             <td>
                 <a class="btn btn-primary" asp-controller="UserRoles" asp-action="Manage" asp-route-userId="@item.UserId">Manage Roles</a>
