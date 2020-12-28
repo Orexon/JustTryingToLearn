@@ -1,0 +1,41 @@
+﻿@model DarboOrganizavimoPlatforma.Web.Models.NewUserViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Member Creation</h2>
+
+<form method="post" asp-controller="Admin" asp-action="NewUser">
+    <div class="form-group">
+        <label for="inputName">Member name</label>
+        <input asp-for="MemberName" type="text" class="form-control" id="inputName">
+        <span asp-validation-for="@Model.MemberName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="email">Email address</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" asp-for="Email">
+        <span asp-validation-for="Email" class="text-danger"></span>
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+    <div class="form-group">
+        <label for="Password">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" asp-for="Password">
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="Pasword Confirm">Password Confirm</label>
+        <input type="password" class="form-control" id="exampleInputPassword2" asp-for="ConfirmPassword">
+        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+    </div>
+    <div class="form-group  mt-3">
+        <label for="User Role">Select User Role</label>
+        <select class="form-control" asp-for="UserRole" asp-items=@ViewBag.allRoles>
+            <option selected>Choose from a list of roles...</option>
+        </select>
+        <span asp-validation-for="UserRole" class="text-danger"></span>
+    </div>
+
+     <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+

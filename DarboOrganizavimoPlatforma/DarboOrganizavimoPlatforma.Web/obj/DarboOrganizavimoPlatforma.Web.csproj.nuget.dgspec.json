@@ -1,0 +1,294 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\P3CK\\Desktop\\ProgramingProjects\\C# Code\\DOP\\DarboOrganizavimoPlatforma\\DarboOrganizavimoPlatforma.Web\\DarboOrganizavimoPlatforma.Web.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\P3CK\\Desktop\\ProgramingProjects\\C# Code\\DOP\\DarboOrganizavimoPlatforma\\DarboOrganizavimoPlatforma.Data\\DarboOrganizavimoPlatforma.Data.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\P3CK\\Desktop\\ProgramingProjects\\C# Code\\DOP\\DarboOrganizavimoPlatforma\\DarboOrganizavimoPlatforma.Data\\DarboOrganizavimoPlatforma.Data.csproj",
+        "projectName": "DarboOrganizavimoPlatforma.Data",
+        "projectPath": "C:\\Users\\P3CK\\Desktop\\ProgramingProjects\\C# Code\\DOP\\DarboOrganizavimoPlatforma\\DarboOrganizavimoPlatforma.Data\\DarboOrganizavimoPlatforma.Data.csproj",
+        "packagesPath": "C:\\Users\\P3CK\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\P3CK\\Desktop\\ProgramingProjects\\C# Code\\DOP\\DarboOrganizavimoPlatforma\\DarboOrganizavimoPlatforma.Data\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\P3CK\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
+            "projectReferences": {
+              "C:\\Users\\P3CK\\Desktop\\ProgramingProjects\\C# Code\\DOP\\DarboOrganizavimoPlatforma\\DarboOrganizavimoPlatforma.Domains\\DarboOrganizavimoPlatforma.Domains.csproj": {
+                "projectPath": "C:\\Users\\P3CK\\Desktop\\ProgramingProjects\\C# Code\\DOP\\DarboOrganizavimoPlatforma\\DarboOrganizavimoPlatforma.Domains\\DarboOrganizavimoPlatforma.Domains.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.1.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[3.1.10, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\P3CK\\Desktop\\ProgramingProjects\\C# Code\\DOP\\DarboOrganizavimoPlatforma\\DarboOrganizavimoPlatforma.Domains\\DarboOrganizavimoPlatforma.Domains.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\P3CK\\Desktop\\ProgramingProjects\\C# Code\\DOP\\DarboOrganizavimoPlatforma\\DarboOrganizavimoPlatforma.Domains\\DarboOrganizavimoPlatforma.Domains.csproj",
+        "projectName": "DarboOrganizavimoPlatforma.Domains",
+        "projectPath": "C:\\Users\\P3CK\\Desktop\\ProgramingProjects\\C# Code\\DOP\\DarboOrganizavimoPlatforma\\DarboOrganizavimoPlatforma.Domains\\DarboOrganizavimoPlatforma.Domains.csproj",
+        "packagesPath": "C:\\Users\\P3CK\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\P3CK\\Desktop\\ProgramingProjects\\C# Code\\DOP\\DarboOrganizavimoPlatforma\\DarboOrganizavimoPlatforma.Domains\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\P3CK\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "dependencies": {
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.1.10, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\P3CK\\Desktop\\ProgramingProjects\\C# Code\\DOP\\DarboOrganizavimoPlatforma\\DarboOrganizavimoPlatforma.Services\\DarboOrganizavimoPlatforma.Services.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\P3CK\\Desktop\\ProgramingProjects\\C# Code\\DOP\\DarboOrganizavimoPlatforma\\DarboOrganizavimoPlatforma.Services\\DarboOrganizavimoPlatforma.Services.csproj",
+        "projectName": "DarboOrganizavimoPlatforma.Services",
+        "projectPath": "C:\\Users\\P3CK\\Desktop\\ProgramingProjects\\C# Code\\DOP\\DarboOrganizavimoPlatforma\\DarboOrganizavimoPlatforma.Services\\DarboOrganizavimoPlatforma.Services.csproj",
+        "packagesPath": "C:\\Users\\P3CK\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\P3CK\\Desktop\\ProgramingProjects\\C# Code\\DOP\\DarboOrganizavimoPlatforma\\DarboOrganizavimoPlatforma.Services\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\P3CK\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
+            "projectReferences": {
+              "C:\\Users\\P3CK\\Desktop\\ProgramingProjects\\C# Code\\DOP\\DarboOrganizavimoPlatforma\\DarboOrganizavimoPlatforma.Data\\DarboOrganizavimoPlatforma.Data.csproj": {
+                "projectPath": "C:\\Users\\P3CK\\Desktop\\ProgramingProjects\\C# Code\\DOP\\DarboOrganizavimoPlatforma\\DarboOrganizavimoPlatforma.Data\\DarboOrganizavimoPlatforma.Data.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\P3CK\\Desktop\\ProgramingProjects\\C# Code\\DOP\\DarboOrganizavimoPlatforma\\DarboOrganizavimoPlatforma.Web\\DarboOrganizavimoPlatforma.Web.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\P3CK\\Desktop\\ProgramingProjects\\C# Code\\DOP\\DarboOrganizavimoPlatforma\\DarboOrganizavimoPlatforma.Web\\DarboOrganizavimoPlatforma.Web.csproj",
+        "projectName": "DarboOrganizavimoPlatforma.Web",
+        "projectPath": "C:\\Users\\P3CK\\Desktop\\ProgramingProjects\\C# Code\\DOP\\DarboOrganizavimoPlatforma\\DarboOrganizavimoPlatforma.Web\\DarboOrganizavimoPlatforma.Web.csproj",
+        "packagesPath": "C:\\Users\\P3CK\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\P3CK\\Desktop\\ProgramingProjects\\C# Code\\DOP\\DarboOrganizavimoPlatforma\\DarboOrganizavimoPlatforma.Web\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\P3CK\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {
+              "C:\\Users\\P3CK\\Desktop\\ProgramingProjects\\C# Code\\DOP\\DarboOrganizavimoPlatforma\\DarboOrganizavimoPlatforma.Data\\DarboOrganizavimoPlatforma.Data.csproj": {
+                "projectPath": "C:\\Users\\P3CK\\Desktop\\ProgramingProjects\\C# Code\\DOP\\DarboOrganizavimoPlatforma\\DarboOrganizavimoPlatforma.Data\\DarboOrganizavimoPlatforma.Data.csproj"
+              },
+              "C:\\Users\\P3CK\\Desktop\\ProgramingProjects\\C# Code\\DOP\\DarboOrganizavimoPlatforma\\DarboOrganizavimoPlatforma.Services\\DarboOrganizavimoPlatforma.Services.csproj": {
+                "projectPath": "C:\\Users\\P3CK\\Desktop\\ProgramingProjects\\C# Code\\DOP\\DarboOrganizavimoPlatforma\\DarboOrganizavimoPlatforma.Services\\DarboOrganizavimoPlatforma.Services.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[3.1.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[3.1.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.1.10, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[3.1.4, )"
+            },
+            "NLog.Web.AspNetCore": {
+              "target": "Package",
+              "version": "[4.9.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

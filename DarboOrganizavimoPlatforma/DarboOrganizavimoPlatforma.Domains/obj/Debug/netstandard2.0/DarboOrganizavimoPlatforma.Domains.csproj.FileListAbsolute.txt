@@ -1,0 +1,9 @@
+C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Domains\bin\Debug\netstandard2.0\DarboOrganizavimoPlatforma.Domains.deps.json
+C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Domains\bin\Debug\netstandard2.0\DarboOrganizavimoPlatforma.Domains.dll
+C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Domains\bin\Debug\netstandard2.0\DarboOrganizavimoPlatforma.Domains.pdb
+C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Domains\obj\Debug\netstandard2.0\DarboOrganizavimoPlatforma.Domains.csprojAssemblyReference.cache
+C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Domains\obj\Debug\netstandard2.0\DarboOrganizavimoPlatforma.Domains.AssemblyInfoInputs.cache
+C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Domains\obj\Debug\netstandard2.0\DarboOrganizavimoPlatforma.Domains.AssemblyInfo.cs
+C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Domains\obj\Debug\netstandard2.0\DarboOrganizavimoPlatforma.Domains.csproj.CoreCompileInputs.cache
+C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Domains\obj\Debug\netstandard2.0\DarboOrganizavimoPlatforma.Domains.dll
+C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Domains\obj\Debug\netstandard2.0\DarboOrganizavimoPlatforma.Domains.pdb

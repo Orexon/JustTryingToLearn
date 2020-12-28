@@ -1,0 +1,18 @@
+C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Services\bin\Debug\netstandard2.0\DarboOrganizavimoPlatforma.Services.deps.json
+C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Services\bin\Debug\netstandard2.0\DarboOrganizavimoPlatforma.Services.dll
+C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Services\bin\Debug\netstandard2.0\DarboOrganizavimoPlatforma.Services.pdb
+C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Services\obj\Debug\netstandard2.0\DarboOrganizavimoPlatforma.Services.csprojAssemblyReference.cache
+C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Services\obj\Debug\netstandard2.0\DarboOrganizavimoPlatforma.Services.AssemblyInfoInputs.cache
+C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Services\obj\Debug\netstandard2.0\DarboOrganizavimoPlatforma.Services.AssemblyInfo.cs
+C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Services\obj\Debug\netstandard2.0\DarboOrganizavimoPlatforma.Services.csproj.CoreCompileInputs.cache
+C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Services\obj\Debug\netstandard2.0\DarboOrganizavimoPlatforma.Services.dll
+C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Services\obj\Debug\netstandard2.0\DarboOrganizavimoPlatforma.Services.pdb
+C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma - Copy\DarboOrganizavimoPlatforma.Services\bin\Debug\netstandard2.0\DarboOrganizavimoPlatforma.Services.deps.json
+C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma - Copy\DarboOrganizavimoPlatforma.Services\bin\Debug\netstandard2.0\DarboOrganizavimoPlatforma.Services.dll
+C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma - Copy\DarboOrganizavimoPlatforma.Services\bin\Debug\netstandard2.0\DarboOrganizavimoPlatforma.Services.pdb
+C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma - Copy\DarboOrganizavimoPlatforma.Services\obj\Debug\netstandard2.0\DarboOrganizavimoPlatforma.Services.csprojAssemblyReference.cache
+C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma - Copy\DarboOrganizavimoPlatforma.Services\obj\Debug\netstandard2.0\DarboOrganizavimoPlatforma.Services.AssemblyInfoInputs.cache
+C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma - Copy\DarboOrganizavimoPlatforma.Services\obj\Debug\netstandard2.0\DarboOrganizavimoPlatforma.Services.AssemblyInfo.cs
+C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma - Copy\DarboOrganizavimoPlatforma.Services\obj\Debug\netstandard2.0\DarboOrganizavimoPlatforma.Services.csproj.CoreCompileInputs.cache
+C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma - Copy\DarboOrganizavimoPlatforma.Services\obj\Debug\netstandard2.0\DarboOrganizavimoPlatforma.Services.dll
+C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma - Copy\DarboOrganizavimoPlatforma.Services\obj\Debug\netstandard2.0\DarboOrganizavimoPlatforma.Services.pdb

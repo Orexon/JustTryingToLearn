@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container">
+    <div class="jumbotron text-center">
+        <h1 class="display-4">Welcome to Admin Page</h1>
+        <div class="row pt-5">
+            <div class="col-6">
+                <div class="row">
+                    <p class="lead col-6">Member List</p>
+                    <a class="btn btn-info" asp-controller="Admin" asp-action="GetUserList" role="button">View User List</a>
+                </div>
+
+            </div>
+            <div class="col-6">
+                <div class="row">
+                    <p class="lead col-6">Add a new Member</p>
+                    <a class="btn btn-primary btn " asp-controller="Admin" asp-action="NewUser" role="button">Create a User</a>
+                </div>
+            </div>
+        </div>
+        <div class="row pt-5">
+            <div class="col-6">
+                <div class="row">
+                    <p class="lead col-6">Company List</p>
+                    <a class="btn btn-primary btn " asp-controller="Company" asp-action="GetCompanies" role="button">View Companies list</a>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="row">
+                    <p class="lead col-6">Add a new Company</p>
+                    <a class="btn btn-primary btn" asp-controller="Company" asp-action="NewCompany" role="button">Create a Company</a>
+                </div>
+            </div>
+        </div>
+        <div class="row pt-5">
+            <div class="col-6">
+                <div class="row">
+                    <p class="lead col-6">Add a user To a Company</p>
+                    <a class="btn btn-primary btn" asp-controller="Admin" asp-action="AdminAddUserToCompany" role="button">Add user to A Company</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

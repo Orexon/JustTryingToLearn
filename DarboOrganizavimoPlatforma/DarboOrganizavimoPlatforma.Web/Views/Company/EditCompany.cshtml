@@ -1,0 +1,46 @@
+﻿@model DarboOrganizavimoPlatforma.Web.Models.AdminEditCompanyViewModel
+@using DarboOrganizavimoPlatforma.Domains;
+
+@{
+    ViewData["Title"] = "EditCompany";
+}
+
+<h1>EditCompany</h1>
+
+<h4>Company</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="EditCompany">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CompanyName" class="control-label"></label>
+                <input asp-for="CompanyName" class="form-control" />
+                <span asp-validation-for="CompanyName" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="CompanyDescription" class="control-label"></label>
+                <textarea asp-for="CompanyDescription" class="form-control" rows="4"></textarea>
+                <span asp-validation-for="CompanyDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CompanyMemberSize">Select Company Size Plan</label>
+                <select class="form-control" asp-for="CompanyMemberSize" asp-items="Html.GetEnumSelectList<CompanyMemberSize>()">
+                    <option selected>Choose from a list of size plans</option>
+                </select>
+                <span asp-validation-for="CompanyMemberSize" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="GetCompanies">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

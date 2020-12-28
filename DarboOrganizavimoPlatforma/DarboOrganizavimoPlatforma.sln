@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DarboOrganizavimoPlatforma.Web", "DarboOrganizavimoPlatforma.Web\DarboOrganizavimoPlatforma.Web.csproj", "{D4CDDB7D-05D9-4286-A524-B96408F61A79}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{805A92E5-D02C-442F-A531-854F1D5CB594}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domains", "Domains", "{08E6C0F0-7C79-4344-B286-96B6F578E657}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{1D354700-657C-49D2-8D68-014FBD236513}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DarboOrganizavimoPlatforma.Data", "DarboOrganizavimoPlatforma.Data\DarboOrganizavimoPlatforma.Data.csproj", "{1A104F85-00EF-44FC-BD07-060151F7196D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DarboOrganizavimoPlatforma.Domains", "DarboOrganizavimoPlatforma.Domains\DarboOrganizavimoPlatforma.Domains.csproj", "{FBA93352-4D62-4138-BC84-7C0FBC6782E5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DarboOrganizavimoPlatforma.Services", "DarboOrganizavimoPlatforma.Services\DarboOrganizavimoPlatforma.Services.csproj", "{BF279371-66EA-468D-B8AC-CCF626D68CB1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D4CDDB7D-05D9-4286-A524-B96408F61A79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4CDDB7D-05D9-4286-A524-B96408F61A79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4CDDB7D-05D9-4286-A524-B96408F61A79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4CDDB7D-05D9-4286-A524-B96408F61A79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A104F85-00EF-44FC-BD07-060151F7196D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A104F85-00EF-44FC-BD07-060151F7196D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A104F85-00EF-44FC-BD07-060151F7196D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A104F85-00EF-44FC-BD07-060151F7196D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBA93352-4D62-4138-BC84-7C0FBC6782E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBA93352-4D62-4138-BC84-7C0FBC6782E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBA93352-4D62-4138-BC84-7C0FBC6782E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBA93352-4D62-4138-BC84-7C0FBC6782E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF279371-66EA-468D-B8AC-CCF626D68CB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF279371-66EA-468D-B8AC-CCF626D68CB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF279371-66EA-468D-B8AC-CCF626D68CB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF279371-66EA-468D-B8AC-CCF626D68CB1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1A104F85-00EF-44FC-BD07-060151F7196D} = {805A92E5-D02C-442F-A531-854F1D5CB594}
+		{FBA93352-4D62-4138-BC84-7C0FBC6782E5} = {08E6C0F0-7C79-4344-B286-96B6F578E657}
+		{BF279371-66EA-468D-B8AC-CCF626D68CB1} = {1D354700-657C-49D2-8D68-014FBD236513}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E8ED7303-7221-421B-9536-021CA2D63607}
+	EndGlobalSection
+EndGlobal
