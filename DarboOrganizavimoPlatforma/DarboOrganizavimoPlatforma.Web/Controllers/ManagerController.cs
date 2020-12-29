@@ -4,6 +4,7 @@ using DarboOrganizavimoPlatforma.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,32 +13,46 @@ using System.Threading.Tasks;
 
 namespace DarboOrganizavimoPlatforma.Web.Controllers
 {   
-    //[Authorize(Roles = "Admin,Manager")]
+    [Authorize(Roles = "Manager")]
     public class ManagerController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
+        private readonly RoleManager<IdentityRole<Guid>> _roleManager;
         private readonly ITeamService _teamService;
         private readonly ICompanyService _companyService;
-        public ManagerController(UserManager<AppUser> userManager, ITeamService teamService, ICompanyService companyService)
+        public ManagerController(UserManager<AppUser> userManager, ITeamService teamService, ICompanyService companyService, RoleManager<IdentityRole<Guid>> roleManager)
         {
             _userManager = userManager;
+            _roleManager = roleManager;
             _teamService = teamService;
             _companyService = companyService;
         }
         
         public async Task<IActionResult> CompanyTeamsList()
         {
-            //var currentUserid =  _userManager.GetUserAsync(User).Result.Id;   // .Result.Company;
-
-            //var companyId = await _userManager.Users.Include(x => x.Company).Where(x => x.Company.CompanyId == currentUserid).FirstOrDefaultAsync();
-            // var user1 = await _userManager.Users.Include(x => x.Company).SingleAsync(x => x.NormalizedEmail == email);
-
             AppUser user = _userManager.GetUserAsync(User).Result;
             var companyId = user.CompanyId;
-           
             return View(await _teamService.GetCompanyTeams(companyId));
+        }
 
-            // Get Current Users(managers) Company Teams list. 
+        public async Task<IActionResult> CompanyMemberList()
+        {
+            AppUser user = _userManager.GetUserAsync(User).Result;
+            Guid companyId = user.CompanyId;
+            List<AppUser> companyUsers = await _companyService.GetCompanyMembersList(companyId);
+            var companyUserListViewModel = new List<UserListViewModel>();
+
+            foreach (AppUser companyUser in companyUsers)
+            {
+                var thisViewModel = new UserListViewModel
+                {
+                    UserId = companyUser.Id,
+                    User = companyUser,
+                    Roles = new List<string>(await _userManager.GetRolesAsync(companyUser))
+                };
+                companyUserListViewModel.Add(thisViewModel);
+            }
+            return View(companyUserListViewModel);
         }
 
         [HttpGet]
@@ -48,11 +63,14 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateTeam(ManagerNewTeamViewModel model)
+        public async Task<IActionResult> CreateTeam(ManagerCreateTeamViewModel model)
         {
+            AppUser user = _userManager.GetUserAsync(User).Result;
+            var companyId = user.CompanyId;
+
             if (ModelState.IsValid)
             {
-                Company company =  _userManager.GetUserAsync(User).Result.Company;
+                Company company = await _companyService.GetCompanyById(companyId);
 
                 Team newTeam = new Team
                 {
@@ -67,8 +85,58 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> CreateUser()
+        {
+            ViewBag.ManagerRoleList = new SelectList(_roleManager.Roles.Where(x => x.Name != "Admin").ToList(), "Name", "Name");
+
+            AppUser user = _userManager.GetUserAsync(User).Result;
+            var companyId = user.CompanyId;
+            Company company = await _companyService.GetCompanyById(companyId);
+
+            if (company.AppUsers.Count >= (int)company.CompanyMemberSize)
+            {
+                ViewBag.SizeExceeded = "Company Membership Size Exceeded";
+                return RedirectToAction("CompanyMemberList");
+            }
+
+            return View();
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public async Task<IActionResult> CreateUser(ManagerCreateUserViewModel model)
+        {
+            ViewBag.ManagerRoleList = new SelectList(_roleManager.Roles.Where(x => x.Name != "Admin").ToList(), "Name", "Name");
+
+            AppUser user = _userManager.GetUserAsync(User).Result;
+            var companyId = user.CompanyId;
+            Company company = await _companyService.GetCompanyById(companyId);
+
+            if (ModelState.IsValid)
+            {
+                AppUser newUser = new AppUser()
+                {
+                    Email = model.Email,
+                    UserName = model.Email,
+                    MemberName = model.MemberName,
+                    JoinDateTime = DateTime.Now,
+                    CompanyId = companyId
+                };
+
+                var result = await _userManager.CreateAsync(newUser, model.ConfirmPassword);
+                if (result.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(newUser, model.UserRole);
+                    company.AppUsers.Add(newUser);
+                    return RedirectToAction("CompanyMemberList");
+                }
+            }
+            return View("~/Views/Manager/CreateUser.cshtml", model);
+        }
 
 
+        //Fix validation For all Creates where such user Email already exists in db UserEmail. 
 
         //Add a member to a team, 2 tables - one with member select, another with current team member list, refreshes the page with the model once added, and shows current teams members//
     }

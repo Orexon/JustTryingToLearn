@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DarboOrganizavimoPlatforma.Web.Models
 {
-    public class UserRolesViewModel
+    public class UserListViewModel
     {
         public Guid UserId { get; set; }
         public AppUser User { get; set; }

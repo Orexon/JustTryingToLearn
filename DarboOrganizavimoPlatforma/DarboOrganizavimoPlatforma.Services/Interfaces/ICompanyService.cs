@@ -10,12 +10,12 @@ namespace DarboOrganizavimoPlatforma.Services.Interfaces
     {
         Task<List<Company>> GetCompanies();
         List<Company> GetCompaniesList();
+        Task<List<AppUser>> GetCompanyMembersList(Guid companyId);
         Task<Company> GetCompanyById(Guid id);
         Task<Company> GetCompanyById(string id);
         Task<Company> FindCompanyById(Guid id);
         Task NewCompany(Company newCompany); 
         Task<int> EditCompany(Company company);
         Task<int> DeleteCompany(Company company);
-
     }
 }

@@ -26,17 +26,37 @@ namespace DarboOrganizavimoPlatforma.Data
             base.OnModelCreating(builder);
             builder.Entity<TeamUser>()
             .HasKey(i => new { i.AppUserId, i.TeamId });
-            //builder.Entity<TeamUser>().HasOne(tu => tu.Team).WithMany(tm => tm.TeamUsers).HasForeignKey(tus => tus.TeamId).OnDelete(DeleteBehavior.NoAction);
-            //builder.Entity<TeamUser>().HasOne(tu => tu.AppUser).WithMany(au => au.TeamUsers).HasForeignKey(tus => tus.AppUserId).OnDelete(DeleteBehavior.NoAction);
+
+            //AppUser To Company/Company To AppUser Relationshiop
             builder.Entity<AppUser>()
                 .HasOne(e => e.Company)
                 .WithMany(c => c.AppUsers);
             builder.Entity<Company>()
                 .HasMany(e => e.AppUsers)
                 .WithOne(e => e.Company);
-            builder.Entity<Company>()
-                .HasMany(e => e.Teams)
-                .WithOne(e => e.Company);
+
+            //Team To Company/Company To Team Relationshiop
+            //builder.Entity<Team>()
+            //    .HasOne(e => e.Company)
+            //    .WithMany(e => e.Teams);
+            //builder.Entity<Company>()
+            //    .HasMany(e => e.Teams)
+            //    .WithOne(e => e.Company);
+
+            //AppUser to TeamUser to Team Relationshiop
+            //builder.Entity<TeamUser>()
+            //.HasOne(tu => tu.Team)
+            //.WithMany(tm => tm.TeamUsers)
+            //.HasForeignKey(tus => tus.TeamId)
+            //.OnDelete(DeleteBehavior.NoAction);
+            //builder.Entity<TeamUser>()
+            //.HasOne(tu => tu.AppUser)
+            //.WithMany(au => au.TeamUsers)
+            //.HasForeignKey(tus => tus.AppUserId)
+            //.OnDelete(DeleteBehavior.NoAction);
+
+
+            //Database tables names
             builder.HasDefaultSchema("Identity");
             builder.Entity<AppUser>(b =>
             {
@@ -74,11 +94,6 @@ namespace DarboOrganizavimoPlatforma.Data
             {
                 entity.ToTable("UserTokens");
             });
-
-            
-            //builder.Entity<TeamUser>().HasKey(tu => new { tu.AppUserId, tu.TeamId });
-            //builder.Entity<TeamUser>().HasOne(tu => tu.Team).WithMany(tm => tm.TeamUsers).HasForeignKey(tus => tus.TeamId);
-            //builder.Entity<TeamUser>().HasOne(tu => tu.AppUser).WithMany(au => au.TeamUsers).HasForeignKey(tus => tus.AppUserId);
         }
     }
 }

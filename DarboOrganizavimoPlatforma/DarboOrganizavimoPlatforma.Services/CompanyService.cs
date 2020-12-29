@@ -23,6 +23,7 @@ namespace DarboOrganizavimoPlatforma.Services
         {
             return await _context.Companies.ToListAsync();
         }
+
         public List<Company> GetCompaniesList()
         {
             return _context.Companies.ToList();
@@ -32,10 +33,17 @@ namespace DarboOrganizavimoPlatforma.Services
         {  
             return  await _context.Companies.FirstOrDefaultAsync(m => m.CompanyId == id);             
         }
+
         public async Task<Company> GetCompanyById(string id)
         {
             Guid guidid = Guid.Parse(id);
             return await _context.Companies.FirstOrDefaultAsync(m => m.CompanyId == guidid);
+        }
+
+        public async Task<List<AppUser>> GetCompanyMembersList(Guid companyId)
+        {
+            Company company = await _context.Companies.Include(x=>x.AppUsers).FirstOrDefaultAsync(m => m.CompanyId == companyId);
+            return company.AppUsers;
         }
 
         public async Task<Company> FindCompanyById(Guid id)

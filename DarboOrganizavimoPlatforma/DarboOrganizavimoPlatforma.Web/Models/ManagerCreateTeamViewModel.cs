@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DarboOrganizavimoPlatforma.Web.Models
 {
-    public class ManagerNewTeamViewModel
+    public class ManagerCreateTeamViewModel
     {
         [Required]
         [StringLength(20)]

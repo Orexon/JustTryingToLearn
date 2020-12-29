@@ -10,7 +10,7 @@
         <h2 class="text-info">User List</h2>
     </div>
     <div class="col-3 offset-3 text-right">
-        <a asp-controller="Admin" asp-action="NewUser" class="btn btn-primary" role="button">Add New User</a>
+        <a asp-controller="Manager" asp-action="CreateUser" class="btn btn-primary" role="button">Add New User</a>
     </div>
 </div>
 
@@ -20,7 +20,6 @@
             <th scope="col"> @Html.DisplayNameFor(model => model.User.UserName)</th>
             <th scope="col"> @Html.DisplayNameFor(model => model.User.Email)</th>
             <th scope="col"> @Html.DisplayNameFor(model => model.User.MemberName)</th>
-            <th scope="col"> Company</th>
             <th scope="col"> @Html.DisplayNameFor(model => model.Roles)</th>
             <th scope="col"> Manage Roles</th>
             <th scope="col"> Manage User</th>
@@ -29,21 +28,20 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>@Html.DisplayFor(modelItem => item.User.UserName)</td>
-            <td>@Html.DisplayFor(modelItem => item.User.Email)</td>
-            <td>@Html.DisplayFor(modelItem => item.User.MemberName)</td>
-            <td>@Html.DisplayFor(modelItem => item.User.Company.CompanyName)</td>
-            <td>@string.Join(" , ", item.Roles.ToList())</td>
-            <td>
-                <a class="btn btn-primary" asp-controller="UserRoles" asp-action="Manage" asp-route-userId="@item.UserId">Manage Roles</a>
-            </td>
-            <td>
-                <a class="btn btn-success" asp-action="EditUser" asp-controller="Admin" asp-route-id="@item.User.Id">Edit</a> |
-                <a class="btn btn-info" asp-action="UserDetails" asp-route-id="@item.User.Id">Details</a> |
-                <button id="modalDeleteButton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" data-id="@item.User.Id">Delete</button>
-            </td>
-        </tr>
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.User.UserName)</td>
+                <td>@Html.DisplayFor(modelItem => item.User.Email)</td>
+                <td>@Html.DisplayFor(modelItem => item.User.MemberName)</td>
+                <td>@string.Join(" , ", item.Roles.ToList())</td>
+                <td>
+                    <a class="btn btn-primary" asp-controller="UserRoles" asp-action="Manage" asp-route-userId="@item.UserId">Manage Roles</a>
+                </td>
+                <td>
+                    <a class="btn btn-success" asp-action="EditUser" asp-controller="Manager" asp-route-id="@item.User.Id">Edit</a> |
+                    <a class="btn btn-info" asp-action="UserDetails" asp-route-id="@item.User.Id">Details</a> |
+                    <button id="modalDeleteButton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" data-id="@item.User.Id">Delete</button>
+                </td>
+            </tr>
         }
     </tbody>
 </table>

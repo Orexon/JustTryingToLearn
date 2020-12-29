@@ -10,6 +10,7 @@ namespace DarboOrganizavimoPlatforma.Domains
         public string TeamName { get; set; }
         public string TeamDescription { get; set; }
         public ICollection<TeamUser> TeamUsers { get; set; }
+        public Guid CompanyId { get; set; }
         public Company Company { get; set; }
         public DateTime CreateTime { get; set; }
     }

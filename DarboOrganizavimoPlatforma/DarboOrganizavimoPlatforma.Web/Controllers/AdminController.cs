@@ -36,19 +36,19 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
         public async Task<IActionResult> GetUserList()
         {
             var users = await _userManager.Users.Include(x=>x.Company).ToListAsync();
-            var userRolesViewModel = new List<UserRolesViewModel>();
+            var userListViewModel = new List<UserListViewModel>();
 
             foreach (AppUser user in users)
             {
-                var thisViewModel = new UserRolesViewModel
+                var thisViewModel = new UserListViewModel
                 {
                     UserId = user.Id,
                     User = user,
                     Roles = await GetUserRoles(user)
                 };
-                userRolesViewModel.Add(thisViewModel);
+                userListViewModel.Add(thisViewModel);
             }
-            return View(userRolesViewModel);
+            return View(userListViewModel);
         }
         
         public async Task<List<string>> GetUserRoles(AppUser user)
@@ -188,13 +188,13 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
         //  Admin - Remove multiple User from company. 
 
         //+ Admin - Add User to Company. HOW -> Get Company List, select company, Get User list, Select User. Add to Company User list. If not over member size.
-        // Admin - Add Multiple User to company. Check if not over member size. Foreach selected add to company.. checkbox'es per post. 
+        //  Admin - Add Multiple User to company. Check if not over member size. Foreach selected add to company.. checkbox'es per post. 
 
         //+ Admin - Remove Teams. Remove specific companies team/teams. 
-        // Admin - Remove Projects. Remove specific companies Project/Projects.
+        //  Admin - Remove Projects. Remove specific companies Project/Projects.
 
-        //Manager - Create User - add user to company member list if not over member size.
-        //Manager - Create Teams. 
+        //+ Manager - Create User - add user to company member list if not over member size.
+        //+ Manager - Create Teams. 
         //Manager - Add/Remove TeamLeaders from Teams.
         //Manager - Get All Company Members List.  // where(x => x.id == CompanyID)
         //Manager - Get Company Project List. InOtherWords = List of all projects that a company has created. 
