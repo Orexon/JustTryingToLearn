@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DarboOrganizavimoPlatforma.Web.Models
 {
-    public class AdminEditUserViewModel
+    public class EditUserViewModel
     {
         [Required]
         public string MemberName { get; set; }

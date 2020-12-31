@@ -25,7 +25,14 @@
         </div>
         <div class="card-footer">
             <input type="submit" value="Update" class="btn btn-primary" style="width:auto" />
-            <a asp-controller="Admin" asp-action="GetUserList" class="btn btn-primary" style="width:auto">Cancel</a>
+            @if (User.IsInRole("Admin"))
+            {
+                <a asp-controller="Admin" asp-action="GetUserList" class="btn btn-primary" style="width:auto">Cancel</a>
+            }
+            else
+            {
+                <a asp-controller="Manager" asp-action="CompanyMemberList" class="btn btn-primary" style="width:auto">Cancel</a>
+            }
         </div>
     </div>
 </form>

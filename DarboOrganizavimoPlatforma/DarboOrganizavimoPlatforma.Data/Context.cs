@@ -24,8 +24,17 @@ namespace DarboOrganizavimoPlatforma.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
             builder.Entity<TeamUser>()
-            .HasKey(i => new { i.AppUserId, i.TeamId });
+                .HasKey(tu => new { tu.AppUserId, tu.TeamId });
+            builder.Entity<TeamUser>()
+                .HasOne(tu => tu.AppUser)
+                .WithMany(au => au.TeamUsers)
+                .HasForeignKey(tu=> tu.AppUserId);
+            builder.Entity<TeamUser>()
+                .HasOne(tu => tu.Team)
+                .WithMany(t => t.TeamUsers)
+                .HasForeignKey(tu => tu.TeamId);
 
             //AppUser To Company/Company To AppUser Relationshiop
             builder.Entity<AppUser>()
@@ -43,12 +52,13 @@ namespace DarboOrganizavimoPlatforma.Data
             //    .HasMany(e => e.Teams)
             //    .WithOne(e => e.Company);
 
-            //AppUser to TeamUser to Team Relationshiop
+            //AppUser to TeamUser to Team Relationship
             //builder.Entity<TeamUser>()
             //.HasOne(tu => tu.Team)
             //.WithMany(tm => tm.TeamUsers)
             //.HasForeignKey(tus => tus.TeamId)
             //.OnDelete(DeleteBehavior.NoAction);
+
             //builder.Entity<TeamUser>()
             //.HasOne(tu => tu.AppUser)
             //.WithMany(au => au.TeamUsers)

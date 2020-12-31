@@ -385,7 +385,6 @@ C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma 
 C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Web\bin\Debug\netcoreapp3.1\libman.json
 C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Web\obj\Debug\netcoreapp3.1\Razor\Views\Company\NewCompany.cshtml.g.cs
 C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Web\obj\Debug\netcoreapp3.1\Razor\Views\Admin\GetUserList.cshtml.g.cs
-C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Web\obj\Debug\netcoreapp3.1\Razor\Views\Admin\NewUser.cshtml.g.cs
 C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Web\obj\Debug\netcoreapp3.1\Razor\Views\UserRoles\Manage.cshtml.g.cs
 C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Web\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LoginPartial.cshtml.g.cs
 C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Web\bin\Debug\netcoreapp3.1\DarboOrganizavimoPlatforma.Services.dll
@@ -394,7 +393,6 @@ C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\
 C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Web\obj\Debug\netcoreapp3.1\Razor\Views\Admin\UserDetails.cshtml.g.cs
 C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Web\obj\Debug\netcoreapp3.1\Razor\Views\Company\GetCompanies.cshtml.g.cs
 C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Web\obj\Debug\netcoreapp3.1\Razor\Views\Company\EditCompany.cshtml.g.cs
-C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Web\obj\Debug\netcoreapp3.1\Razor\Views\Teams\Index.cshtml.g.cs
 C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Web\obj\Debug\netcoreapp3.1\Razor\Views\Teams\AdminCreateTeam.cshtml.g.cs
 C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Web\obj\Debug\netcoreapp3.1\Razor\Views\Teams\EditTeam.cshtml.g.cs
 C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Web\obj\Debug\netcoreapp3.1\Razor\Views\Teams\TeamDetails.cshtml.g.cs
@@ -403,3 +401,5 @@ C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\
 C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Web\obj\Debug\netcoreapp3.1\Razor\Views\Manager\CreateTeam.cshtml.g.cs
 C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Web\obj\Debug\netcoreapp3.1\Razor\Views\Manager\CompanyMemberList.cshtml.g.cs
 C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Web\obj\Debug\netcoreapp3.1\Razor\Views\Manager\CreateUser.cshtml.g.cs
+C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Web\obj\Debug\netcoreapp3.1\Razor\Views\Admin\CreateUser.cshtml.g.cs
+C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Web\obj\Debug\netcoreapp3.1\Razor\Views\Teams\GetAllTeams.cshtml.g.cs

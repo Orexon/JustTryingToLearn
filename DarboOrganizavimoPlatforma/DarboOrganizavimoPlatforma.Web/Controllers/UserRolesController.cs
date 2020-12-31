@@ -1,5 +1,6 @@
 ﻿using DarboOrganizavimoPlatforma.Data;
 using DarboOrganizavimoPlatforma.Domains;
+using DarboOrganizavimoPlatforma.Services.Interfaces;
 using DarboOrganizavimoPlatforma.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -16,11 +17,13 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly RoleManager<IdentityRole<Guid>> _roleManager;
+        private readonly ICompanyService _companyService;
 
-        public UserRolesController(UserManager<AppUser> userManager, RoleManager<IdentityRole<Guid>> roleManager)
+        public UserRolesController(UserManager<AppUser> userManager, RoleManager<IdentityRole<Guid>> roleManager, ICompanyService companyService)
         {
             _roleManager = roleManager;
             _userManager = userManager;
+            _companyService = companyService;
         }
 
         [HttpGet]
@@ -69,35 +72,48 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             }
             return View(model);           
         }
-        [HttpPost]
+        [HttpPost] //return paths if error. Change/Optimize.
         public async Task<IActionResult> Manage(List<ManageUserRolesViewModel> model, string userId)
         {
-            //Restrict Admin from removing admin role. Admins are forever.  
-            //Restrict Manager from removing manager role if only 1user in company with manager role. 
-            // How to implement -> 
-            //For each user(appUser) in CompanyMemberList do a role check. 
-            //if userIsInRole("Manager").Count > 1 let them remove the role.   
-            //Else error "you cannot remove the last manager in the company" 
-
             AppUser currentUser = _userManager.GetUserAsync(User).Result;
+            Guid companyId = currentUser.CompanyId;
+            var managerList = await _userManager.GetUsersInRoleAsync("Manager");
+            int count = managerList.Where(x => x.CompanyId == companyId).ToList().Count();
+
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
             {
                 return View();
             }
             var roles = await _userManager.GetRolesAsync(user);
+
+            //If the current user is Admin & if Admin selects himself and if admin wants to remove admin role from himself - restrict removal. 
+            if (await _userManager.IsInRoleAsync(currentUser, "Admin") && user == currentUser && roles.Contains("Admin"))
+            {
+                ModelState.AddModelError("", "Cannot remove Admin Role from admin. Admins are forever!");
+                return View(model);
+            }
+            //If the current user is Manager & if manager selects himself and if Manager wants to remove manager role from the last manager of a company - restrict removal. 
+            else if (await _userManager.IsInRoleAsync(currentUser, "Manager") && user == currentUser && count < 2)
+            {
+                ModelState.AddModelError("", "Cannot remove Manager role from the last existing Manager in a Company");
+                return View(model);
+            }
             var result = await _userManager.RemoveFromRolesAsync(user, roles);
+
             if (!result.Succeeded)
             {
                 ModelState.AddModelError("", "Cannot remove user existing roles");
                 return View(model);
             }
+
             result = await _userManager.AddToRolesAsync(user, model.Where(x => x.Selected).Select(y => y.RoleName));
             if (!result.Succeeded)
             {
                 ModelState.AddModelError("", "Cannot add selected roles to user");
                 return View(model);
             }         
+
             if (await _userManager.IsInRoleAsync(currentUser, "Admin"))
             {
                 return RedirectToAction("GetUserList", "Admin");

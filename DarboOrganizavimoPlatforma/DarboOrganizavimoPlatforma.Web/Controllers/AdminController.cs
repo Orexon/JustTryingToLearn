@@ -57,7 +57,7 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult NewUser()
+        public IActionResult CreateUser()
         {
             ViewBag.allRoles = new SelectList(_roleManager.Roles.ToList(), "Name", "Name");
             ViewBag.AllCompanies = new SelectList(_companyService.GetCompaniesList(), "CompanyId", "CompanyName");
@@ -66,7 +66,7 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
 
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public async Task<IActionResult> NewUser(NewUserViewModel model)
+        public async Task<IActionResult> CreateUser(NewUserViewModel model)
         {
             ViewBag.AllCompanies = new SelectList(_companyService.GetCompaniesList(), "CompanyId", "CompanyName");
             ViewBag.allRoles = new SelectList(_roleManager.Roles.ToList(), "Name", "Name");
@@ -96,14 +96,14 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
                     return RedirectToAction("GetUserList");
                 }
             }
-            return View("~/Views/Admin/NewUser.cshtml", model);
+            return View("~/Views/Admin/CreateUser.cshtml", model);
         }
 
         [HttpGet]
         public async Task<IActionResult> EditUser(string id)
         {
             AppUser user = await _userManager.FindByIdAsync(id);
-            AdminEditUserViewModel model = new AdminEditUserViewModel()
+            EditUserViewModel model = new EditUserViewModel()
             {
                 Email = user.Email,
                 MemberName = user.MemberName,
@@ -115,7 +115,7 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
 
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public async Task<IActionResult> EditUser(string id ,AdminEditUserViewModel model) 
+        public async Task<IActionResult> EditUser(string id ,EditUserViewModel model) 
         {
             if (ModelState.IsValid)
             {
@@ -195,8 +195,8 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
 
         //+ Manager - Create User - add user to company member list if not over member size.
         //+ Manager - Create Teams. 
-        //Manager - Add/Remove TeamLeaders from Teams.
-        //Manager - Get All Company Members List.  // where(x => x.id == CompanyID)
+        //+ Manager - Add/Remove TeamLeaders roles.
+        //+ Manager - Get All Company Members List.  
         //Manager - Get Company Project List. InOtherWords = List of all projects that a company has created. 
         //Manager - Get Company Project Teams List. IOW = Teams working on a specific project /&or/ list of Teams company Has created.
         //Manager - Get Company Project Teams Members List. IOW = Members working in a specific Team /&or/ on a specific project.
@@ -205,8 +205,9 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
         //TeamLeader side - GetProject list. IOW = List of project the current Member is currently assigned to.
         //TeamLeader side - GetProject list. IOW = List of project the current Member is currently assigned to.
 
-        //Member side - Get Project list . IOW = List of project the current Member is currently assigned to.
-        //Member side - Get list of teams. IOW = List of Teams member is assingned to. 
+        //Member side - Get Project list . IOW = List of project the current Member is currently assigned to. //Get Project that current user is part of.
+        //Member side - Get list of teams. IOW = List of Teams member is assingned to. //GetTeams that current user is part of.
+
 
         //Tasks Controller - Create task(description,time,id)
         //Task
@@ -214,7 +215,7 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
         //Project controller
 
         //Icons for Delete/Edit/Info.
-        //Validation for NewTeam
+        //Validation for CreateTeam
         //Correct Delete Behaviour
 
 

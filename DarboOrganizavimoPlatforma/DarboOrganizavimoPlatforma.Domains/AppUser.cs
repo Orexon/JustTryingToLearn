@@ -14,8 +14,7 @@ namespace DarboOrganizavimoPlatforma.Domains
         public Guid CompanyId { get; set; }
         public ICollection<TeamUser> TeamUsers { get; set; }
         public ICollection<Project> CompanyTeamMembers { get; set; }
-        public DateTime JoinDateTime { get; set; }
-        
+        public DateTime JoinDateTime { get; set; }       
     }
 }
 

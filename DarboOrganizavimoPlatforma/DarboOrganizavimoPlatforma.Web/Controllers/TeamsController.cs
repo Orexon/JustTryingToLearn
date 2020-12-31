@@ -25,23 +25,9 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             _teamService = teamService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> GetAllTeams()
         {
             return View(await _teamService.GetTeams());
-        }
-        public async Task<IActionResult> TeamDetails(Guid id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            Team team = await _teamService.GetTeamById(id);
-
-            if (team == null)
-            {
-                return NotFound();
-            }
-            return View(team);
         }
 
         public IActionResult AdminCreateTeam()
@@ -67,10 +53,11 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
                     Company = company
                 };
                 await _teamService.NewTeam(company, newTeam);
-                return RedirectToAction("Index");
+                return RedirectToAction("GetAllTeams");
             }
             return View(model);
         }
+
 
         [HttpGet]
         public async Task<IActionResult> EditTeam(Guid id)
@@ -101,9 +88,24 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
                 //Team Users List in view with ability to remove or add users to the team. 
 
                 await _teamService.EditTeam(team);
-                return RedirectToAction("Index");
+                return RedirectToAction("GetAllTeams");
             }
             return View(model);
+        }
+
+        public async Task<IActionResult> TeamDetails(Guid id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            Team team = await _teamService.GetTeamById(id);
+
+            if (team == null)
+            {
+                return NotFound();
+            }
+            return View(team);
         }
 
         [HttpPost]
@@ -111,7 +113,23 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
         {
             Team team = await _teamService.GetTeamById(id);
             await _teamService.DeleteTeam(team);
-            return RedirectToAction("Index");
+            return RedirectToAction("GetAllTeams");
         }
+
+        // "Points" to a team and gives list of TeamMembers.
+        //public async Task<IActionResult> GetTeamsMemberList(Guid id)  
+        //{
+        //    return View(await _teamService.GetTeamsMemberList(id));
+        //}
+
+
+
+        //Adding Users to Team.Cascading Select list.
+        //Add 1 user to team as Admin(All Company List +select Company,GetSelectedCompanyTeamList +selectTeam, GetThatComapanyUserList +SelectUser,ADD)  Enable Multiple.
+
+
+        //Get Team member List. For everyone. A button -> lets see current team member list.    If TeamLeader = AddMember to team -Select member from company.   
+        //Choose a team, get list. For Teamleader
+        
     }
 }

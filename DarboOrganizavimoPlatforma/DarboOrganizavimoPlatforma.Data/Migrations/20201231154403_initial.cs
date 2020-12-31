@@ -233,7 +233,7 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
                     TeamId = table.Column<Guid>(nullable: false),
                     TeamName = table.Column<string>(nullable: true),
                     TeamDescription = table.Column<string>(nullable: true),
-                    CompanyId = table.Column<Guid>(nullable: true),
+                    CompanyId = table.Column<Guid>(nullable: false),
                     CreateTime = table.Column<DateTime>(nullable: false),
                     ProjectId = table.Column<Guid>(nullable: true)
                 },
@@ -246,7 +246,7 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
                         principalSchema: "Identity",
                         principalTable: "Companies",
                         principalColumn: "CompanyId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Teams_Projects_ProjectId",
                         column: x => x.ProjectId,
@@ -261,8 +261,8 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
                 schema: "Identity",
                 columns: table => new
                 {
-                    TeamId = table.Column<Guid>(nullable: false),
-                    AppUserId = table.Column<Guid>(nullable: false)
+                    AppUserId = table.Column<Guid>(nullable: false),
+                    TeamId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
