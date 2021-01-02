@@ -52,7 +52,6 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             }
             return View(companyUserListViewModel);
         }
-
         [HttpGet]
         public async Task<IActionResult> CreateUser()
         {
@@ -69,6 +68,7 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             }
             return View();
         }
+
 
         [ValidateAntiForgeryToken]
         [HttpPost]
@@ -97,7 +97,7 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
                     await _userManager.AddToRoleAsync(newUser, model.UserRole);
                     //company.AppUsers.Add(newUser);  
                 }
-                await _companyService.AddUserToCompany(company, newUser);
+                //await _companyService.AddUserToCompany(company, newUser);
 
                 return RedirectToAction("CompanyMemberList");
             }
@@ -187,6 +187,7 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
                     TeamDescription = model.TeamDescription,
                     CreateTime = DateTime.Now,
                     Company = company
+                    //TeamUsers = new List<TeamUser>()
                 };
                 await _teamService.NewTeam(company, newTeam);
                 return RedirectToAction("CompanyTeamsList");
@@ -201,13 +202,9 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             AppUser user = _userManager.GetUserAsync(User).Result;
             Guid companyId = user.CompanyId;
             ViewBag.AllCompanyUsers = new SelectList(await _teamService.GetListOfAvailableTeamUsers(id,companyId), "Id", "Email");
-            return View();
-        }
 
-        [HttpPost]
-        public async Task<IActionResult> AddTeamMember(AddUserToTeamViewModel model, Guid id)
-        {
             List<AppUser> TeamsMemberList = await _teamService.GetTeamsMemberList(id);
+            //visi team members;
             var teamUserListViewModel = new List<UserListViewModel>();
 
             foreach (AppUser member in TeamsMemberList)
@@ -221,16 +218,33 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
                 teamUserListViewModel.Add(thisViewModel);
             }
 
+            var newviewmodel = new AddUserToTeamViewModel
+            {
+                TeamUserListViewModel = teamUserListViewModel
+            };
+            return View(newviewmodel);
+
+            //ViewBag.CurrentTeam = teamUserListViewModel;
+            //return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddTeamMember(AddUserToTeamViewModel model, Guid id)
+        {
             AppUser user = _userManager.GetUserAsync(User).Result;
             Guid companyId = user.CompanyId;
             ViewBag.AllCompanyUsers = new SelectList(await _teamService.GetListOfAvailableTeamUsers(id, companyId), "Id", "Email");
 
+            Guid guidid = Guid.Parse(model.AppUserId);
+
             TeamUser teamUser = new TeamUser
-            {
-                AppUserId = model.Id,
+            {  
+                AppUser = await _userManager.FindByIdAsync(model.AppUserId),
+                AppUserId = guidid,
+                Team = await _teamService.GetTeamById(id),
                 TeamId = id
             };
-            await _teamService.AddTeamUser(id, teamUser);
+            await _teamService.AddTeamUser(teamUser);
             return RedirectToAction("AddTeamMember");  
         }
 

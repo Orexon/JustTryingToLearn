@@ -8,6 +8,7 @@ using DarboOrganizavimoPlatforma.Services.Interfaces;
 using DarboOrganizavimoPlatforma.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using System.Collections.Generic;
 
 namespace DarboOrganizavimoPlatforma.Web.Controllers
 {
@@ -54,6 +55,7 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
                     TeamDescription = model.TeamDescription,
                     CreateTime = DateTime.Now,
                     Company = company
+                    //TeamUsers = new List<TeamUser>()
                 };
                 await _teamService.NewTeam(company, newTeam);
                 return RedirectToAction("GetAllTeams");

@@ -35,8 +35,12 @@ namespace DarboOrganizavimoPlatforma.Services
         {
             return await _context.Teams.FirstOrDefaultAsync(m => m.TeamId == id);
         }
-
-        public async Task<List<TeamUser>> GetTeamsUsers()
+        public async Task<Team> GetCompanyById(string id)
+        {
+            Guid guidid = Guid.Parse(id);
+            return await _context.Teams.FirstOrDefaultAsync(m => m.TeamId == guidid);
+        }
+            public async Task<List<TeamUser>> GetTeamsUsers()
         {
             return await _context.TeamUsers.ToListAsync();
         }
@@ -77,10 +81,10 @@ namespace DarboOrganizavimoPlatforma.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task AddTeamUser(Guid teamId, TeamUser teamUser)
+        public async Task AddTeamUser(TeamUser teamUser)
         {
-            Team team = await GetTeamById(teamId);
-            team.TeamUsers.Add(teamUser);
+            //Team team = await GetTeamById(Id);
+            //team.TeamUsers.Add(teamUser);
             _context.TeamUsers.Add(teamUser);
             await _context.SaveChangesAsync();
         }

@@ -11,11 +11,12 @@ namespace DarboOrganizavimoPlatforma.Services.Interfaces
         Task<List<Team>> GetTeams();
         List<Team> GetTeamsList();
         Task<Team> GetTeamById(Guid id);
+        Task<Team> GetCompanyById(string id);
         Task<List<AppUser>> GetTeamsMemberList(Guid id);
         Task<List<AppUser>> GetListOfAvailableTeamUsers(Guid id, Guid companyId);
         Task<List<Team>> GetCompanyTeams(Guid id);
         Task NewTeam(Company company, Team newTeam);
-        Task AddTeamUser(Guid teamId, TeamUser teamUser);
+        Task AddTeamUser(TeamUser teamUser);
         Task<int> EditTeam(Team team);
         Task<int> DeleteTeam(Team team);
     }

@@ -194,13 +194,13 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
         //+ Admin - Remove Teams. Remove specific companies team/teams. 
         //  Admin - Remove Projects. Remove specific companies Project/Projects.
 
-        //+ Manager - Create User - add user to company member list if not over member size.
+        //+/- Manager - Create User - add user to company member list if not over member size.
         //+ Manager - Create Teams. 
         //+ Manager - Add/Remove TeamLeaders roles.
         //+ Manager - Get All Company Members List.  
         //Manager - Get Company Project List. InOtherWords = List of all projects that a company has created. 
         //Manager - Get Company Project Teams List. IOW = Teams working on a specific project /&or/ list of Teams company Has created.
-        //Manager - Get Company Project Teams Members List. IOW = Members working in a specific Team /&or/ on a specific project.
+        //+/- Manager - Get Company Project Teams Members List. IOW = Members working in a specific Team /&or/ on a specific project.
 
         //TeamLeader - Add/Remove members to Teams.
         //TeamLeader side - GetProject list. IOW = List of project the current Member is currently assigned to.

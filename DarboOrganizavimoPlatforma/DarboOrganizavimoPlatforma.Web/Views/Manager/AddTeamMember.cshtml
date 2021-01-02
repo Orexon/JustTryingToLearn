@@ -13,11 +13,11 @@
             <form asp-controller="Manager" asp-action="AddTeamMember">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group  mb-3">
-                    <label asp-for="Id">Select Available User</label>
-                    <select class="form-control" asp-for="Id" asp-items=@ViewBag.AllCompanyUsers>
+                    <label asp-for="AppUserId">Select Available User</label>
+                    <select class="form-control" asp-for="AppUserId" asp-items=@ViewBag.AllCompanyUsers>
                         <option selected>Choose from a list of companies...</option>
                     </select>
-                    <span asp-validation-for="Id" class="text-danger"></span>
+                    <span asp-validation-for="AppUserId" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <input type="submit" value="add" class="btn btn-primary" />
@@ -25,7 +25,8 @@
             </form>
         </div>
     </div>
-    @if ( Model.TeamUserListViewModel.Count > 0)
+
+    @if (Model.TeamUserListViewModel.Count > 0)
     {
         <div class="row">
             <div class="col-12">
@@ -52,16 +53,16 @@
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.User.MemberName)
+                                    @Html.DisplayFor(modelItem => item.User.Email)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.User.Email)
+                                    @Html.DisplayFor(modelItem => item.User.MemberName)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Roles)
                                 </td>
                                 <td>
-                                    <a class="btn btn-success" asp-action="Remove" asp-route-id="@item.UserId">Remove From Team</a>
+                                    <a class="btn btn-success" asp-controller="Manager" asp-action="Remove" asp-route-id="@item.UserId">Remove From Team</a>
                                 </td>
                             </tr>
                         }

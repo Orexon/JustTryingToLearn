@@ -31,13 +31,13 @@ namespace DarboOrganizavimoPlatforma.Services
 
         public async Task<Company> GetCompanyById(Guid id)
         {  
-            return  await _context.Companies.FirstOrDefaultAsync(m => m.CompanyId == id);             
+            return  await _context.Companies.Include(x => x.AppUsers).FirstOrDefaultAsync(m => m.CompanyId == id);             
         }
 
         public async Task<Company> GetCompanyById(string id)
         {
             Guid guidid = Guid.Parse(id);
-            return await _context.Companies.FirstOrDefaultAsync(m => m.CompanyId == guidid);
+            return await _context.Companies.Include(x => x.AppUsers).FirstOrDefaultAsync(m => m.CompanyId == guidid);
         }
 
         public async Task<List<AppUser>> GetCompanyMembersList(Guid companyId)

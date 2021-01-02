@@ -80,9 +80,8 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
                 if (result.Succeeded)
                 {
                     await _userManager.AddToRoleAsync(newUser, "Manager");
-                    newCompany.AppUsers.Add(newUser);
+                    //newCompany.AppUsers.Add(newUser);
                 }
-                
                 return RedirectToAction("GetCompanies");
             }
             return View(model);
