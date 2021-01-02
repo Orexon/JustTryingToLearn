@@ -38,6 +38,7 @@ namespace DarboOrganizavimoPlatforma.Web
                     .Build();
                 o.Filters.Add(new AuthorizeFilter(policy));
             });
+
             services.AddControllersWithViews();
             services.AddDbContext<Context>();
             services.AddIdentity<AppUser, IdentityRole<Guid>>().AddEntityFrameworkStores<Context>().AddDefaultTokenProviders().AddUserStore<UserStore<AppUser, IdentityRole<Guid>, Context, Guid>>().AddRoleStore<RoleStore<IdentityRole<Guid>, Context, Guid>>();

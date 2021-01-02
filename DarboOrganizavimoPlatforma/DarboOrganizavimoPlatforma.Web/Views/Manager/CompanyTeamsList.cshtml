@@ -21,7 +21,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.CreateTime)
             </th>
-            <th></th>
+            <th>
+                View/Add Members
+            </th>
+            <th>
+                Manage Team
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -38,10 +43,12 @@
                     @Html.DisplayFor(modelItem => item.CreateTime)
                 </td>
                 <td>
-                    <a class="btn btn-success" asp-action="EditTeam" asp-route-id="@item.TeamId">Edit</a> |
-                    <a class="btn btn-info" asp-action="TeamDetails" asp-route-id="@item.TeamId">Details</a> |
+                    <a class="btn btn-secondary" asp-controller="Manager" asp-action="AddTeamMember" asp-route-id="@item.TeamId">View/Add</a>
+                </td>
+                <td>
+                    <a class="btn btn-success" asp-controller="Teams" asp-action="EditTeam" asp-route-id="@item.TeamId">Edit</a> |
+                    <a class="btn btn-info"  asp-controller="Teams" asp-action="TeamDetails" asp-route-id="@item.TeamId">Details</a> |
                     <button id="modalDeleteButton" type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal" data-id="@item.TeamId">Delete</button>
-
                 </td>
             </tr>
         }
@@ -78,7 +85,7 @@
             var btn = $(this).find('#button1');
             console.log(recipient)
             btn.on('click', function (event) {
-                $.post("Teams/DeleteTeam/" + recipient,
+                $.post("/Teams/DeleteTeam/" + recipient,
                     function (data) {
                         location.reload();
                     });

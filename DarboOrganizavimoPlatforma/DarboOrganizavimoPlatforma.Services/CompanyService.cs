@@ -57,6 +57,14 @@ namespace DarboOrganizavimoPlatforma.Services
             await _context.SaveChangesAsync();
         }
 
+        public async Task AddUserToCompany(Company company, AppUser newUser)
+        {
+            //_context.Companies.Find(companyid).AppUsers.Add(newUser);
+            company.AppUsers.Insert(0,newUser);
+            _context.Companies.Update(company);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<int> EditCompany(Company company)
         {
             _context.Companies.Update(company);

@@ -37,6 +37,14 @@
     </dl>
 </div>
 <div>
-    <a class="btn btn-success" asp-action="EditTeam" asp-route-id="@Model.TeamId">Edit</a> |
-    <a class="btn btn-primary" asp-action="Index">Back to Team List</a>
+    <a class="btn btn-success" asp-controller="Teams" asp-action="EditTeam" asp-route-id="@Model.TeamId">Edit</a> |
+    @if (User.IsInRole("Admin"))
+    {
+        <a asp-controller="Teams" asp-action="GetAllTeams" class="btn btn-primary" style="width:auto">Back to Team List</a>
+    }
+    else
+    {
+        <a asp-controller="Manager" asp-action="CompanyTeamsList" class="btn btn-primary" style="width:auto">Back to Team List</a>
+    }
+
 </div>

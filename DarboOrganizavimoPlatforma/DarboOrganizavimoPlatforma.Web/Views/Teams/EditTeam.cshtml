@@ -4,7 +4,7 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>@Model.TeamName Edit</h1>
+<h1>Edit @Model.TeamName </h1>
 
 <h4>Team</h4>
 <hr />
@@ -28,8 +28,15 @@
         </form>
     </div>
 </div>
-<div>
-    <a class="btn btn-primary" asp-action="Index">Back to Team List</a>
-</div>
+
+
+@if (User.IsInRole("Admin"))
+{
+<a asp-controller="Teams" asp-action="GetAllTeams" class="btn btn-primary" style="width:auto">Back to Team List</a>
+}
+else
+{
+<a asp-controller="Manager" asp-action="CompanyTeamsList" class="btn btn-primary" style="width:auto">Back to Team List</a>
+}
 
 

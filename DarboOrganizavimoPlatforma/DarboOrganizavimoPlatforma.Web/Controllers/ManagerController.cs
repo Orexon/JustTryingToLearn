@@ -91,13 +91,15 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
                     CompanyId = companyId
                 };
 
-                var result = await _userManager.CreateAsync(newUser, model.ConfirmPassword);
+                var result = await _userManager.CreateAsync(newUser, model.ConfirmPassword);         
                 if (result.Succeeded)
                 {
                     await _userManager.AddToRoleAsync(newUser, model.UserRole);
-                    company.AppUsers.Add(newUser);
-                    return RedirectToAction("CompanyMemberList");
+                    //company.AppUsers.Add(newUser);  
                 }
+                await _companyService.AddUserToCompany(company, newUser);
+
+                return RedirectToAction("CompanyMemberList");
             }
             return View("~/Views/Manager/CreateUser.cshtml", model);
         }
@@ -187,88 +189,54 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
                     Company = company
                 };
                 await _teamService.NewTeam(company, newTeam);
-                return RedirectToAction("CompanyTeamList");
+                return RedirectToAction("CompanyTeamsList");
             }
             return View(model);
         }
 
         //When selecting A team from a list. 
-        //[HttpGet]
-        //public async Task<IActionResult> AddTeamMember(Guid teamId)
-        //{
-        //    ViewBag.AllCompanyUsers = new SelectList(await _teamService.GetListOfAvailableTeamUsers(teamId), "Id", "Email");
-        //    return View();
-        //}
+        [HttpGet]
+        public async Task<IActionResult> AddTeamMember(Guid id)
+        {
+            AppUser user = _userManager.GetUserAsync(User).Result;
+            Guid companyId = user.CompanyId;
+            ViewBag.AllCompanyUsers = new SelectList(await _teamService.GetListOfAvailableTeamUsers(id,companyId), "Id", "Email");
+            return View();
+        }
 
-        //[HttpPost]
-        //public async Task<IActionResult> AddTeamMember(AddUserToTeamViewModel model, Guid teamId)
-        //{
-        //    ViewBag.AvailableTeamUsers = new SelectList(await _teamService.GetListOfAvailableTeamUsers(teamId), "Id", "Email");
+        [HttpPost]
+        public async Task<IActionResult> AddTeamMember(AddUserToTeamViewModel model, Guid id)
+        {
+            List<AppUser> TeamsMemberList = await _teamService.GetTeamsMemberList(id);
+            var teamUserListViewModel = new List<UserListViewModel>();
 
-        //    Team team = await _teamService.GetTeamById(teamId);
-        //    AppUser user = await _userManager.FindByIdAsync(model.Id);
-        //    //.TeamUsers = user;
+            foreach (AppUser member in TeamsMemberList)
+            {
+                var thisViewModel = new UserListViewModel
+                {
+                    UserId = member.Id,
+                    User = member,
+                    Roles = new List<string>(await _userManager.GetRolesAsync(member))
+                };
+                teamUserListViewModel.Add(thisViewModel);
+            }
 
-        //    //model.Id == UserId + Include.TeamUsers. ?
-        //    //
-        //    //context.TeamUsers.Where(e => e.Team.TeamId == id).Select(e => e.AppUser).ToListAsync();
-        //    //await _context.TeamUsers.Include(x => x.AppUser).Where(x => x.TeamId == id).ToListAsync();   Works But From other side. 
+            AppUser user = _userManager.GetUserAsync(User).Result;
+            Guid companyId = user.CompanyId;
+            ViewBag.AllCompanyUsers = new SelectList(await _teamService.GetListOfAvailableTeamUsers(id, companyId), "Id", "Email");
 
-        //    //Employee employee = new Employee();
-        //    //Address address = new Address();
-
-        //    //employee.Address = address;
-        //    //db.employee.AddObject(employee);
-        //    //db.SaveChanges();
-
-
-        //    // Get Team
-        //    // Get User 
-
-
-
-        //    // create a new Address
-        //    // associate the address with the new employee
-        //    // add the employee to the data context
-        //    // when you call save changes, since your Address is attached to your
-        //    // employee, it will get added for you and you don't have to add it to the
-        //    // context yourself. Entity Framework will save the Employee, get the ID
-        //    // from this table and then add a new Address record using the ID that was
-        //    // just inserted. 
-
-
-        //    if (ModelState.IsValid)
-        //    {
-        //        //team.TeamUsers.Add(user);
-        //        RedirectToAction("AdminAddUserToCompany");
-        //    }
-        //    return View(model);         
-        //}
+            TeamUser teamUser = new TeamUser
+            {
+                AppUserId = model.Id,
+                TeamId = id
+            };
+            await _teamService.AddTeamUser(id, teamUser);
+            return RedirectToAction("AddTeamMember");  
+        }
 
         //Manager(CurrentUserCompany, SelectFromCompanyUsers, SelectFromCompanyTeams,ADD) TeamLeader(Select from CompanyUsers, add to Team. Cannot Create TEAMs or browse teams.)
         //Add a member to a team, 2 tables - one with member select, another with current team member list, refreshes the page with the model once added, and shows current teams members
 
-        [HttpPost]
-        public async Task<IActionResult> AdminAddUserToCompany(AdminAddUserToCompanyViewModel model)
-        {
-            ViewBag.AllCompanies = new SelectList(_companyService.GetCompaniesList(), "CompanyId", "CompanyName");
-            ViewBag.AllUsers = new SelectList(await _userManager.Users.ToListAsync(), "Id", "Email");
-
-            Company company = await _companyService.GetCompanyById(model.CompanyID);
-            AppUser user = await _userManager.FindByIdAsync(model.AppUserID);
-
-            if (ModelState.IsValid)
-            {
-                if (company.AppUsers.Count >= (int)company.CompanyMemberSize)
-                {
-                    ViewBag.SizeExceeded = "Company Membership Size Exceeded";
-                    return View(model);
-                }
-                company.AppUsers.Add(user);
-                RedirectToAction("AdminAddUserToCompany");
-            }
-            return View(model);
-        }
         //Fix validation For all Creates where such user Email already exists in db UserEmail. 
         //Add Responsibility/Work Roles/PositionRole creation -> Everyone can see it, by it they can decide,if its the right person for adding to a list. eg: Support, ITsupport, GeneralSupport.
 

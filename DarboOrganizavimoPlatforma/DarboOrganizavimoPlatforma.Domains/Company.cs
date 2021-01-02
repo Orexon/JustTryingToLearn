@@ -10,7 +10,6 @@ namespace DarboOrganizavimoPlatforma.Domains
     {
         public Company()
         {
-            AppUsers = new List<AppUser>();
             CompanyProjects = new List<Project>();
             Teams = new List<Team>();
         }

@@ -5,6 +5,7 @@ using DarboOrganizavimoPlatforma.Domains;
 using DarboOrganizavimoPlatforma.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using DarboOrganizavimoPlatforma.Services.Interfaces;
+using System.Collections.Generic;
 
 namespace DarboOrganizavimoPlatforma.Web.Controllers
 {
@@ -42,7 +43,7 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
 
         // GET: Company/Create
         [HttpGet]
-        public IActionResult NewCompany()
+        public IActionResult CreateCompany()
         {
             return View();
         }
@@ -50,7 +51,7 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
         //POST: Company/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> NewCompany(NewCompanyViewModel model)
+        public async Task<IActionResult> CreateCompany(NewCompanyViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -61,9 +62,9 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
                     CompanyDescription = model.CompanyDescription,
                     CreateTime = DateTime.Now,
                     CompanyMemberSize = model.CompanyMemberSize,
-                    CompanyId = companyId
-                };
-
+                    CompanyId = companyId,
+                    AppUsers = new List<AppUser>()
+                 };
                 await _companyService.NewCompany(newCompany);
 
                 AppUser newUser = new AppUser()

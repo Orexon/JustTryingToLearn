@@ -30,7 +30,7 @@ namespace DarboOrganizavimoPlatforma.Data
             builder.Entity<TeamUser>()
                 .HasOne(tu => tu.AppUser)
                 .WithMany(au => au.TeamUsers)
-                .HasForeignKey(tu=> tu.AppUserId);
+                .HasForeignKey(tu => tu.AppUserId);
             builder.Entity<TeamUser>()
                 .HasOne(tu => tu.Team)
                 .WithMany(t => t.TeamUsers)
@@ -44,13 +44,14 @@ namespace DarboOrganizavimoPlatforma.Data
                 .HasMany(e => e.AppUsers)
                 .WithOne(e => e.Company);
 
-            //Team To Company/Company To Team Relationshiop
-            //builder.Entity<Team>()
-            //    .HasOne(e => e.Company)
-            //    .WithMany(e => e.Teams);
-            //builder.Entity<Company>()
-            //    .HasMany(e => e.Teams)
-            //    .WithOne(e => e.Company);
+            //Company To Team/Team To Company Relationshiop
+            builder.Entity<Company>()
+                .HasMany(e => e.Teams)
+                .WithOne(e => e.Company);
+            builder.Entity<Team>()
+                .HasOne(e => e.Company)
+                .WithMany(e => e.Teams);
+
 
             //AppUser to TeamUser to Team Relationship
             //builder.Entity<TeamUser>()

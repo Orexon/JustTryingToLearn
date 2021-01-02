@@ -36,26 +36,35 @@ namespace DarboOrganizavimoPlatforma.Services
             return await _context.Teams.FirstOrDefaultAsync(m => m.TeamId == id);
         }
 
-        //public async Task<List<AppUser>> GetTeamsMemberList(Guid id)
-        //{
-        //    return await _context.TeamUsers.Where(e => e.Team.TeamId == id).Select(e => e.AppUser).ToListAsync();
-        //    //await _context.TeamUsers.Include(x => x.AppUser).Where(x => x.TeamId == id).ToListAsync();   Works But From other side. 
-        //}
+        public async Task<List<TeamUser>> GetTeamsUsers()
+        {
+            return await _context.TeamUsers.ToListAsync();
+        }
+        // "Points" to a team and gives list of TeamMembers.
+        public async Task<List<AppUser>> GetTeamsMemberList(Guid id)
+        {
 
-        //public async Task<List<AppUser>> GetListOfAvailableTeamUsers(Guid teamId)
-        //{
-        //    Team team = await GetTeamById(teamId);
-        //    Guid companyId = team.CompanyId;
-        //    List<AppUser> companyMemberList = await _companyService.GetCompanyMembersList(companyId);
-        //    //List<AppUser> teamMembersList = await GetTeamsMemberList(teamId);
+            List<AppUser> teamMembers = await _context.TeamUsers.Where(e => e.Team.TeamId == id).Select(e => e.AppUser).ToListAsync();
+            return teamMembers;
+            //await _context.TeamUsers.Include(x => x.AppUser).Where(x => x.TeamId == id).ToListAsync();   Works But From other side. ;
+        }
 
-        //    //List<AppUser> availableTeamUsers = companyMemberList.Except(teamMembersList);
-        //    //Workaourd to comparing complex lists. 
-        //    //List<Guid> comparableIds = (List<Guid>)companyMemberList.Select(c => c.Id).Except(teamMembersList.Select(c => c.Id));
-        //   // List<AppUser> availableTeamUsers = (List<AppUser>)companyMemberList.Where(c => comparableIds.Contains(c.Id));
+        public async Task<List<AppUser>> GetListOfAvailableTeamUsers(Guid id, Guid companyId)
+        {
+            //Team team = await GetTeamById(id);
+            //Guid companyId = team.Company.CompanyId; Neleidzia. Pasikartojantis error, Company null. 
 
-        //    //return availableTeamUsers;
-        //}
+            List<AppUser> companyMemberList = await _companyService.GetCompanyMembersList(companyId);
+            List<AppUser> teamMembersList = await GetTeamsMemberList(id);
+
+            List<AppUser> availableTeamUsers = companyMemberList.Except(teamMembersList).ToList();
+
+            //Workaourd to comparing complex lists. 
+            //List<Guid> comparableIds = companyMemberList.Select(c => c.Id).Except(teamMembersList.Select(c => c.Id));
+            //List<AppUser> availableTeamUsers = companyMemberList.Where(c => comparableIds.Contains(c.Id));
+
+            return availableTeamUsers;
+        }
         public async Task<List<Team>> GetCompanyTeams(Guid id) //Async
         {
             return await _context.Teams.Where(x => x.Company.CompanyId == id).ToListAsync();
@@ -65,6 +74,14 @@ namespace DarboOrganizavimoPlatforma.Services
         {
             company.Teams.Add(newTeam);
             _context.Teams.Add(newTeam);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task AddTeamUser(Guid teamId, TeamUser teamUser)
+        {
+            Team team = await GetTeamById(teamId);
+            team.TeamUsers.Add(teamUser);
+            _context.TeamUsers.Add(teamUser);
             await _context.SaveChangesAsync();
         }
 

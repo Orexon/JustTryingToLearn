@@ -1,0 +1,92 @@
+﻿@model DarboOrganizavimoPlatforma.Web.Models.AddUserToTeamViewModel
+
+    @{
+        ViewData["Title"] = "AddTeamMember";
+    }
+
+
+    <h1>Add</h1>
+    <hr />
+
+    <div class="row">
+        <div class="col-12">
+            <form asp-controller="Manager" asp-action="AddTeamMember">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group  mb-3">
+                    <label asp-for="Id">Select Available User</label>
+                    <select class="form-control" asp-for="Id" asp-items=@ViewBag.AllCompanyUsers>
+                        <option selected>Choose from a list of companies...</option>
+                    </select>
+                    <span asp-validation-for="Id" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="add" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+    @if ( Model.TeamUserListViewModel.Count > 0)
+    {
+        <div class="row">
+            <div class="col-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                MemberName
+                            </th>
+                            <th>
+                                Email
+                            </th>
+                            <th>
+                                Roles
+                            </th>
+                            <th>
+                                Manage
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.TeamUserListViewModel)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.User.MemberName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.User.Email)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Roles)
+                                </td>
+                                <td>
+                                    <a class="btn btn-success" asp-action="Remove" asp-route-id="@item.UserId">Remove From Team</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="col-12 card">
+            <div class="card-body">
+                <p>Currently the team has no members</p>
+            </div>
+        </div>
+    }
+
+
+    <div>
+        <a class="btn btn-primary" asp-controller="Manager" asp-action="CompanyTeamsList">Back to Team List</a>
+    </div>
+
+    @section Scripts
+{
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DarboOrganizavimoPlatforma.Data.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20201231154403_initial")]
+    [Migration("20201231193410_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -159,7 +159,7 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("CompanyId")
+                    b.Property<Guid?>("CompanyId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreateTime")
@@ -352,9 +352,7 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
                 {
                     b.HasOne("DarboOrganizavimoPlatforma.Domains.Company", "Company")
                         .WithMany("Teams")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CompanyId");
 
                     b.HasOne("DarboOrganizavimoPlatforma.Domains.Project", null)
                         .WithMany("ProjectTeams")

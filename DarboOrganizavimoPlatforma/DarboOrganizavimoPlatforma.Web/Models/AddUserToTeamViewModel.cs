@@ -10,7 +10,7 @@ namespace DarboOrganizavimoPlatforma.Web.Models
     public class AddUserToTeamViewModel
     {
         [Required(ErrorMessage = "Please Choose a User")]
-        public string Id { get; set; }
-
+        public Guid Id { get; set; }
+        public List<UserListViewModel> TeamUserListViewModel { get; set; }
     }
 }

@@ -33,6 +33,7 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
         {
             return View();
         }
+
         public async Task<IActionResult> GetUserList()
         {
             var users = await _userManager.Users.Include(x=>x.Company).ToListAsync();

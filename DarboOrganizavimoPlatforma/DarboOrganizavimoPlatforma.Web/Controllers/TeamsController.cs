@@ -7,24 +7,27 @@ using DarboOrganizavimoPlatforma.Domains;
 using DarboOrganizavimoPlatforma.Services.Interfaces;
 using DarboOrganizavimoPlatforma.Web.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace DarboOrganizavimoPlatforma.Web.Controllers
 {
     //[Authorize(Roles = "Admin")]
     public class TeamsController : Controller
     {
-        private readonly Context _context;
+        private readonly UserManager<AppUser> _userManager;
         private readonly ICompanyService _companyService;
         private readonly ITeamService _teamService;
+        
 
 
-        public TeamsController(Context context, ICompanyService companyService, ITeamService teamService)
+        public TeamsController(ICompanyService companyService, ITeamService teamService, UserManager<AppUser> userManager)
         {
             _companyService = companyService;
-            _context = context;
             _teamService = teamService;
+            _userManager = userManager;
         }
 
+        //For Admin
         public async Task<IActionResult> GetAllTeams()
         {
             return View(await _teamService.GetTeams());
@@ -82,12 +85,17 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             if (ModelState.IsValid)
             {
                 Team team = await _teamService.GetTeamById(id);
+                AppUser currentUser = _userManager.GetUserAsync(User).Result;
 
                 team.TeamName = model.TeamName;
                 team.TeamDescription = model.TeamDescription;
                 //Team Users List in view with ability to remove or add users to the team. 
 
                 await _teamService.EditTeam(team);
+                if (await _userManager.IsInRoleAsync(currentUser, "Manager"))
+                {
+                    return RedirectToAction("CompanyTeamsList", "Manager");
+                }
                 return RedirectToAction("GetAllTeams");
             }
             return View(model);
@@ -111,16 +119,24 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteTeam(Guid id)
         {
+            AppUser currentUser = _userManager.GetUserAsync(User).Result;
             Team team = await _teamService.GetTeamById(id);
+
             await _teamService.DeleteTeam(team);
+
+            if (await _userManager.IsInRoleAsync(currentUser, "Manager"))
+            {
+                return RedirectToAction("CompanyTeamsList", "Manager");
+            }
             return RedirectToAction("GetAllTeams");
+
         }
 
         // "Points" to a team and gives list of TeamMembers.
-        //public async Task<IActionResult> GetTeamsMemberList(Guid id)  
-        //{
-        //    return View(await _teamService.GetTeamsMemberList(id));
-        //}
+        public async Task<IActionResult> GetTeamsMemberList(Guid teamId)  
+        {
+            return View(await _teamService.GetTeamsMemberList(teamId));
+        }
 
 
 
