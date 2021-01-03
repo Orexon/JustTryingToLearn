@@ -29,6 +29,7 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             _passwordHasher = passwordHasher;
             _companyService =  companyService;
         }
+
         public IActionResult Index()
         {
             return View();
@@ -184,6 +185,9 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             return View(model);
         }
 
+        
+
+
 
         //+ Admin - Remove User from company - Delete User + 
         //  Admin - Remove multiple User from company. 
@@ -206,9 +210,8 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
         //TeamLeader side - GetProject list. IOW = List of project the current Member is currently assigned to.
         //TeamLeader side - GetProject list. IOW = List of project the current Member is currently assigned to.
 
-        //Member side - Get Project list . IOW = List of project the current Member is currently assigned to. //Get Project that current user is part of.
+        //Member side - Get Project list. IOW = List of project the current Member is currently assigned to. //Get Project that current user is part of.
         //Member side - Get list of teams. IOW = List of Teams member is assingned to. //GetTeams that current user is part of.
-
 
         //Tasks Controller - Create task(description,time,id)
         //Task

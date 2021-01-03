@@ -35,19 +35,24 @@ namespace DarboOrganizavimoPlatforma.Services
         {
             return await _context.Teams.FirstOrDefaultAsync(m => m.TeamId == id);
         }
-        public async Task<Team> GetCompanyById(string id)
+        public async Task<Team> GetTeamById(string id)
         {
             Guid guidid = Guid.Parse(id);
             return await _context.Teams.FirstOrDefaultAsync(m => m.TeamId == guidid);
         }
-            public async Task<List<TeamUser>> GetTeamsUsers()
+        public async Task<Team> GetTeamByUserId(string id)
+        {
+            Guid guidid = Guid.Parse(id);
+            return await _context.Teams.FirstOrDefaultAsync(m => m.TeamId == guidid);
+        }
+
+        public async Task<List<TeamUser>> GetTeamsUsers()
         {
             return await _context.TeamUsers.ToListAsync();
         }
         // "Points" to a team and gives list of TeamMembers.
         public async Task<List<AppUser>> GetTeamsMemberList(Guid id)
         {
-
             List<AppUser> teamMembers = await _context.TeamUsers.Where(e => e.Team.TeamId == id).Select(e => e.AppUser).ToListAsync();
             return teamMembers;
             //await _context.TeamUsers.Include(x => x.AppUser).Where(x => x.TeamId == id).ToListAsync();   Works But From other side. ;
@@ -87,6 +92,7 @@ namespace DarboOrganizavimoPlatforma.Services
             //team.TeamUsers.Add(teamUser);
             _context.TeamUsers.Add(teamUser);
             await _context.SaveChangesAsync();
+
         }
 
         public async Task<int> EditTeam(Team team)
@@ -99,6 +105,15 @@ namespace DarboOrganizavimoPlatforma.Services
         public async Task<int> DeleteTeam(Team team)
         {
             _context.Teams.Remove(team);
+            return await _context.SaveChangesAsync();
+        }
+
+        //Remove Team User from Team (deletes User data in TeamUser table)
+        public async Task<int> RemoveTeamUser(Guid TeamId, string id)
+        {
+            Guid guidid = Guid.Parse(id);
+            TeamUser teamUser = await _context.TeamUsers.FindAsync(TeamId, guidid);
+            _context.TeamUsers.Remove(teamUser);
             return await _context.SaveChangesAsync();
         }
     }

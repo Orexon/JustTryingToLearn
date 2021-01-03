@@ -64,7 +64,7 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
                     CompanyMemberSize = model.CompanyMemberSize,
                     CompanyId = companyId,
                     AppUsers = new List<AppUser>()
-                 };
+                };
                 await _companyService.NewCompany(newCompany);
 
                 AppUser newUser = new AppUser()

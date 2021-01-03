@@ -11,6 +11,7 @@ namespace DarboOrganizavimoPlatforma.Web.Models
     {
         [Required(ErrorMessage = "Please Choose a User")]
         public string AppUserId { get; set; }
+        public Guid TeamId { get; set; }
         public List<UserListViewModel> TeamUserListViewModel { get; set; }
     }
 }

@@ -52,6 +52,7 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             }
             return View(companyUserListViewModel);
         }
+
         [HttpGet]
         public async Task<IActionResult> CreateUser()
         {
@@ -68,7 +69,6 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             }
             return View();
         }
-
 
         [ValidateAntiForgeryToken]
         [HttpPost]
@@ -202,6 +202,7 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             AppUser user = _userManager.GetUserAsync(User).Result;
             Guid companyId = user.CompanyId;
             ViewBag.AllCompanyUsers = new SelectList(await _teamService.GetListOfAvailableTeamUsers(id,companyId), "Id", "Email");
+            Guid teamId = id;
 
             List<AppUser> TeamsMemberList = await _teamService.GetTeamsMemberList(id);
             //visi team members;
@@ -220,6 +221,7 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
 
             var newviewmodel = new AddUserToTeamViewModel
             {
+                TeamId = teamId,
                 TeamUserListViewModel = teamUserListViewModel
             };
             return View(newviewmodel);
@@ -248,11 +250,36 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             return RedirectToAction("AddTeamMember");  
         }
 
+        [HttpPost]
+        public async Task<IActionResult> RemoveUserFromTeam(Guid TeamId, string id)
+        {
+            await _teamService.RemoveTeamUser(TeamId, id);
+            return RedirectToAction("AddTeamMember", "Manager");
+        }
+
+        //[HttpPost]
+        //public async Task<IActionResult> RemoveUserFromTeam(RemoveFromTeamViewModel model)
+        //{
+        //    var thisviewmodel = new RemoveFromTeamViewModel
+        //    {
+        //        Id = model.Id,
+        //        TeamId = model.TeamId
+        //    };
+
+        //    Guid guidid = Guid.Parse(model.Id);
+        //    TeamUser teamUser = await _context.TeamUsers.FindAsync(model.TeamId, guidid);
+
+        //    await _teamService.RemoveTeamUser(teamUser);
+        //    return RedirectToAction("AddTeamMember", "Manager");
+        //}
+
         //Manager(CurrentUserCompany, SelectFromCompanyUsers, SelectFromCompanyTeams,ADD) TeamLeader(Select from CompanyUsers, add to Team. Cannot Create TEAMs or browse teams.)
         //Add a member to a team, 2 tables - one with member select, another with current team member list, refreshes the page with the model once added, and shows current teams members
 
         //Fix validation For all Creates where such user Email already exists in db UserEmail. 
         //Add Responsibility/Work Roles/PositionRole creation -> Everyone can see it, by it they can decide,if its the right person for adding to a list. eg: Support, ITsupport, GeneralSupport.
 
+
+        //TeamLeader Role in all teams - have to do teamleader asign just for 1 Team. 
     }
 }

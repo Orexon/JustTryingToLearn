@@ -4,14 +4,16 @@ using DarboOrganizavimoPlatforma.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DarboOrganizavimoPlatforma.Data.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20210103142819_projectRelationshions")]
+    partial class projectRelationshions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -151,21 +153,6 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
                     b.ToTable("Projects");
                 });
 
-            modelBuilder.Entity("DarboOrganizavimoPlatforma.Domains.ProjectTeam", b =>
-                {
-                    b.Property<Guid>("ProjectId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("TeamId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("ProjectId", "TeamId");
-
-                    b.HasIndex("TeamId");
-
-                    b.ToTable("ProjectTeams");
-                });
-
             modelBuilder.Entity("DarboOrganizavimoPlatforma.Domains.Team", b =>
                 {
                     b.Property<Guid>("TeamId")
@@ -178,6 +165,9 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
                     b.Property<DateTime>("CreateTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid?>("ProjectId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("TeamDescription")
                         .HasColumnType("nvarchar(max)");
 
@@ -187,6 +177,8 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
                     b.HasKey("TeamId");
 
                     b.HasIndex("CompanyId");
+
+                    b.HasIndex("ProjectId");
 
                     b.ToTable("Teams");
                 });
@@ -356,26 +348,15 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
                         .HasForeignKey("CompanyId");
                 });
 
-            modelBuilder.Entity("DarboOrganizavimoPlatforma.Domains.ProjectTeam", b =>
-                {
-                    b.HasOne("DarboOrganizavimoPlatforma.Domains.Project", "Project")
-                        .WithMany("ProjectTeams")
-                        .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DarboOrganizavimoPlatforma.Domains.Team", "Team")
-                        .WithMany("ProjectTeams")
-                        .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("DarboOrganizavimoPlatforma.Domains.Team", b =>
                 {
                     b.HasOne("DarboOrganizavimoPlatforma.Domains.Company", "Company")
                         .WithMany("Teams")
                         .HasForeignKey("CompanyId");
+
+                    b.HasOne("DarboOrganizavimoPlatforma.Domains.Project", "Project")
+                        .WithMany("ProjectTeams")
+                        .HasForeignKey("ProjectId");
                 });
 
             modelBuilder.Entity("DarboOrganizavimoPlatforma.Domains.TeamUser", b =>

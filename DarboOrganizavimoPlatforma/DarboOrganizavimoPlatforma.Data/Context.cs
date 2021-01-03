@@ -14,16 +14,18 @@ namespace DarboOrganizavimoPlatforma.Data
         public DbSet<Project> Projects { get; set; }
         public DbSet<Team> Teams { get; set; }
         public DbSet<TeamUser> TeamUsers { get; set; }
-        
+        public DbSet<ProjectTeam> ProjectTeams { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Server=DESKTOP-L95N66N;Database=DOP;Trusted_Connection=True;MultipleActiveResultSets=true");
         }
 
-        // make Delete foreach user in List<appuser> remove from list. if list is empty. Delete. 
+        // make Delete+- foreach user in List<appuser> remove from list. if list is empty. Delete. 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
 
             builder.Entity<TeamUser>()
                 .HasKey(tu => new { tu.AppUserId, tu.TeamId });
@@ -36,7 +38,19 @@ namespace DarboOrganizavimoPlatforma.Data
                 .WithMany(t => t.TeamUsers)
                 .HasForeignKey(tu => tu.TeamId);
 
-            //AppUser To Company/Company To AppUser Relationshiop
+            //Project To Team/Team To Project Relationship
+            builder.Entity<ProjectTeam>()
+                .HasKey(pt => new { pt.ProjectId, pt.TeamId });
+            builder.Entity<ProjectTeam>()
+                .HasOne(pt => pt.Project)
+                .WithMany(p => p.ProjectTeams)
+                .HasForeignKey(pt => pt.ProjectId);
+            builder.Entity<ProjectTeam>()
+                .HasOne(pt => pt.Team)
+                .WithMany(t => t.ProjectTeams)
+                .HasForeignKey(pt => pt.TeamId);
+
+            //AppUser To Company/Company To AppUser Relationship
             builder.Entity<AppUser>()
                 .HasOne(e => e.Company)
                 .WithMany(c => c.AppUsers);
@@ -44,7 +58,7 @@ namespace DarboOrganizavimoPlatforma.Data
                 .HasMany(e => e.AppUsers)
                 .WithOne(e => e.Company);
 
-            //Company To Team/Team To Company Relationshiop
+            //Company To Team/Team To Company Relationship
             builder.Entity<Company>()
                 .HasMany(e => e.Teams)
                 .WithOne(e => e.Company);
@@ -52,22 +66,23 @@ namespace DarboOrganizavimoPlatforma.Data
                 .HasOne(e => e.Company)
                 .WithMany(e => e.Teams);
 
-
-            //AppUser to TeamUser to Team Relationship
-            //builder.Entity<TeamUser>()
-            //.HasOne(tu => tu.Team)
-            //.WithMany(tm => tm.TeamUsers)
-            //.HasForeignKey(tus => tus.TeamId)
-            //.OnDelete(DeleteBehavior.NoAction);
-
-            //builder.Entity<TeamUser>()
-            //.HasOne(tu => tu.AppUser)
-            //.WithMany(au => au.TeamUsers)
-            //.HasForeignKey(tus => tus.AppUserId)
-            //.OnDelete(DeleteBehavior.NoAction);
+            //Company To Project/Project To Company Relationship
+            builder.Entity<Company>()
+                .HasMany(e => e.CompanyProjects)
+                .WithOne(e => e.Company);
+            builder.Entity<Project>()
+                .HasOne(e => e.Company)
+                .WithMany(e => e.CompanyProjects);
 
 
-            //Database tables names
+            //builder.Entity<Project>()
+            //    .HasMany(e => e.ProjectTeams)
+            //    .WithOne(e => e.Project);
+            //builder.Entity<Team>()
+            //    .HasOne(e => e.Project)
+            //    .WithMany(e => e.ProjectTeams);
+
+            //Database table names
             builder.HasDefaultSchema("Identity");
             builder.Entity<AppUser>(b =>
             {

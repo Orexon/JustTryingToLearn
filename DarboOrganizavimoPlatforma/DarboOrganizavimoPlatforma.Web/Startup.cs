@@ -38,10 +38,12 @@ namespace DarboOrganizavimoPlatforma.Web
                     .Build();
                 o.Filters.Add(new AuthorizeFilter(policy));
             });
+
             services.AddDbContext<Context>();
             services.AddIdentity<AppUser, IdentityRole<Guid>>().AddEntityFrameworkStores<Context>().AddDefaultTokenProviders().AddUserStore<UserStore<AppUser, IdentityRole<Guid>, Context, Guid>>().AddRoleStore<RoleStore<IdentityRole<Guid>, Context, Guid>>();
             services.AddTransient<ICompanyService, CompanyService>();
             services.AddTransient<ITeamService, TeamService>();
+            services.AddTransient<IProjectService, ProjectService>();
             services.AddHttpContextAccessor();
             services.ConfigureApplicationCookie(options =>
             {

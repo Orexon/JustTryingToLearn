@@ -131,7 +131,6 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
                 return RedirectToAction("CompanyTeamsList", "Manager");
             }
             return RedirectToAction("GetAllTeams");
-
         }
 
         // "Points" to a team and gives list of TeamMembers.

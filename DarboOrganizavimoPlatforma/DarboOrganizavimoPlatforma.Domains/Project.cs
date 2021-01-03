@@ -6,14 +6,11 @@ namespace DarboOrganizavimoPlatforma.Domains
 {
     public class Project
     {
-        public Project()
-        {
-            ProjectTeams = new List<Team>();
-        }
         public Guid ProjectId { get; set; }
+        public Company Company  { get; set; }
         public string ProjectName { get; set; }
         public string ProjectDescription { get; set; }
-        public ICollection<Team> ProjectTeams { get; set; }
+        public ICollection<ProjectTeam> ProjectTeams { get; set; }
         public DateTime CreateTime { get; set; }
     }
 }

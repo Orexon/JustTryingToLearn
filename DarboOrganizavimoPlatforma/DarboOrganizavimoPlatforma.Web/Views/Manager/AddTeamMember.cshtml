@@ -1,93 +1,128 @@
 ﻿@model DarboOrganizavimoPlatforma.Web.Models.AddUserToTeamViewModel
 
-    @{
-        ViewData["Title"] = "AddTeamMember";
-    }
+@{
+    ViewData["Title"] = "AddTeamMember";
+}
 
 
-    <h1>Add</h1>
-    <hr />
+<h1>Add</h1>
+<hr />
 
+<div class="row">
+    <div class="col-12">
+        <form asp-controller="Manager" asp-action="AddTeamMember">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group  mb-3">
+                <label asp-for="AppUserId">Select Available User</label>
+                <select class="form-control" asp-for="AppUserId" asp-items=@ViewBag.AllCompanyUsers>
+                    <option selected>Choose from a list of companies...</option>
+                </select>
+                <span asp-validation-for="AppUserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="add" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+@if (Model.TeamUserListViewModel.Count > 0)
+{
     <div class="row">
         <div class="col-12">
-            <form asp-controller="Manager" asp-action="AddTeamMember">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group  mb-3">
-                    <label asp-for="AppUserId">Select Available User</label>
-                    <select class="form-control" asp-for="AppUserId" asp-items=@ViewBag.AllCompanyUsers>
-                        <option selected>Choose from a list of companies...</option>
-                    </select>
-                    <span asp-validation-for="AppUserId" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="add" class="btn btn-primary" />
-                </div>
-            </form>
-        </div>
-    </div>
-
-    @if (Model.TeamUserListViewModel.Count > 0)
-    {
-        <div class="row">
-            <div class="col-12">
-                <table class="table">
-                    <thead>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            MemberName
+                        </th>
+                        <th>
+                            Email
+                        </th>
+                        <th>
+                            Roles
+                        </th>
+                        <th>
+                            Manage
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.TeamUserListViewModel)
+                    {
                         <tr>
-                            <th>
-                                MemberName
-                            </th>
-                            <th>
-                                Email
-                            </th>
-                            <th>
-                                Roles
-                            </th>
-                            <th>
-                                Manage
-                            </th>
-                            <th></th>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.User.Email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.User.MemberName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Roles)
+                            </td>
+                            <td>
+                                @*<button id="modalDeleteButton" type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal" data-id="@item.UserId">Delete</button>*@
+                                @*asp-all-route-data="@Model.TeamId"*@
+                                <a class="btn btn-success" asp-controller="Manager" asp-action="RemoveUserFromTeam" asp-route-id="@item.UserId">Remove From Team</a>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model.TeamUserListViewModel)
-                        {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.User.Email)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.User.MemberName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Roles)
-                                </td>
-                                <td>
-                                    <a class="btn btn-success" asp-controller="Manager" asp-action="Remove" asp-route-id="@item.UserId">Remove From Team</a>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
+                    }
+                </tbody>
+            </table>
         </div>
-    }
-    else
-    {
-        <div class="col-12 card">
-            <div class="card-body">
-                <p>Currently the team has no members</p>
-            </div>
-        </div>
-    }
-
-
-    <div>
-        <a class="btn btn-primary" asp-controller="Manager" asp-action="CompanyTeamsList">Back to Team List</a>
     </div>
-
-    @section Scripts
+}
+else
 {
-        @{
-            await Html.RenderPartialAsync("_ValidationScriptsPartial");
-        }
+    <div class="col-12 card">
+        <div class="card-body">
+            <p>Currently the team has no members</p>
+        </div>
+    </div>
+}
+
+<div>
+    <a class="btn btn-primary" asp-controller="Manager" asp-action="CompanyTeamsList">Back to Team List</a>
+</div>
+
+@*<div class="modal fade" data-backdrop="static" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete Team</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this Team?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="button1" type="submit" class="btn btn-primary">Delete Team</button>
+            </div>
+        </div>
+    </div>
+</div>*@
+
+@section Scripts
+    {
+    @*<script type="text/javascript">
+        $("#myModal").on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var recipient = button.data('id') // Extract info from data-* attributes
+
+            var btn = $(this).find('#button1');
+            console.log(recipient)
+            btn.on('click', function (event) {
+                $.post("RemoveTeamUser" + recipient,
+                    function (data) {
+                        location.reload();
+                    });
+            })
+        });
+    </script>*@
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+}
