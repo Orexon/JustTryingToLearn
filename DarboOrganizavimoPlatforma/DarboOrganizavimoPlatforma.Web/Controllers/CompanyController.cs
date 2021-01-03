@@ -63,7 +63,9 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
                     CreateTime = DateTime.Now,
                     CompanyMemberSize = model.CompanyMemberSize,
                     CompanyId = companyId,
-                    AppUsers = new List<AppUser>()
+                    AppUsers = new List<AppUser>(),
+                    CompanyProjects = new List<Project>(),
+                    Teams = new List<Team>()
                 };
                 await _companyService.NewCompany(newCompany);
 

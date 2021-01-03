@@ -404,3 +404,9 @@ C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\
 C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Web\obj\Debug\netcoreapp3.1\Razor\Views\Teams\GetAllTeams.cshtml.g.cs
 C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Web\obj\Debug\netcoreapp3.1\Razor\Views\Manager\AddTeamMember.cshtml.g.cs
 C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Web\obj\Debug\netcoreapp3.1\Razor\Views\Company\CreateCompany.cshtml.g.cs
+C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Web\obj\Debug\netcoreapp3.1\Razor\Views\Manager\AddProjectTeam.cshtml.g.cs
+C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Web\obj\Debug\netcoreapp3.1\Razor\Views\Manager\CompanyProjectList.cshtml.g.cs
+C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Web\obj\Debug\netcoreapp3.1\Razor\Views\Project\EditProject.cshtml.g.cs
+C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Web\obj\Debug\netcoreapp3.1\Razor\Views\Project\GetAllProjects.cshtml.g.cs
+C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Web\obj\Debug\netcoreapp3.1\Razor\Views\Project\ProjectDetails.cshtml.g.cs
+C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Web\obj\Debug\netcoreapp3.1\Razor\Views\Manager\CreateProject.cshtml.g.cs

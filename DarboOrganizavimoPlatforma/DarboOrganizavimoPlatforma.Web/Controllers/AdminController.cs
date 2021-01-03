@@ -202,9 +202,9 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
         //+ Manager - Create Teams. 
         //+ Manager - Add/Remove TeamLeaders roles.
         //+ Manager - Get All Company Members List.  
-        //Manager - Get Company Project List. InOtherWords = List of all projects that a company has created. 
-        //Manager - Get Company Project Teams List. IOW = Teams working on a specific project /&or/ list of Teams company Has created.
-        //+/- Manager - Get Company Project Teams Members List. IOW = Members working in a specific Team /&or/ on a specific project.
+        //+ Manager - Get Company Project List. InOtherWords = List of all projects that a company has created. 
+        //+ Manager - Get Company Project Teams List. IOW = +Teams working on a specific project /&or/ +list of Teams company Has created.
+        //+/- Manager - Get Company Project Teams Members List. IOW = +Members working in a specific Team /&or/- on a specific project.
 
         //TeamLeader - Add/Remove members to Teams.
         //TeamLeader side - GetProject list. IOW = List of project the current Member is currently assigned to.
@@ -216,12 +216,15 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
         //Tasks Controller - Create task(description,time,id)
         //Task
 
-        //Project controller
+        //+Project controller
 
         //Icons for Delete/Edit/Info.
         //Validation for CreateTeam
         //Correct Delete Behaviour
 
-
+        //Avg task complete time
+        //Avg task count
+        //Lengt of project.
+        //
     }
 }

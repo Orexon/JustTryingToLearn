@@ -1,0 +1,128 @@
+﻿@model DarboOrganizavimoPlatforma.Web.Models.AddTeamToProjectViewModel
+
+@{
+    ViewData["Title"] = "AddTeamMember";
+}
+
+
+<h1>Add Team To Project </h1>
+<hr />
+
+<div class="row">
+    <div class="col-12">
+        <form asp-controller="Manager" asp-action="AddProjectTeam">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group  mb-3">
+                <label asp-for="TeamId">Select Available Team</label>
+                <select class="form-control" asp-for="TeamId" asp-items=@ViewBag.AvailableTeams>
+                    <option selected>Choose from a list of Teams.</option>
+                </select>
+                <span asp-validation-for="TeamId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="add" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+@if (Model.ProjectTeams.Count > 0)
+{
+    <div class="row">
+        <div class="col-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            TeamName
+                        </th>
+                        <th>
+                            CreateTime
+                        </th>
+                        <th>
+                            TeamDescription
+                        </th>
+                        <th>
+                            Manage
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ProjectTeams)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TeamName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreateTime)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TeamDescription)
+                            </td>
+                            <td>
+                                @*<button id="modalDeleteButton" type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal" data-id="@item.UserId">Delete</button>*@
+                                @*asp-all-route-data="@Model.TeamId"*@
+                                <a class="btn btn-success" asp-controller="Manager" asp-action="RemoveUserFromTeam" asp-route-id="@item.TeamId">Remove From Project</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+else
+{
+    <div class="col-12 card">
+        <div class="card-body">
+            <p>Currently the Project has no Teams assigned to it</p>
+        </div>
+    </div>
+}
+
+<div>
+    <a class="btn btn-primary" asp-controller="Manager" asp-action="CompanyProjectList">Back to Project List</a>
+</div>
+
+@*<div class="modal fade" data-backdrop="static" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete Team</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete this Team?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button id="button1" type="submit" class="btn btn-primary">Delete Team</button>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+@section Scripts
+    {
+    @*<script type="text/javascript">
+            $("#myModal").on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget) // Button that triggered the modal
+                var recipient = button.data('id') // Extract info from data-* attributes
+
+                var btn = $(this).find('#button1');
+                console.log(recipient)
+                btn.on('click', function (event) {
+                    $.post("RemoveTeamUser" + recipient,
+                        function (data) {
+                            location.reload();
+                        });
+                })
+            });
+        </script>*@
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

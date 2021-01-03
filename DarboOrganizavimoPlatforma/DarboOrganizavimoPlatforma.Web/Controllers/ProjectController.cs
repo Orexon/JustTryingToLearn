@@ -39,8 +39,6 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             return View();
         }
 
-
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AdminCreateProject(AdminNewProjectViewModel model)
@@ -59,14 +57,80 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
                     CreateTime = DateTime.Now,
                     Company = company
                 };
-
-               // await _projectService.NewProject(company, newProject);
-
-                return RedirectToAction("GetAllTeams");
+                await _projectService.NewProject(newProject);
+                return RedirectToAction("GetAllProjects");
             }
             return View(model);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> EditProject(Guid id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            Project project = await _projectService.GetProjectById(id);
+            EditProjectViewModel model = new EditProjectViewModel()
+            {
+                ProjectName = project.ProjectName,
+                ProjectDescription = project.ProjectDescription
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditProject(Guid id, EditProjectViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Project project = await _projectService.GetProjectById(id);
+                AppUser currentUser = _userManager.GetUserAsync(User).Result;
+
+                project.ProjectName = model.ProjectName;
+                project.ProjectDescription = model.ProjectDescription;
+                //Team Users List in view with ability to remove or add users to the team. 
+
+                await _projectService.EditProject(project);
+                if (await _userManager.IsInRoleAsync(currentUser, "Manager"))
+                {
+                    return RedirectToAction("CompanyProjectList", "Manager");
+                }
+                return RedirectToAction("GetAllProjects");
+            }
+            return View(model);
+        }
+
+        public async Task<IActionResult> ProjectDetails(Guid id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            Project project = await _projectService.GetProjectById(id);
+
+            if (project == null)
+            {
+                return NotFound();
+            }
+            return View(project);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteProject(Guid id)
+        {
+            AppUser currentUser = _userManager.GetUserAsync(User).Result;
+            Project project = await _projectService.GetProjectById(id);
+
+            await _projectService.DeleteProject(project);
+
+            if (await _userManager.IsInRoleAsync(currentUser, "Manager"))
+            {
+                return RedirectToAction("CompanyProjectList", "Manager");
+            }
+            return RedirectToAction("GetAllProjects");
+        }
 
     }
 }

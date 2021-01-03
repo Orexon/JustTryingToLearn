@@ -20,17 +20,17 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly RoleManager<IdentityRole<Guid>> _roleManager;
         private readonly ITeamService _teamService;
+        private readonly IProjectService _projectService;
         private readonly ICompanyService _companyService;
         private readonly IPasswordHasher<AppUser> _passwordHasher;
-        private readonly Context _context;
-        public ManagerController(UserManager<AppUser> userManager, ITeamService teamService, ICompanyService companyService, RoleManager<IdentityRole<Guid>> roleManager, IPasswordHasher<AppUser> passwordHasher, Context context)
+        public ManagerController(UserManager<AppUser> userManager, ITeamService teamService, ICompanyService companyService, RoleManager<IdentityRole<Guid>> roleManager, IPasswordHasher<AppUser> passwordHasher, IProjectService projectService)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _teamService = teamService;
             _companyService = companyService;
             _passwordHasher = passwordHasher;
-            _context = context;
+            _projectService = projectService;
         }
         
         public async Task<IActionResult> CompanyMemberList()
@@ -53,6 +53,20 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             return View(companyUserListViewModel);
         }
 
+        public async Task<IActionResult> CompanyTeamsList()
+        {
+            AppUser user = _userManager.GetUserAsync(User).Result;
+            Guid companyId = user.CompanyId;
+            return View(await _teamService.GetCompanyTeams(companyId));
+        }
+
+        public async Task<IActionResult> CompanyProjectList()
+        {
+            AppUser user = _userManager.GetUserAsync(User).Result;
+            Guid companyId = user.CompanyId;
+            return View(await _projectService.GetCompanyProjects(companyId));
+        }
+
         [HttpGet]
         public async Task<IActionResult> CreateUser()
         {
@@ -62,7 +76,7 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             var companyId = user.CompanyId;
             Company company = await _companyService.GetCompanyById(companyId);
 
-            if (company.AppUsers.Count >= (int)company.CompanyMemberSize)
+            if (company.AppUsers.Count >= (int)company.CompanyMemberSize) // JEI virisija dydi reik idet error arba passalint button.
             {
                 ViewBag.SizeExceeded = "Company Membership Size Exceeded";
                 return RedirectToAction("CompanyMemberList");
@@ -149,6 +163,7 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             return View(await _userManager.FindByIdAsync(id));
         }
 
+        //Delete User
         [HttpPost]
         public async Task<IActionResult> Delete(string id)
         {
@@ -157,11 +172,83 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             return RedirectToAction("CompanyMemberList", "Manager");
         }
 
-        public async Task<IActionResult> CompanyTeamsList()
+        [HttpGet]
+        public IActionResult CreateProject()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateProject(ManagerCreateProjectViewModel model)
+        {
+            AppUser user = _userManager.GetUserAsync(User).Result;
+            var companyId = user.CompanyId;
+
+            if (ModelState.IsValid)
+            {
+                Company company = await _companyService.GetCompanyById(companyId);
+
+                Project newProject = new Project
+                {
+                    ProjectName = model.ProjectName,
+                    ProjectDescription = model.ProjectDescription,
+                    CreateTime = DateTime.Now,
+                    Company = company
+                };
+                await _projectService.NewProject(newProject);
+                return RedirectToAction("CompanyProjectList");
+            }
+            return View(model);
+        }
+
+        //When selecting A team from all company teamlist. 
+        [HttpGet]
+        public async Task<IActionResult> AddProjectTeam(Guid id)
         {
             AppUser user = _userManager.GetUserAsync(User).Result;
             Guid companyId = user.CompanyId;
-            return View(await _teamService.GetCompanyTeams(companyId));
+
+            ViewBag.AvailableTeams = new SelectList(await _projectService.GetListOfAvailableProjectTeams(id, companyId), "TeamId", "TeamName");
+            //Guid teamId = id;
+
+            List<Team> ProjectTeamsList = await _projectService.GetProjectTeamList(id);
+                  
+            var newviewmodel = new AddTeamToProjectViewModel
+            {
+                ProjectTeams = ProjectTeamsList
+            };
+
+            return View(newviewmodel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddProjectTeam(AddTeamToProjectViewModel model, Guid id)
+        {
+            AppUser user = _userManager.GetUserAsync(User).Result;
+            Guid companyId = user.CompanyId;
+            ViewBag.AvailableTeams = new SelectList(await _projectService.GetListOfAvailableProjectTeams(id, companyId), "TeamId", "TeamName");
+
+
+            Guid guidId = Guid.Parse(model.TeamId);
+
+            ProjectTeam projectTeam = new ProjectTeam
+            {
+                Project = await _projectService.GetProjectById(id),
+                ProjectId = id,
+
+                Team = await _teamService.GetTeamById(model.TeamId),
+                TeamId = guidId
+            };
+            await _projectService.AddProjectTeam(projectTeam);
+            return RedirectToAction("AddProjectTeam");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RemoveTeamFromProject(string TeamId, Guid projectId)
+        {
+            await _projectService.RemoveProjectTeam(TeamId, projectId);
+            return RedirectToAction("AddProjectTeam", "Manager");
         }
 
         [HttpGet]
@@ -187,15 +274,14 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
                     TeamDescription = model.TeamDescription,
                     CreateTime = DateTime.Now,
                     Company = company
-                    //TeamUsers = new List<TeamUser>()
                 };
-                await _teamService.NewTeam(company, newTeam);
+                await _teamService.NewTeam(newTeam);
                 return RedirectToAction("CompanyTeamsList");
             }
             return View(model);
         }
 
-        //When selecting A team from a list. 
+        //When selecting A team from all company teamlist. 
         [HttpGet]
         public async Task<IActionResult> AddTeamMember(Guid id)
         {
@@ -225,9 +311,6 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
                 TeamUserListViewModel = teamUserListViewModel
             };
             return View(newviewmodel);
-
-            //ViewBag.CurrentTeam = teamUserListViewModel;
-            //return View();
         }
 
         [HttpPost]

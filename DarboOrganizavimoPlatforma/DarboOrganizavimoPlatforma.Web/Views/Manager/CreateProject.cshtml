@@ -1,0 +1,35 @@
+﻿@model DarboOrganizavimoPlatforma.Web.Models.ManagerCreateProjectViewModel
+
+@{
+    ViewData["Title"] = "CreateProject";
+}
+
+<h1>Create</h1>
+
+<h4>Project</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="CreateProject">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ProjectName" class="control-label"></label>
+                <input asp-for="ProjectName" class="form-control" />
+                <span asp-validation-for="ProjectName" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="ProjectDescription" class="control-label"></label>
+                <textarea asp-for="ProjectDescription" class="form-control" rows="4"></textarea>
+                <span asp-validation-for="ProjectDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-controller="Manager" asp-action="CompanyProjectList">Back to List</a>
+</div>
+

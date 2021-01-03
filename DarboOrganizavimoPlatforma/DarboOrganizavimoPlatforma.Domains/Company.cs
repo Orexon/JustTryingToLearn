@@ -8,11 +8,12 @@ namespace DarboOrganizavimoPlatforma.Domains
 {
     public class Company
     {
-        public Company()
-        {
-            CompanyProjects = new List<Project>();
-            Teams = new List<Team>();
-        }
+        //public Company()
+        //{
+        //    CompanyProjects = new List<Project>();
+        //    Teams = new List<Team>();
+        //}
+
         public Guid CompanyId { get; set; }
         public string CompanyName { get; set; }
         public string CompanyDescription { get; set; }

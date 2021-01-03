@@ -79,20 +79,16 @@ namespace DarboOrganizavimoPlatforma.Services
             return await _context.Teams.Where(x => x.Company.CompanyId == id).ToListAsync();
         }
 
-        public async Task NewTeam(Company company, Team newTeam)
+        public async Task NewTeam(Team newTeam)
         {
-            company.Teams.Add(newTeam);
             _context.Teams.Add(newTeam);
             await _context.SaveChangesAsync();
         }
 
         public async Task AddTeamUser(TeamUser teamUser)
         {
-            //Team team = await GetTeamById(Id);
-            //team.TeamUsers.Add(teamUser);
             _context.TeamUsers.Add(teamUser);
             await _context.SaveChangesAsync();
-
         }
 
         public async Task<int> EditTeam(Team team)

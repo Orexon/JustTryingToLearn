@@ -15,7 +15,7 @@ namespace DarboOrganizavimoPlatforma.Services.Interfaces
         Task<List<AppUser>> GetTeamsMemberList(Guid id);
         Task<List<AppUser>> GetListOfAvailableTeamUsers(Guid id, Guid companyId);
         Task<List<Team>> GetCompanyTeams(Guid id);
-        Task NewTeam(Company company, Team newTeam);
+        Task NewTeam(Team newTeam);
         Task AddTeamUser(TeamUser teamUser);
         Task<int> EditTeam(Team team);
         Task<int> DeleteTeam(Team team);

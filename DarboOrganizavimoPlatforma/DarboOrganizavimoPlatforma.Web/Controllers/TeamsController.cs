@@ -19,8 +19,6 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
         private readonly ICompanyService _companyService;
         private readonly ITeamService _teamService;
         
-
-
         public TeamsController(ICompanyService companyService, ITeamService teamService, UserManager<AppUser> userManager)
         {
             _companyService = companyService;
@@ -57,12 +55,11 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
                     Company = company
                     //TeamUsers = new List<TeamUser>()
                 };
-                await _teamService.NewTeam(company, newTeam);
+                await _teamService.NewTeam(newTeam);
                 return RedirectToAction("GetAllTeams");
             }
             return View(model);
         }
-
 
         [HttpGet]
         public async Task<IActionResult> EditTeam(Guid id)
@@ -141,10 +138,11 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
 
 
 
+
+
         //Adding Users to Team.Cascading Select list.
         //Add 1 user to team as Admin(All Company List +select Company,GetSelectedCompanyTeamList +selectTeam, GetThatComapanyUserList +SelectUser,ADD)  Enable Multiple.
-
-
+        //------------------------
         //Get Team member List. For everyone. A button -> lets see current team member list.    If TeamLeader = AddMember to team -Select member from company.   
         //Choose a team, get list. For Teamleader
         
