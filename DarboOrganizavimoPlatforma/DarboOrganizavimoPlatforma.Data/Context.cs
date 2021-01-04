@@ -14,6 +14,7 @@ namespace DarboOrganizavimoPlatforma.Data
         public DbSet<Project> Projects { get; set; }
         public DbSet<Team> Teams { get; set; }
         public DbSet<Assignment> Assignments { get; set; }
+        public DbSet<ATask> ATasks { get; set; }
         public DbSet<TeamUser> TeamUsers { get; set; }
         public DbSet<ProjectTeam> ProjectTeams { get; set; }
         public DbSet<UserAssingment> UserAssingments { get; set; }

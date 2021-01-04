@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DarboOrganizavimoPlatforma.Domains
 {
-    public enum AssignmentStatus
+    public enum CompletionStatus
     {
         ToDo,
         InProgress,

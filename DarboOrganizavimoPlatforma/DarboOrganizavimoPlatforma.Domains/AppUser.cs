@@ -12,10 +12,11 @@ namespace DarboOrganizavimoPlatforma.Domains
         public string MemberName { get; set; }
         public Company Company { get; set; }
         public Guid CompanyId { get; set; }
+        public DateTime JoinDateTime { get; set; }
         public ICollection<TeamUser> TeamUsers { get; set; }
         public ICollection<Project> CompanyTeamMembers { get; set; }
-        public ICollection<UserAssingment> UserAssignments { get; set; }
-        public DateTime JoinDateTime { get; set; }       
+        public ICollection<UserAssingment> UserAssignments { get; set; } 
+        public List<ATask> Tasks { get; set; }
     }
 }
 
