@@ -24,9 +24,9 @@
                 <span asp-validation-for="CompanyDescription" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CompanyMemberSize">Select Company Size Plan</label>
+                <label asp-for="CompanyMemberSize">Select Company Size Plan from a list of size plans</label>
                 <select class="form-control" asp-for="CompanyMemberSize" asp-items="Html.GetEnumSelectList<CompanyMemberSize>()">
-                    <option selected>Choose from a list of size plans</option>
+                    <option selected></option>
                 </select>
                 <span asp-validation-for="CompanyMemberSize" class="text-danger"></span>
             </div>

@@ -19,6 +19,6 @@ namespace DarboOrganizavimoPlatforma.Services.Interfaces
         Task AddTeamUser(TeamUser teamUser);
         Task<int> EditTeam(Team team);
         Task<int> DeleteTeam(Team team);
-        Task<int> RemoveTeamUser(Guid TeamId, string id);
+        Task<int> RemoveTeamUser(Guid teamid,Team team, string id, AppUser appUser);
     }
 }

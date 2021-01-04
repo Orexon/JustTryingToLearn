@@ -35,9 +35,9 @@
                     @ViewBag.SizeExceeded
                 </p>
                 <div class="form-group  mt-3">
-                    <label for="User Role">Select User Role</label>
+                    <label asp-for="UserRole">Select User Role  from a list of roles</label>
                     <select class="form-control" asp-for="UserRole" asp-items=@ViewBag.ManagerRoleList>
-                        <option selected>Choose from a list of roles...</option>
+                        <option selected></option>
                     </select>
                     <span asp-validation-for="UserRole" class="text-danger"></span>
                 </div>

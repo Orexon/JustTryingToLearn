@@ -11,7 +11,8 @@ namespace DarboOrganizavimoPlatforma.Web.Models
     {
         [Required(ErrorMessage = "Please Choose a Team")]
         public string TeamId { get; set; }
-
+        public Guid ProjectId { get; set; }
         public List<Team> ProjectTeams { get; set; }
+
     }
 }

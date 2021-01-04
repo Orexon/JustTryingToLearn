@@ -19,6 +19,6 @@ namespace DarboOrganizavimoPlatforma.Services.Interfaces
         Task NewProject(Project newProject);
         Task<int> EditProject(Project project);
         Task<int> DeleteProject(Project project);
-        Task<int> RemoveProjectTeam(string TeamId, Guid projectId);
+        Task<int> RemoveProjectTeam(Team team, string TeamId, Project project, Guid projectId);
     }
 }

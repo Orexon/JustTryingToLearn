@@ -84,14 +84,13 @@ namespace DarboOrganizavimoPlatforma.Services
             await _context.SaveChangesAsync();
         }
 
-        //Remove Project Team from Project (deletes Team data in ProjectTeam table)
-        public async Task<int> RemoveProjectTeam(string TeamId, Guid projectId)
-        {
+        //Remove Project Team from Project (deletes Team data in ProjectTeam table) // Guid teamid, Team team, string id, AppUser appUser //
+        public async Task<int> RemoveProjectTeam(Team team, string TeamId, Project project, Guid projectId)
+        {    
             Guid guidid = Guid.Parse(TeamId);
-            ProjectTeam projectTeam = await _context.ProjectTeams.FindAsync(guidid, projectId);
+            ProjectTeam projectTeam = _context.ProjectTeams.Where(x => x.ProjectId == projectId && x.TeamId == guidid && x.Project == project && x.Team == team).FirstOrDefault();
             _context.ProjectTeams.Remove(projectTeam);
             return await _context.SaveChangesAsync();
         }
-
     }
 }

@@ -215,7 +215,9 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
 
         //Tasks Controller - Create task(description,time,id)
         //Task
-
+        //prie project + task + description + task controller + task statusas + 
+        //
+        
         //+Project controller
 
         //Icons for Delete/Edit/Info.

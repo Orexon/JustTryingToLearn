@@ -210,12 +210,13 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             Guid companyId = user.CompanyId;
 
             ViewBag.AvailableTeams = new SelectList(await _projectService.GetListOfAvailableProjectTeams(id, companyId), "TeamId", "TeamName");
-            //Guid teamId = id;
+            Guid projectId = id;
 
             List<Team> ProjectTeamsList = await _projectService.GetProjectTeamList(id);
                   
             var newviewmodel = new AddTeamToProjectViewModel
             {
+                ProjectId = projectId,
                 ProjectTeams = ProjectTeamsList
             };
 
@@ -229,26 +230,31 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             Guid companyId = user.CompanyId;
             ViewBag.AvailableTeams = new SelectList(await _projectService.GetListOfAvailableProjectTeams(id, companyId), "TeamId", "TeamName");
 
-
-            Guid guidId = Guid.Parse(model.TeamId);
-
-            ProjectTeam projectTeam = new ProjectTeam
+            if (ModelState.IsValid)
             {
-                Project = await _projectService.GetProjectById(id),
-                ProjectId = id,
+                Guid guidId = Guid.Parse(model.TeamId);
 
-                Team = await _teamService.GetTeamById(model.TeamId),
-                TeamId = guidId
-            };
-            await _projectService.AddProjectTeam(projectTeam);
-            return RedirectToAction("AddProjectTeam");
+                ProjectTeam projectTeam = new ProjectTeam
+                {
+                    Project = await _projectService.GetProjectById(id),
+                    ProjectId = id,
+
+                    Team = await _teamService.GetTeamById(model.TeamId),
+                    TeamId = guidId
+                };
+                await _projectService.AddProjectTeam(projectTeam);
+                return RedirectToAction("AddProjectTeam");  
+            }
+            return View(model);
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> RemoveTeamFromProject(string TeamId, Guid projectId)
         {
-            await _projectService.RemoveProjectTeam(TeamId, projectId);
-            return RedirectToAction("AddProjectTeam", "Manager");
+            Project project = await _projectService.GetProjectById(projectId);
+            Team team = await _teamService.GetTeamById(TeamId);
+            await _projectService.RemoveProjectTeam(team,TeamId ,project ,projectId);
+            return RedirectToAction("AddProjectTeam", "Manager", new { @id = projectId });
         }
 
         [HttpGet]
@@ -320,25 +326,32 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             Guid companyId = user.CompanyId;
             ViewBag.AllCompanyUsers = new SelectList(await _teamService.GetListOfAvailableTeamUsers(id, companyId), "Id", "Email");
 
-            Guid guidid = Guid.Parse(model.AppUserId);
+            if (ModelState.IsValid)
+            {
+                Guid guidid = Guid.Parse(model.AppUserId);
 
-            TeamUser teamUser = new TeamUser
-            {  
-                AppUser = await _userManager.FindByIdAsync(model.AppUserId),
-                AppUserId = guidid,
-                Team = await _teamService.GetTeamById(id),
-                TeamId = id
-            };
-            await _teamService.AddTeamUser(teamUser);
-            return RedirectToAction("AddTeamMember");  
+                TeamUser teamUser = new TeamUser
+                {
+                    AppUser = await _userManager.FindByIdAsync(model.AppUserId),
+                    AppUserId = guidid,
+                    Team = await _teamService.GetTeamById(id),
+                    TeamId = id
+                };
+                await _teamService.AddTeamUser(teamUser);
+                return RedirectToAction("AddTeamMember");
+            }
+            return View(model);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> RemoveUserFromTeam(Guid TeamId, string id)
-        {
-            await _teamService.RemoveTeamUser(TeamId, id);
-            return RedirectToAction("AddTeamMember", "Manager");
+        [HttpGet]
+        public async Task<IActionResult> RemoveUserFromTeam(Guid teamid, string id)
+        { 
+            AppUser appUser = await _userManager.FindByIdAsync(id);
+            Team team = await _teamService.GetTeamById(teamid);
+            await _teamService.RemoveTeamUser(teamid, team, id, appUser);
+            return RedirectToAction("AddTeamMember", "Manager", new { @id = teamid });
         }
+
 
         //[HttpPost]
         //public async Task<IActionResult> RemoveUserFromTeam(RemoveFromTeamViewModel model)

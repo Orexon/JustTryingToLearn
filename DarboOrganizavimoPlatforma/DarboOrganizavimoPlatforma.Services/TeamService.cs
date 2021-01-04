@@ -105,10 +105,10 @@ namespace DarboOrganizavimoPlatforma.Services
         }
 
         //Remove Team User from Team (deletes User data in TeamUser table)
-        public async Task<int> RemoveTeamUser(Guid TeamId, string id)
+        public async Task<int> RemoveTeamUser(Guid teamid,Team team, string id, AppUser appUser)
         {
             Guid guidid = Guid.Parse(id);
-            TeamUser teamUser = await _context.TeamUsers.FindAsync(TeamId, guidid);
+            TeamUser teamUser = _context.TeamUsers.Where(x => x.TeamId == teamid && x.AppUserId == guidid && x.AppUser == appUser && x.Team == team).FirstOrDefault();
             _context.TeamUsers.Remove(teamUser);
             return await _context.SaveChangesAsync();
         }
