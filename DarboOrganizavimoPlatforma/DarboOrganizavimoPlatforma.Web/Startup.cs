@@ -44,6 +44,7 @@ namespace DarboOrganizavimoPlatforma.Web
             services.AddTransient<ICompanyService, CompanyService>();
             services.AddTransient<ITeamService, TeamService>();
             services.AddTransient<IProjectService, ProjectService>();
+            services.AddTransient<IAssignmentService, AssignmentService>();
             services.AddHttpContextAccessor();
             services.ConfigureApplicationCookie(options =>
             {

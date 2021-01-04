@@ -163,6 +163,7 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             return View();
         }
 
+
         [HttpPost]
         public async Task<IActionResult> AdminAddUserToCompany(AdminAddUserToCompanyViewModel model)
         {

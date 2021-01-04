@@ -14,10 +14,13 @@ namespace DarboOrganizavimoPlatforma.Domains
         public Guid CompanyId { get; set; }
         public ICollection<TeamUser> TeamUsers { get; set; }
         public ICollection<Project> CompanyTeamMembers { get; set; }
-        public ICollection<Assignment> UserAssignments { get; set; }
+        public ICollection<UserAssingment> UserAssignments { get; set; }
         public DateTime JoinDateTime { get; set; }       
     }
 }
 
 // One company can have many AppUsers. One Appuser can have one company. 
-// one appuser can have Many Assignments. One Assignemnt can have one AppUser. 
+// one appuser can have Many Assignments. One Assignemnt can have many AppUser. 
+
+// One Assingment can have Many Tasks. One Task can have one Assignment.
+// One AppUser can have many Tasks. One task can have one appuser. 

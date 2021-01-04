@@ -4,14 +4,16 @@ using DarboOrganizavimoPlatforma.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DarboOrganizavimoPlatforma.Data.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20210104194140_Assignments2")]
+    partial class Assignments2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -104,14 +106,14 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("AppUserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("AssignmentDescription")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("AssignmentName")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("AssingmentStatus")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("CompletedTime")
                         .HasColumnType("datetime2");
@@ -119,10 +121,15 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
                     b.Property<DateTime>("CreateTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("TaskStatus")
+                        .HasColumnType("int");
+
                     b.Property<Guid>("TeamId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("AssignmentId");
+
+                    b.HasIndex("AppUserId");
 
                     b.HasIndex("TeamId");
 
@@ -235,21 +242,6 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
                     b.HasIndex("TeamId");
 
                     b.ToTable("TeamUsers");
-                });
-
-            modelBuilder.Entity("DarboOrganizavimoPlatforma.Domains.UserAssingment", b =>
-                {
-                    b.Property<Guid>("AppUserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("AssingmentId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("AppUserId", "AssingmentId");
-
-                    b.HasIndex("AssingmentId");
-
-                    b.ToTable("UserAssingments");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
@@ -393,6 +385,12 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
 
             modelBuilder.Entity("DarboOrganizavimoPlatforma.Domains.Assignment", b =>
                 {
+                    b.HasOne("DarboOrganizavimoPlatforma.Domains.AppUser", "AssignedTo")
+                        .WithMany("UserAssignments")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("DarboOrganizavimoPlatforma.Domains.Team", "Team")
                         .WithMany("TeamAssignments")
                         .HasForeignKey("TeamId")
@@ -444,21 +442,6 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
                     b.HasOne("DarboOrganizavimoPlatforma.Domains.Team", "Team")
                         .WithMany("TeamUsers")
                         .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("DarboOrganizavimoPlatforma.Domains.UserAssingment", b =>
-                {
-                    b.HasOne("DarboOrganizavimoPlatforma.Domains.AppUser", "AppUser")
-                        .WithMany("UserAssignments")
-                        .HasForeignKey("AppUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DarboOrganizavimoPlatforma.Domains.Assignment", "Assignment")
-                        .WithMany("UsersAssigned")
-                        .HasForeignKey("AssingmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
