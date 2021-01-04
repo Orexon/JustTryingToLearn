@@ -13,6 +13,6 @@ namespace DarboOrganizavimoPlatforma.Domains
         public ICollection<ProjectTeam> ProjectTeams { get; set; }
         public Company Company { get; set; }
         public DateTime CreateTime { get; set; }
-        //can have a collection of tasks 
+        public List<Assignment> TeamAssignments { get; set; }
     }
 }

@@ -4,14 +4,16 @@ using DarboOrganizavimoPlatforma.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DarboOrganizavimoPlatforma.Data.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20210104184435_Assignments")]
+    partial class Assignments
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -122,7 +124,7 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
                     b.Property<int>("TaskStatus")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("TeamId")
+                    b.Property<Guid?>("TeamId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("AssignmentId");
@@ -391,9 +393,7 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
 
                     b.HasOne("DarboOrganizavimoPlatforma.Domains.Team", "Team")
                         .WithMany("TeamAssignments")
-                        .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TeamId");
                 });
 
             modelBuilder.Entity("DarboOrganizavimoPlatforma.Domains.Project", b =>

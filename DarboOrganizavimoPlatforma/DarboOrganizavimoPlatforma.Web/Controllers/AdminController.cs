@@ -184,11 +184,7 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             }
             return View(model);
         }
-
         
-
-
-
         //+ Admin - Remove User from company - Delete User + 
         //  Admin - Remove multiple User from company. 
 
@@ -213,16 +209,11 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
         //Member side - Get Project list. IOW = List of project the current Member is currently assigned to. //Get Project that current user is part of.
         //Member side - Get list of teams. IOW = List of Teams member is assingned to. //GetTeams that current user is part of.
 
-        //Tasks Controller - Create task(description,time,id)
-        //Task
-        //prie project + task + description + task controller + task statusas + 
-        //
-        
         //+Project controller
 
         //Icons for Delete/Edit/Info.
         //Validation for CreateTeam
-        //Correct Delete Behaviour
+        //+Correct Delete Behaviour
 
         //Avg task complete time
         //Avg task count
