@@ -10,7 +10,7 @@
 
 <div class="row">
     <div class="col-12">
-        <form asp-controller="Assignment" asp-action="AssignUsersToAssignment">
+        <form asp-controller="Assignment" asp-route-id="@Model.CurrentTeamId" asp-route-AssignmentId="@Model.CurrentAssignmentId" asp-action="AssignUsersToAssignment">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group  mb-3">
                 <label asp-for="AppUserId">Select Available User From Team</label>
@@ -60,7 +60,7 @@
                                 @Html.DisplayFor(modelItem => item.Roles)
                             </td>
                             <td>
-                                <a class="btn btn-success" asp-controller="Assignment" asp-action="RemoveUserFromAssignment" asp-route-assignmentid="@Model.AssignmentId" asp-route-teamid="@Model.TeamId" asp-route-id="@item.UserId">Remove From Team</a>
+                                <a class="btn btn-success" asp-controller="Assignment" asp-action="RemoveUserFromAssignment" asp-route-assignmentId="@Model.CurrentAssignmentId" asp-route-teamid="@Model.CurrentTeamId" asp-route-id="@item.UserId">Remove</a>
                             </td>
                         </tr>
                     }
@@ -79,7 +79,7 @@ else
 }
 
 <div>
-    <a class="btn btn-primary" asp-controller="Manager" asp-action="CompanyTeamsList">Back to Team List</a>
+    <a class="btn btn-primary" asp-route-TeamId="@Model.CurrentTeamId" asp-controller="Assignment" asp-action="GetTeamAssignmentList">Back to Teams Assignment List</a>
 </div>
 
 @section Scripts

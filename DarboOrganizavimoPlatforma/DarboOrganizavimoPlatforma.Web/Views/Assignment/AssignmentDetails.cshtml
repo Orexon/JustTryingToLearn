@@ -23,22 +23,31 @@
             @Html.DisplayFor(model => model.AssignmentDescription)
         </dd>
         <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AssignmentStatus)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AssignmentStatus)
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.CreateTime)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.CreateTime)
         </dd>
+        @if (Model.AssignmentStatus == DarboOrganizavimoPlatforma.Domains.CompletionStatus.Done)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CompletedTime)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CompletedTime)
+            </dd>
+        }
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Team.TeamName)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Team.TeamName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.AssingmentStatus)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.AssingmentStatus)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.UsersAssigned)

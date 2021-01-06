@@ -10,8 +10,8 @@ namespace DarboOrganizavimoPlatforma.Web.Models
     {
         [Required(ErrorMessage = "Please Choose a User")]
         public string AppUserId { get; set; }
-        public Guid TeamId { get; set; }
-        public Guid AssignmentId { get; set; }
+        public Guid CurrentTeamId { get; set; }
+        public Guid CurrentAssignmentId { get; set; }
         public List<UserListViewModel> AssignmentMemberListViewModel { get; set; }
 
 

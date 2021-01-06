@@ -13,14 +13,14 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
 {
     public class AssignmentController : Controller 
     {
-        private readonly IAssignmentService _assingmentService;
+        private readonly IAssignmentService _assignmentService;
         private readonly ITeamService _teamService;
         private readonly ICompanyService _companyService;
         private readonly UserManager<AppUser> _userManager;
 
-        public AssignmentController(IAssignmentService assingmentService, UserManager<AppUser> userManager, ITeamService teamService, ICompanyService companyService)
+        public AssignmentController(IAssignmentService assignmentService, UserManager<AppUser> userManager, ITeamService teamService, ICompanyService companyService)
         {
-            _assingmentService = assingmentService;
+            _assignmentService = assignmentService;
             _userManager = userManager;
             _teamService = teamService;
             _companyService = companyService;
@@ -29,7 +29,7 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
         //For Admin - get All assignments. 
         public async Task<IActionResult> GetAllAssignments()
         {
-            return View(await _assingmentService.GetAssignments());
+            return View(await _assignmentService.GetAssignments());
         }
 
         //Gets ALL assignments of Current logged in User. // Member Controller part..? 
@@ -37,24 +37,24 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
         {
             AppUser user = _userManager.GetUserAsync(User).Result;
             Guid UserId = user.Id;
-            return View(await _assingmentService.GetUserAssignmentList(UserId));
+            return View(await _assignmentService.GetUserAssignmentList(UserId));
         }
 
         //Gets ALL assignments of Current logged in User in a specific Team. // Member Controller part..? 
-        public async Task<IActionResult> GetTeamMemberAssingmentList(Guid TeamId)
+        public async Task<IActionResult> GetTeamMemberAssignmentList(Guid TeamId)
         {
             AppUser user = _userManager.GetUserAsync(User).Result;
             Guid UserId = user.Id;
-            return View(await _assingmentService.GetUserTeamAssignmentList(UserId, TeamId));
+            return View(await _assignmentService.GetUserTeamAssignmentList(UserId, TeamId));
         }
 
         //When team ID is passed. Admin/Manager/TeamLeader/Member. Gets Specific Teams Assignments.
         public async Task<IActionResult> GetTeamAssignmentList(Guid TeamId)
         {
-            return View(await _assingmentService.GetTeamAssingments(TeamId));
+            return View(await _assignmentService.GetTeamAssignments(TeamId));
         }
 
-        // GET: Manager Assingment/Create // Logic mistake.When entering directly - need fix. Select..when should get current team id.
+        // GET: Manager Assignment/Create // Logic mistake.When entering directly - need fix. Select..when should get current team id.
         [HttpGet]
         public async Task<IActionResult> CreateAssignment()
         {
@@ -80,12 +80,12 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
                     AssignmentName = model.AssignmentName,
                     AssignmentDescription = model.AssignmentDescription,
                     CreateTime = DateTime.Now,
-                    AssingmentStatus = CompletionStatus.ToDo, // = 0
-                    AssingmentTasks = new List<ATask>(),
+                    AssignmentStatus = CompletionStatus.ToDo, // = 0
+                    AssignmentTasks = new List<ATask>(),
                     TeamId = model.TeamId,
                     Team = await _teamService.GetTeamById(model.TeamId)
                 };
-                await _assingmentService.NewAssignment(newAssignment);
+                await _assignmentService.NewAssignment(newAssignment);
 
                 return RedirectToAction("GetTeamAssignmentList", new { model.TeamId });
             }
@@ -100,13 +100,15 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             {
                 return NotFound();
             }
-            Assignment assignment = await _assingmentService.GetAssignmentById(AssignmentId);
+            Assignment assignment = await _assignmentService.GetAssignmentById(AssignmentId);
 
             EditAssignmentViewModel model = new EditAssignmentViewModel()
             {
+                TeamId = await _assignmentService.GetTeamByAssignmentId(AssignmentId),
+                AssignmentId = assignment.AssignmentId,
                 AssignmentName = assignment.AssignmentName,
                 AssignmentDescription = assignment.AssignmentDescription,
-                AssingmentStatus = assignment.AssingmentStatus
+                AssignmentStatus = assignment.AssignmentStatus
             };
             return View(model);
         }
@@ -118,22 +120,22 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                Assignment assignment = await _assingmentService.GetAssignmentById(AssignmentId);
+                Assignment assignment = await _assignmentService.GetAssignmentById(AssignmentId);
                 AppUser currentUser = _userManager.GetUserAsync(User).Result;
-                Guid TeamId = await _assingmentService.GetTeamByAssingmentId(AssignmentId);
+                Guid TeamId = await _assignmentService.GetTeamByAssignmentId(AssignmentId);
                 
                 assignment.AssignmentName = model.AssignmentName;
                 assignment.AssignmentDescription = model.AssignmentDescription;
-                assignment.AssingmentStatus = model.AssingmentStatus;
-                if(model.AssingmentStatus == CompletionStatus.Done)
+                assignment.AssignmentStatus = model.AssignmentStatus;
+                if(model.AssignmentStatus == CompletionStatus.Done)
                 {
                     assignment.CompletedTime = DateTime.Now;
                 }
-                await _assingmentService.EditAssignment(assignment);
+                await _assignmentService.EditAssignment(assignment);
 
                 if (await _userManager.IsInRoleAsync(currentUser, "Manager"))
                 {
-                    return RedirectToAction("GetTeamAssingments", "Assigment", new {TeamId });
+                    return RedirectToAction("GetTeamAssignmentList", "Assignment", new {TeamId });
                 }
                 return RedirectToAction("GetAllAssignments");
             }
@@ -147,7 +149,7 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             {
                 return NotFound();
             }
-            Assignment assignment = await _assingmentService.GetAssignmentById(AssignmentId);
+            Assignment assignment = await _assignmentService.GetAssignmentById(AssignmentId);
 
             if (assignment == null)
             {
@@ -156,36 +158,38 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             return View(assignment);
         }
 
-        //Delete Assignments
+
+
+        //Delete Assignment
         [HttpPost]
-        public async Task<IActionResult> DeleteAssignment(Guid AssignmentId)
+        public async Task<IActionResult> DeleteAssignment(Guid id)
         {
             AppUser currentUser = _userManager.GetUserAsync(User).Result;
-            Guid TeamId = await _assingmentService.GetTeamByAssingmentId(AssignmentId);
+            Guid TeamId = await _assignmentService.GetTeamByAssignmentId(id);
 
-            Assignment assignment = await _assingmentService.GetAssignmentById(AssignmentId);
+            Assignment assignment = await _assignmentService.GetAssignmentById(id);
 
-            await _assingmentService.DeleteAssignment(assignment);
+            await _assignmentService.DeleteAssignment(assignment);
 
             if (await _userManager.IsInRoleAsync(currentUser, "Manager"))
             {
-                return RedirectToAction("GetTeamAssingments", "Assigment", new { TeamId });
+                return RedirectToAction("GetTeamAssignmentList", "Assignment", new { TeamId });
             }
             return RedirectToAction("GetAllAssignments");
         }
 
         //Add users to assignment.
         [HttpGet]
-        public async Task<IActionResult> AssignUsersToAssignment(Guid id, Guid assignmentId)
+        public async Task<IActionResult> AssignUsersToAssignment(Guid id, Guid AssignmentId)
         {               
-            ViewBag.AvailableTeamUsers = new SelectList(await _assingmentService.GetListOfAvailableAssignmentUsers(id, assignmentId), "Id", "MemberName");
+            ViewBag.AvailableTeamUsers = new SelectList(await _assignmentService.GetListOfAvailableAssignmentUsers(id, AssignmentId), "Id", "MemberName");
 
-            List<AppUser> AssingmentMemberList = await _assingmentService.GetAssignmentUserList(assignmentId);
+            List<AppUser> AssignmentMemberList = await _assignmentService.GetAssignmentUserList(AssignmentId);
             //visi assignment members;
             var assignmentMemberListViewModel = new List<UserListViewModel>();
             
 
-            foreach (AppUser member in AssingmentMemberList)
+            foreach (AppUser member in AssignmentMemberList)
             {
                 var thisViewModel = new UserListViewModel
                 {
@@ -198,43 +202,42 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
 
             Guid teamId = id;
 
-            var newviewmodel = new AssignUsersToAssignmentViewModel
+            var newAssignViewModel = new AssignUsersToAssignmentViewModel
             {
-                TeamId = teamId,
-                AssignmentId = assignmentId,
+                CurrentTeamId = teamId,
+                CurrentAssignmentId = AssignmentId,
                 AssignmentMemberListViewModel = assignmentMemberListViewModel
             };
 
-            return View(newviewmodel);
+            return View(newAssignViewModel);
         }
 
-        //Add users to assignment. Get
         [HttpPost] 
-        public async Task<IActionResult> AssignUsersToAssignment(AssignUsersToAssignmentViewModel model, Guid id, Guid assignmentId)
+        public async Task<IActionResult> AssignUsersToAssignment(AssignUsersToAssignmentViewModel newAssignViewModel, Guid id, Guid AssignmentId)
         {
-            ViewBag.AvailableTeamUsers = new SelectList(await _assingmentService.GetListOfAvailableAssignmentUsers(id, assignmentId), "Id", "MemberName");
+            ViewBag.AvailableTeamUsers = new SelectList(await _assignmentService.GetListOfAvailableAssignmentUsers(id, AssignmentId), "Id", "MemberName");
 
             if (ModelState.IsValid)
             {
-                Guid guidid = Guid.Parse(model.AppUserId);
+                Guid guidid = Guid.Parse(newAssignViewModel.AppUserId);
 
-                UserAssingment userAssingment = new UserAssingment
+                UserAssignment userAssignment = new UserAssignment
                 {
-                    AppUser = await _userManager.FindByIdAsync(model.AppUserId),
+                    AppUser = await _userManager.FindByIdAsync(newAssignViewModel.AppUserId),
                     AppUserId = guidid,
-                    Assignment = await _assingmentService.GetAssignmentById(assignmentId),
-                    AssingmentId = assignmentId
+                    Assignment = await _assignmentService.GetAssignmentById(AssignmentId),
+                    AssignmentId = AssignmentId
                 };
-                await _assingmentService.AddUserAssignment(userAssingment);
+                await _assignmentService.AddUserAssignment(userAssignment);
 
-                List<AppUser> AssingmentMemberList = await _assingmentService.GetAssignmentUserList(assignmentId);
-                if (AssingmentMemberList.Count > 0)
+                List<AppUser> AssignmentMemberList = await _assignmentService.GetAssignmentUserList(AssignmentId);
+                if (AssignmentMemberList.Count > 0)
                 {
-                    await _assingmentService.ChangeStatusToInProgress(assignmentId);
+                    await _assignmentService.ChangeStatusToInProgress(AssignmentId);
                 }
-                return RedirectToAction("AssignUsersToAssingment");
+                return RedirectToAction("AssignUsersToAssignment", new { AssignmentId });
             }
-            return View(model);
+            return View(newAssignViewModel);
         }
 
         //Remove User from an assignment.
@@ -242,9 +245,9 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
         public async Task<IActionResult> RemoveUserFromAssignment(Guid AssignmentId, string id, Guid TeamId)
         {
             AppUser appUser = await _userManager.FindByIdAsync(id);
-            Assignment assignment = await _assingmentService.GetAssignmentById(AssignmentId);
-            await _assingmentService.RemoveUserAssignment(AssignmentId, assignment, id, appUser);
-            return RedirectToAction("AssignUsersToAssingment", "Assignment", new { TeamId });
+            Assignment assignment = await _assignmentService.GetAssignmentById(AssignmentId);
+            await _assignmentService.RemoveUserAssignment(AssignmentId, assignment, id, appUser);
+            return RedirectToAction("AssignUsersToAssignment", "Assignment", new {@id = TeamId, AssignmentId });
         }
     }
 }

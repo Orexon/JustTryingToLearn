@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<DarboOrganizavimoPlatforma.Domains.Assignment>
 
 @{
-    ViewData["Title"] = "GetTeamAssingmentList";
+    ViewData["Title"] = "GetTeamAssignmentList";
 }
 
 <h1> Assignment List</h1>
@@ -13,7 +13,7 @@
                 @Html.DisplayNameFor(model => model.AssignmentName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AssingmentStatus)
+                @Html.DisplayNameFor(model => model.AssignmentStatus)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.UsersAssigned)
@@ -34,18 +34,18 @@
                     @Html.DisplayFor(modelItem => item.AssignmentName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.AssingmentStatus)
+                    @Html.DisplayFor(modelItem => item.AssignmentStatus)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.UsersAssigned.Count)
                 </td>
                 <td>
-                    <a class="btn btn-secondary" asp-controller="Assignment" asp-action="AssignUsersToAssignment" asp-route-id="@item.Team.TeamId" asp-route-assignmentId="@item.AssignmentId">View/Add</a>
+                    <a class="btn btn-secondary" asp-controller="Assignment" asp-action="AssignUsersToAssignment" asp-route-id="@item.Team.TeamId" asp-route-AssignmentId="@item.AssignmentId">View/Add</a>
                 </td>
                 <td>
                     <a class="btn btn-success" asp-controller="Assignment" asp-action="EditAssignment" asp-route-TeamId="@item.Team.TeamId" asp-route-AssignmentId="@item.AssignmentId">Edit</a> |
                     <a class="btn btn-info" asp-controller="Assignment" asp-action="AssignmentDetails" asp-route-AssignmentId="@item.AssignmentId">Details</a> |
-                    <button id="modalDeleteButton" type="button" class="btn btn-danger" data-toggle="modal" asp-route-TeamId="@item.Team.TeamId" data-target="#myModal" data-AssignmentId="@item.AssignmentId">Delete</button>
+                    <button id="modalDeleteButton" type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal" data-id="@item.AssignmentId">Delete</button>
                 </td>
             </tr>
         }
@@ -82,7 +82,7 @@
     <script type="text/javascript">
         $("#myModal").on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget) // Button that triggered the modal
-            var recipient = button.data('assignmentid') // Extract info from data-* attributes
+            var recipient = button.data('id') // Extract info from data-* attributes
 
             var btn = $(this).find('#button1');
             console.log(recipient)

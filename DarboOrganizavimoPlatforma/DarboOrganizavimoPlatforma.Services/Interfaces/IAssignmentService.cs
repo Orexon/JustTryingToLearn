@@ -12,7 +12,7 @@ namespace DarboOrganizavimoPlatforma.Services.Interfaces
         List<Assignment> GetAssignmentList();
         Task<List<Assignment>> GetUserAssignmentList(Guid UserId);
         Task<List<Assignment>> GetUserTeamAssignmentList(Guid UserId, Guid TeamId);
-        Task<List<Assignment>> GetTeamAssingments(Guid TeamId);
+        Task<List<Assignment>> GetTeamAssignments(Guid TeamId);
         Task<List<AppUser>> GetAssignmentUserList(Guid AssignmentId);
         Task<List<AppUser>> GetListOfAvailableAssignmentUsers(Guid TeamId, Guid AssignmentId);
         Task<Assignment> GetAssignmentById(Guid id);
@@ -20,9 +20,9 @@ namespace DarboOrganizavimoPlatforma.Services.Interfaces
         Task NewAssignment(Assignment newAssignment);
         Task<int> EditAssignment(Assignment assignment);
         Task<int> DeleteAssignment(Assignment assignment);
-        Task AddUserAssignment(UserAssingment userAssingment);
+        Task AddUserAssignment(UserAssignment userAssignment);
         Task<int> RemoveUserAssignment(Guid AssignmentId, Assignment assignment, string id, AppUser appUser);
         Task<int> ChangeStatusToInProgress(Guid AssignmentId);
-        Task<Guid> GetTeamByAssingmentId(Guid AssignmentId);
+        Task<Guid> GetTeamByAssignmentId(Guid AssignmentId);
     }
 }

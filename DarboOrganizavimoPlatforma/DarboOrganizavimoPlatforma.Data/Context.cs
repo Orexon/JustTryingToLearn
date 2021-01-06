@@ -17,7 +17,7 @@ namespace DarboOrganizavimoPlatforma.Data
         public DbSet<ATask> ATasks { get; set; }
         public DbSet<TeamUser> TeamUsers { get; set; }
         public DbSet<ProjectTeam> ProjectTeams { get; set; }
-        public DbSet<UserAssingment> UserAssingments { get; set; }
+        public DbSet<UserAssignment> UserAssignments { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -55,16 +55,16 @@ namespace DarboOrganizavimoPlatforma.Data
                 .HasForeignKey(pt => pt.TeamId);
 
             //AppUser To Assignment/Assignment To AppUser Relationship
-            builder.Entity<UserAssingment>()
-                .HasKey(ua => new { ua.AppUserId, ua.AssingmentId });
-            builder.Entity<UserAssingment>()
+            builder.Entity<UserAssignment>()
+                .HasKey(ua => new { ua.AppUserId, ua.AssignmentId });
+            builder.Entity<UserAssignment>()
                 .HasOne(ua => ua.AppUser)
                 .WithMany(au => au.UserAssignments)
                 .HasForeignKey(ua => ua.AppUserId);
-            builder.Entity<UserAssingment>()
+            builder.Entity<UserAssignment>()
                 .HasOne(ua => ua.Assignment)
                 .WithMany(a => a.UsersAssigned)
-                .HasForeignKey(ua => ua.AssingmentId);
+                .HasForeignKey(ua => ua.AssignmentId);
 
             //AppUser To Company/Company To AppUser Relationship
             builder.Entity<AppUser>()

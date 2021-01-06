@@ -11,10 +11,10 @@ namespace DarboOrganizavimoPlatforma.Domains
         public string AssignmentDescription { get; set; }
         public DateTime CreateTime { get; set; }
         public DateTime CompletedTime { get; set; }
-        public CompletionStatus AssingmentStatus { get; set; }
-        public ICollection<UserAssingment> UsersAssigned { get; set; }
+        public CompletionStatus AssignmentStatus { get; set; }
+        public ICollection<UserAssignment> UsersAssigned { get; set; }
         public Team Team { get; set; }
         public Guid TeamId { get; set; }
-        public List<ATask> AssingmentTasks { get; set; }
+        public List<ATask> AssignmentTasks { get; set; }
     }
 }

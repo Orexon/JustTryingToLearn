@@ -34,22 +34,22 @@ namespace DarboOrganizavimoPlatforma.Services
         //Gets ALL assignments of User.
         public async Task<List<Assignment>> GetUserAssignmentList(Guid UserId) 
         {
-            List<Assignment> userAssingments = await _context.UserAssingments.Include(x => x.AppUser).Where(e => e.AppUser.Id == UserId).Select(e => e.Assignment).ToListAsync();
-            return userAssingments;
+            List<Assignment> userAssignments = await _context.UserAssignments.Include(x => x.AppUser).Where(e => e.AppUser.Id == UserId).Select(e => e.Assignment).ToListAsync();
+            return userAssignments;
         }
         //Gets ALL assignments of User in a specific Team. 
         public async Task<List<Assignment>> GetUserTeamAssignmentList(Guid UserId, Guid TeamId) 
         {
-            List<Assignment> userTeamAssignments = await _context.UserAssingments.Include(x => x.Assignment).Where(x => x.Assignment.TeamId == TeamId && x.AppUserId == UserId).Select(e => e.Assignment).ToListAsync();
+            List<Assignment> userTeamAssignments = await _context.UserAssignments.Include(x => x.Assignment).Where(x => x.Assignment.TeamId == TeamId && x.AppUserId == UserId).Select(e => e.Assignment).ToListAsync();
             return userTeamAssignments;
         }
-        //Gets ALL Users assigned to a specific Assingment. 
+        //Gets ALL Users assigned to a specific Assignment. 
         public async Task<List<AppUser>> GetAssignmentUserList(Guid AssignmentId) 
         {
-            List<AppUser> AssignmentUsers = await _context.UserAssingments.Include(x => x.Assignment).Where(x => x.AssingmentId == AssignmentId).Include(x=>x.AppUser).Select(e => e.AppUser).ToListAsync();
+            List<AppUser> AssignmentUsers = await _context.UserAssignments.Include(x => x.Assignment).Where(x => x.AssignmentId == AssignmentId).Include(x=>x.AppUser).Select(e => e.AppUser).ToListAsync();
             return AssignmentUsers;
         }
-        //Gets all Users assigned to a specific Team but not assigned to a specific Assingment. 
+        //Gets all Users assigned to a specific Team but not assigned to a specific Assignment. 
         public async Task<List<AppUser>> GetListOfAvailableAssignmentUsers(Guid TeamId, Guid AssignmentId)
         {
             List<AppUser> teamMemberList = await _teamService.GetTeamsMemberList(TeamId);
@@ -59,16 +59,16 @@ namespace DarboOrganizavimoPlatforma.Services
             return availableAssignmentUsers;
         }
 
-        //Get all Assingments of a specific team.
-        public async Task<List<Assignment>> GetTeamAssingments(Guid TeamId) 
+        //Get all Assignments of a specific team.
+        public async Task<List<Assignment>> GetTeamAssignments(Guid TeamId) 
         {
-            return await _context.Assignments.Include(x=>x.Team).Where(x => x.Team.TeamId == TeamId).ToListAsync();
+            return await _context.Assignments.Include(x=>x.Team).Include(x=>x.UsersAssigned).Where(x => x.Team.TeamId == TeamId).ToListAsync();
         }
 
         //Single Assignment by Id
         public async Task<Assignment> GetAssignmentById(Guid id)
         {
-            return await _context.Assignments.FirstOrDefaultAsync(m => m.AssignmentId == id);
+            return await _context.Assignments.Include(x=>x.Team).Include(x=>x.UsersAssigned).FirstOrDefaultAsync(m => m.AssignmentId == id);
         }
 
         //Single Assignment by Id Overloaded.
@@ -97,29 +97,29 @@ namespace DarboOrganizavimoPlatforma.Services
         }
 
         //Add new UserAssignment. InOtherWords Assign User to an Assigment.
-        public async Task AddUserAssignment(UserAssingment userAssingment)
+        public async Task AddUserAssignment(UserAssignment userAssignment)
         {
-            _context.UserAssingments.Add(userAssingment);
+            _context.UserAssignments.Add(userAssignment);
             await _context.SaveChangesAsync();
         }
         //Remove UserAssignment. InOtherWords Remove User from an Assigment.
         public async Task<int> RemoveUserAssignment(Guid AssignmentId, Assignment assignment, string id, AppUser appUser)
         {
             Guid userIdGuid = Guid.Parse(id);
-            UserAssingment userAssingment = _context.UserAssingments.Where(x => x.AssingmentId == AssignmentId && x.Assignment == assignment && x.AppUserId == userIdGuid && x.AppUser == appUser).FirstOrDefault();
-            _context.UserAssingments.Remove(userAssingment);
+            UserAssignment userAssignment = _context.UserAssignments.Where(x => x.AssignmentId == AssignmentId && x.Assignment == assignment && x.AppUserId == userIdGuid && x.AppUser == appUser).FirstOrDefault();
+            _context.UserAssignments.Remove(userAssignment);
             return await _context.SaveChangesAsync();
         }
         //Change status to In Progress.
         public async Task<int> ChangeStatusToInProgress(Guid AssignmentId) //
         {
             Assignment assignment = await GetAssignmentById(AssignmentId);
-            assignment.AssingmentStatus = CompletionStatus.InProgress;
+            assignment.AssignmentStatus = CompletionStatus.InProgress;
             return await _context.SaveChangesAsync();
         }
 
         //Get TeamID if only have assignment id. 
-        public async Task<Guid> GetTeamByAssingmentId(Guid AssignmentId)
+        public async Task<Guid> GetTeamByAssignmentId(Guid AssignmentId)
         {
             Assignment assignment = await GetAssignmentById(AssignmentId);
             Guid TeamId = await _context.Teams.Include(x => x.TeamAssignments).Where(x => x.TeamAssignments.Contains(assignment)).Select(e => e.TeamId).FirstOrDefaultAsync();

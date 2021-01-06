@@ -15,7 +15,6 @@ namespace DarboOrganizavimoPlatforma.Services
     {
         private readonly Context _context;
         private readonly ICompanyService _companyService;
-        //private readonly IAssignmentService _assingmentService;
 
         public TeamService(Context context, ICompanyService companyService)
         {
@@ -35,7 +34,7 @@ namespace DarboOrganizavimoPlatforma.Services
 
         public async Task<Team> GetTeamById(Guid id)
         {
-            return await _context.Teams.FirstOrDefaultAsync(m => m.TeamId == id);
+            return await _context.Teams.Include(x=>x.Company).FirstOrDefaultAsync(m => m.TeamId == id);
         }
 
         public async Task<Team> GetTeamById(string id)

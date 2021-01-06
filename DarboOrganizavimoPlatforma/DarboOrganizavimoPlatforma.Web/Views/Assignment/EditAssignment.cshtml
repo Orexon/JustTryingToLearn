@@ -11,7 +11,7 @@
 <hr />
 <div class="row">
     <div class="col-md-6">
-        <form asp-controller="Assignment" asp-action="EditAssignment">
+        <form asp-controller="Assignment" asp-route-AssignmentId="@Model.AssignmentId" asp-action="EditAssignment">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="AssignmentName" class="control-label"></label>
@@ -24,11 +24,11 @@
                 <span asp-validation-for="AssignmentDescription" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AssingmentStatus">Select Assignment Status</label>
-                <select class="form-control" asp-for="AssingmentStatus" asp-items="Html.GetEnumSelectList<CompletionStatus>()">
+                <label asp-for="AssignmentStatus">Select Assignment Status</label>
+                <select class="form-control" asp-for="AssignmentStatus" asp-items="Html.GetEnumSelectList<CompletionStatus>()">
                     <option selected></option>
                 </select>
-                <span asp-validation-for="AssingmentStatus" class="text-danger"></span>
+                <span asp-validation-for="AssignmentStatus" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
@@ -44,7 +44,7 @@
 }
 else
 {
-    <a asp-controller="Assignment" asp-action="GetTeamAssingments" class="btn btn-primary" style="width:auto">Back to Team Assignment List</a>
+    <a asp-controller="Assignment" asp-route-TeamId="@Model.TeamId" asp-action="GetTeamAssignmentList" class="btn btn-primary" style="width:auto">Back to Team Assignment List</a>
 }
 
 
