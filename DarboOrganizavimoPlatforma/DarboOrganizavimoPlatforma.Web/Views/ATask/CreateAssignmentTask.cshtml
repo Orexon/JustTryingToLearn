@@ -1,0 +1,92 @@
+﻿@model DarboOrganizavimoPlatforma.Web.Models.NewAssignmentTaskViewModel
+@using DarboOrganizavimoPlatforma.Domains
+
+@{
+    ViewData["Title"] = "AssignUsersToAssignment";
+}
+
+<h1>Add a new Task for Assignment</h1>
+<hr />
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <form class="col-12" asp-controller="ATask" asp-route-AssignmentId="@Model.AssignmentId" asp-action="CreateAssignmentTask">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row">
+                    <div class="form-group col-6 mb-1">
+                        <label asp-for="Title" class="control-label"></label>
+                        <input asp-for="Title" class="form-control" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-6 mb-1">
+                        <label asp-for="ATaskStatus">Select Assignment Status</label>
+                        <select class="form-control" asp-for="ATaskStatus" asp-items="Html.GetEnumSelectList<CompletionStatus>()">
+                            <option selected></option>
+                        </select>
+                        <span asp-validation-for="ATaskStatus" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-12 mb-1">
+                        <label asp-for="Description" class="control-label"></label>
+                        <textarea asp-for="Description" class="form-control" rows="2"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="add" class="btn btn-primary" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    @if (Model.AssignmentTasks.Count > 0)
+    {
+        <div class="row">
+            <div class="col-12">
+                @foreach (var item in Model.AssignmentTasks)
+                {
+                    <div class="card col-12 mb-2">
+                        <div class="row card-header">
+                            <p class="col-10">@item.Assignment.AssignmentName Task</p>
+                            <p class="col-2 badge badge-pill badge-success">@item.ATaskStatus</p>
+                        </div>
+                        <div class="card-body row col-12">
+                            <header class="card-title col-12">@item.Title</header>
+                            <p class="card-text col-12">@item.Description</p>
+                        </div>
+                        <div class="row card-footer">
+                            <p class="col-10">@item.WrittenBy at @item.CreateTime</p>
+                            <div class="col-2 float-right">
+                                <button class="btn btn-danger btn-sm mr-1" asp-controller="ATask" asp-action="DeleteTask" asp-route-id="@item.ATaskId">Delete</button>
+                                <button class="btn btn-info btn-sm" asp-controller="ATask" asp-action="Edit" asp-route-id="@item.ATaskId">Edit</button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="col-12 card">
+            <div class="card-body">
+                <p class="text-center">Currently the assginment has no Tasks</p>
+            </div>
+        </div>
+    }
+</div>
+<div>
+    <a class="btn btn-primary" asp-route-TeamId="@Model.AssignmentTeamId" asp-controller="Assignment" asp-action="GetTeamAssignmentList">Back to Teams Assignment List</a>
+</div>
+
+
+
+@section Scripts
+{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

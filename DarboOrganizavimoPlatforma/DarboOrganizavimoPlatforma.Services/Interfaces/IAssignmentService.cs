@@ -24,5 +24,6 @@ namespace DarboOrganizavimoPlatforma.Services.Interfaces
         Task<int> RemoveUserAssignment(Guid AssignmentId, Assignment assignment, string id, AppUser appUser);
         Task<int> ChangeStatusToInProgress(Guid AssignmentId);
         Task<Guid> GetTeamByAssignmentId(Guid AssignmentId);
+        Task<List<ATask>> GetAssignmentTasks(Guid assignmentId);
     }
 }

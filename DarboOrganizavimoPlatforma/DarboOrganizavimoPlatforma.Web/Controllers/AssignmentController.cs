@@ -92,7 +92,6 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             return View(model);
         }
 
-
         // GET: Manager Assignment Create when Team Is Selected.
         [HttpGet]
         public IActionResult CreateTeamAssignment(Guid TeamId)

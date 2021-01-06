@@ -125,5 +125,12 @@ namespace DarboOrganizavimoPlatforma.Services
             Guid TeamId = await _context.Teams.Include(x => x.TeamAssignments).Where(x => x.TeamAssignments.Contains(assignment)).Select(e => e.TeamId).FirstOrDefaultAsync();
             return TeamId;
         }
+
+        public async Task<List<ATask>> GetAssignmentTasks(Guid assignmentId)
+        {
+            Assignment assignment = await GetAssignmentById(assignmentId);
+            List<ATask> assignmentTasks = assignment.AssignmentTasks;
+            return assignmentTasks;
+        }
     }
 }

@@ -109,10 +109,7 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
                 if (result.Succeeded)
                 {
                     await _userManager.AddToRoleAsync(newUser, model.UserRole);
-                    //company.AppUsers.Add(newUser);  
                 }
-                //await _companyService.AddUserToCompany(company, newUser);
-
                 return RedirectToAction("CompanyMemberList");
             }
             return View("~/Views/Manager/CreateUser.cshtml", model);
