@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DarboOrganizavimoPlatforma.Domains;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -13,9 +14,12 @@ namespace DarboOrganizavimoPlatforma.Web.Models
         [StringLength(30)]
         [DisplayName("Assignment Name")]
         public string AssignmentName { get; set; }
+
         [Required(ErrorMessage = "The Assignment requires a Description")]
         [StringLength(200)]
         [DisplayName("Assignment Description")]
         public string AssignmentDescription { get; set; }
+        [Required(ErrorMessage = "Please select A Team")]
+        public Guid TeamId { get; set; }
     }
 }

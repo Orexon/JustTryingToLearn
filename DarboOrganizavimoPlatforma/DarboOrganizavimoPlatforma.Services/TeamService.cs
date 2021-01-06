@@ -15,6 +15,7 @@ namespace DarboOrganizavimoPlatforma.Services
     {
         private readonly Context _context;
         private readonly ICompanyService _companyService;
+        //private readonly IAssignmentService _assingmentService;
 
         public TeamService(Context context, ICompanyService companyService)
         {
@@ -26,6 +27,7 @@ namespace DarboOrganizavimoPlatforma.Services
         {
             return await _context.Teams.Include(x => x.Company).ToListAsync();
         }
+
         public List<Team> GetTeamsList()  //Synchronous
         {
             return _context.Teams.ToList();
@@ -35,11 +37,13 @@ namespace DarboOrganizavimoPlatforma.Services
         {
             return await _context.Teams.FirstOrDefaultAsync(m => m.TeamId == id);
         }
+
         public async Task<Team> GetTeamById(string id)
         {
             Guid guidid = Guid.Parse(id);
             return await _context.Teams.FirstOrDefaultAsync(m => m.TeamId == guidid);
         }
+
         public async Task<Team> GetTeamByUserId(string id)
         {
             Guid guidid = Guid.Parse(id);
@@ -60,18 +64,13 @@ namespace DarboOrganizavimoPlatforma.Services
 
         public async Task<List<AppUser>> GetListOfAvailableTeamUsers(Guid id, Guid companyId)
         {
-            //Team team = await GetTeamById(id);
-            //Guid companyId = team.Company.CompanyId; Neleidzia. Pasikartojantis error, Company null. 
-
             List<AppUser> companyMemberList = await _companyService.GetCompanyMembersList(companyId);
             List<AppUser> teamMembersList = await GetTeamsMemberList(id);
-
             List<AppUser> availableTeamUsers = companyMemberList.Except(teamMembersList).ToList();
 
             //Workaourd to comparing complex lists. 
             //List<Guid> comparableIds = companyMemberList.Select(c => c.Id).Except(teamMembersList.Select(c => c.Id));
             //List<AppUser> availableTeamUsers = companyMemberList.Where(c => comparableIds.Contains(c.Id));
-
             return availableTeamUsers;
         }
         public async Task<List<Team>> GetCompanyTeams(Guid id) //Async
@@ -112,5 +111,6 @@ namespace DarboOrganizavimoPlatforma.Services
             _context.TeamUsers.Remove(teamUser);
             return await _context.SaveChangesAsync();
         }
+
     }
 }

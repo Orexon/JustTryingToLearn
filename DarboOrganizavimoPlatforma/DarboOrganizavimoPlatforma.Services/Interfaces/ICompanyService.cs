@@ -15,7 +15,7 @@ namespace DarboOrganizavimoPlatforma.Services.Interfaces
         Task<Company> GetCompanyById(string id);
         Task<Company> FindCompanyById(Guid id);
         Task NewCompany(Company newCompany);
-        Task AddUserToCompany(Company company, AppUser newUser);
+        Task AddUserToCompany(Company company);
         Task<int> EditCompany(Company company);
         Task<int> DeleteCompany(Company company);
     }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DarboOrganizavimoPlatforma.Services.Interfaces
 {
-    public interface ITeamService 
+    public interface ITeamService
     {
         Task<List<Team>> GetTeams();
         List<Team> GetTeamsList();
@@ -19,6 +19,6 @@ namespace DarboOrganizavimoPlatforma.Services.Interfaces
         Task AddTeamUser(TeamUser teamUser);
         Task<int> EditTeam(Team team);
         Task<int> DeleteTeam(Team team);
-        Task<int> RemoveTeamUser(Guid teamid,Team team, string id, AppUser appUser);
+        Task<int> RemoveTeamUser(Guid teamid, Team team, string id, AppUser appUser);
     }
 }

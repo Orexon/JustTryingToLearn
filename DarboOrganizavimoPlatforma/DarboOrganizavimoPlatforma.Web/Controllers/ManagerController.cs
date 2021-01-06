@@ -352,23 +352,6 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             return RedirectToAction("AddTeamMember", "Manager", new { @id = teamid });
         }
 
-
-        //[HttpPost]
-        //public async Task<IActionResult> RemoveUserFromTeam(RemoveFromTeamViewModel model)
-        //{
-        //    var thisviewmodel = new RemoveFromTeamViewModel
-        //    {
-        //        Id = model.Id,
-        //        TeamId = model.TeamId
-        //    };
-
-        //    Guid guidid = Guid.Parse(model.Id);
-        //    TeamUser teamUser = await _context.TeamUsers.FindAsync(model.TeamId, guidid);
-
-        //    await _teamService.RemoveTeamUser(teamUser);
-        //    return RedirectToAction("AddTeamMember", "Manager");
-        //}
-
         //Manager(CurrentUserCompany, SelectFromCompanyUsers, SelectFromCompanyTeams,ADD) TeamLeader(Select from CompanyUsers, add to Team. Cannot Create TEAMs or browse teams.)
         //Add a member to a team, 2 tables - one with member select, another with current team member list, refreshes the page with the model once added, and shows current teams members
 

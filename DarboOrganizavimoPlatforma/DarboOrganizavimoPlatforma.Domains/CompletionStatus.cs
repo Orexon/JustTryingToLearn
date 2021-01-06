@@ -6,9 +6,8 @@ namespace DarboOrganizavimoPlatforma.Domains
 {
     public enum CompletionStatus
     {
-        ToDo,
-        InProgress,
-        OnHold,
-        Done,
+        ToDo = 0,
+        InProgress = 1,
+        Done = 2
     }
 }

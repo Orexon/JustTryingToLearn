@@ -6,9 +6,12 @@
 
 <h1>Team List</h1>
 
-<p>
-    <a asp-controller="Manager" asp-action="CreateTeam">Create New</a>
-</p>
+<div class="container">
+    <div class="col-6">
+        <a class="btn btn-success" asp-controller="Manager" asp-action="CreateTeam"> Create New Team</a>
+        <a class="btn btn-success" asp-controller="Assignment" asp-action="CreateAssignment"> Create New Team Assignment</a>
+    </div>
+</div>
 <table class="table">
     <thead>
         <tr>
@@ -19,10 +22,10 @@
                 @Html.DisplayNameFor(model => model.TeamDescription)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CreateTime)
+                View/Add Members
             </th>
             <th>
-                View/Add Members
+                Team Assignments
             </th>
             <th>
                 Manage Team
@@ -40,10 +43,10 @@
                     @Html.DisplayFor(modelItem => item.TeamDescription)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CreateTime)
+                    <a class="btn btn-secondary" asp-controller="Manager" asp-action="AddTeamMember" asp-route-id="@item.TeamId">View/Add</a>
                 </td>
                 <td>
-                    <a class="btn btn-secondary" asp-controller="Manager" asp-action="AddTeamMember" asp-route-id="@item.TeamId">View/Add</a>
+                    <a class="btn btn-secondary" asp-controller="Assignment" asp-action="GetTeamAssignmentList" asp-route-TeamId="@item.TeamId">View/Add</a>
                 </td>
                 <td>
                     <a class="btn btn-success" asp-controller="Teams" asp-action="EditTeam" asp-route-id="@item.TeamId">Edit</a> |

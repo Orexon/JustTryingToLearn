@@ -194,9 +194,6 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("AppUserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid?>("CompanyId")
                         .HasColumnType("uniqueidentifier");
 
@@ -210,8 +207,6 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ProjectId");
-
-                    b.HasIndex("AppUserId");
 
                     b.HasIndex("CompanyId");
 
@@ -451,10 +446,6 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
 
             modelBuilder.Entity("DarboOrganizavimoPlatforma.Domains.Project", b =>
                 {
-                    b.HasOne("DarboOrganizavimoPlatforma.Domains.AppUser", null)
-                        .WithMany("CompanyTeamMembers")
-                        .HasForeignKey("AppUserId");
-
                     b.HasOne("DarboOrganizavimoPlatforma.Domains.Company", "Company")
                         .WithMany("CompanyProjects")
                         .HasForeignKey("CompanyId");
