@@ -92,6 +92,42 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             return View(model);
         }
 
+
+        // GET: Manager Assignment Create when Team Is Selected.
+        [HttpGet]
+        public IActionResult CreateTeamAssignment(Guid TeamId)
+        {
+            var newTeamAssignmentViewModel = new NewTeamAssignmentViewModel
+            {
+                CurrentTeamId = TeamId
+            };
+            return View(newTeamAssignmentViewModel);
+        }
+
+        //POST: Manager Company/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateTeamAssignment(NewTeamAssignmentViewModel model, Guid TeamId)
+        {
+            if (ModelState.IsValid)
+            {
+                Assignment newAssignment = new Assignment
+                {
+                    AssignmentName = model.AssignmentName,
+                    AssignmentDescription = model.AssignmentDescription,
+                    CreateTime = DateTime.Now,
+                    AssignmentStatus = CompletionStatus.ToDo, // = 0
+                    AssignmentTasks = new List<ATask>(),
+                    TeamId = TeamId,
+                    Team = await _teamService.GetTeamById(TeamId)
+                };
+                await _assignmentService.NewAssignment(newAssignment);
+
+                return RedirectToAction("GetTeamAssignmentList", new { TeamId });
+            }
+            return View(model);
+        }
+
         //Edit Assignment //Change State.
         [HttpGet]
         public async Task<IActionResult> EditAssignment(Guid AssignmentId)
