@@ -179,9 +179,6 @@ namespace DarboOrganizavimoPlatforma.Data
                 SecurityStamp = "IHDXOW62GL33UAOIJKMU6JBSKSBC63JJ"
             };
 
-            //set user password
-            
-
             //seed user
             builder.Entity<AppUser>().HasData(appUser);
 

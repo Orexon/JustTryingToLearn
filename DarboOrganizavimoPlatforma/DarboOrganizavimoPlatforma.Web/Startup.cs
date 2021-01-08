@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -32,8 +33,6 @@ namespace DarboOrganizavimoPlatforma.Web
         public void ConfigureServices(IServiceCollection services)
         {
 
-
-            //services.AddSession();
             //Require Authentication to all Controllers by default.
             services.AddControllersWithViews(o =>
             {
@@ -42,7 +41,8 @@ namespace DarboOrganizavimoPlatforma.Web
                     .Build();
                 o.Filters.Add(new AuthorizeFilter(policy));
             });
-            services.AddDbContext<Context>();
+
+            services.AddDbContext<Context>(options => options.UseSqlServer(Configuration.GetConnectionString("DOPDefaultConnection")));
             services.AddIdentity<AppUser, IdentityRole<Guid>>().AddEntityFrameworkStores<Context>().AddDefaultTokenProviders().AddUserStore<UserStore<AppUser, IdentityRole<Guid>, Context, Guid>>().AddRoleStore<RoleStore<IdentityRole<Guid>, Context, Guid>>();
             services.AddTransient<ICompanyService, CompanyService>();
             services.AddTransient<ITeamService, TeamService>();
