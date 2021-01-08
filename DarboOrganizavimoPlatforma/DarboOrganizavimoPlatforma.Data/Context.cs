@@ -19,10 +19,17 @@ namespace DarboOrganizavimoPlatforma.Data
         public DbSet<ProjectTeam> ProjectTeams { get; set; }
         public DbSet<UserAssignment> UserAssignments { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //Connection requires empty construction, on startup configures connection.
+        public Context(DbContextOptions<Context> options) : base(options)
         {
-            optionsBuilder.UseSqlServer("Server=DESKTOP-L95N66N;Database=DOP;Trusted_Connection=True;MultipleActiveResultSets=true");
+
         }
+
+        //Configured in starup.
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlServer("Server=DESKTOP-L95N66N;Database=DOP;Trusted_Connection=True;MultipleActiveResultSets=true");
+        //}
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
