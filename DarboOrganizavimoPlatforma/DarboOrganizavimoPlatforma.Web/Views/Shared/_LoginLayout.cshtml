@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewData["Title"] - DarboOrganizavimoPlatforma/WOP LoginPage</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="~/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="~/css/signin.css" rel="stylesheet">
+    @RenderSection("Styles", false)
+    @RenderSection("Scripts", false)
+</head>
+<body class="text-center">
+    <div class="container">
+        <main role="main">
+            @RenderBody()
+        </main>
+    </div>
+
+    <!-- jquery-validation -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="../../plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script src="../../plugins/jquery-validation/additional-methods.min.js"></script>
+</body>
+</html>

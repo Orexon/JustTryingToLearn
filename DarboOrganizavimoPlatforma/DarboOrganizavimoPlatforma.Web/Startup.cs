@@ -33,6 +33,7 @@ namespace DarboOrganizavimoPlatforma.Web
         {
             services.AddControllersWithViews(o =>
             {
+                //Add Authentication to all Controllers by default.
                 var policy = new AuthorizationPolicyBuilder()
                     .RequireAuthenticatedUser()
                     .Build();

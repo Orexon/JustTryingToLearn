@@ -3,50 +3,95 @@
 @{
     ViewData["Title"] = "GetUserList";
 }
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-6 col-sm-6">
+                    <h1>All User List</h1>
+                </div>
+                <div class="col-6 col-sm-3 offset-sm-3 text-right">
+                    <a asp-controller="Admin" asp-action="CreateUser" class="btn btn-primary" role="button">Add New User</a>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
 
-
-<div class="container row">
-    <div class="col-6">
-        <h2 class="text-info">User List</h2>
-    </div>
-    <div class="col-3 offset-3 text-right">
-        <a asp-controller="Admin" asp-action="CreateUser" class="btn btn-primary" role="button">Add New User</a>
-    </div>
-</div>
-
-<table class="table table-striped" id="table_id">
-    <thead>
-        <tr>
-            <th scope="col"> @Html.DisplayNameFor(model => model.User.UserName)</th>
-            <th scope="col"> @Html.DisplayNameFor(model => model.User.Email)</th>
-            <th scope="col"> @Html.DisplayNameFor(model => model.User.MemberName)</th>
-            <th scope="col"> Company</th>
-            <th scope="col"> @Html.DisplayNameFor(model => model.Roles)</th>
-            <th scope="col"> Manage Roles</th>
-            <th scope="col"> Manage User</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-        <tr>
-            <td>@Html.DisplayFor(modelItem => item.User.UserName)</td>
-            <td>@Html.DisplayFor(modelItem => item.User.Email)</td>
-            <td>@Html.DisplayFor(modelItem => item.User.MemberName)</td>
-            <td>@Html.DisplayFor(modelItem => item.User.Company.CompanyName)</td>
-            <td>@string.Join(" , ", item.Roles.ToList())</td>
-            <td>
-                <a class="btn btn-primary" asp-controller="UserRoles" asp-action="Manage" asp-route-userId="@item.UserId">Manage Roles</a>
-            </td>
-            <td>
-                <a class="btn btn-success" asp-action="EditUser" asp-controller="Admin" asp-route-id="@item.User.Id">Edit</a> |
-                <a class="btn btn-info" asp-action="UserDetails" asp-route-id="@item.User.Id">Details</a> |
-                <button id="modalDeleteButton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" data-id="@item.User.Id">Delete</button>
-            </td>
-        </tr>
-        }
-    </tbody>
-</table>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card mt-2">
+                        <div class="card-header">
+                            <h3 class="card-title">DataTable with default features</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table id="example1" class="table table-bordered table-hover">
+                                <!-- /Table-Header -->
+                                <thead>
+                                    <tr>
+                                        <th> @Html.DisplayNameFor(model => model.User.UserName)</th>
+                                        <th> @Html.DisplayNameFor(model => model.User.Email)</th>
+                                        <th> Company</th>
+                                        <th> @Html.DisplayNameFor(model => model.Roles)</th>
+                                        <th> Manage Roles</th>
+                                        <th> Edit</th>
+                                        <th> Details </th>
+                                        <th> Delete</th>
+                                    </tr>
+                                </thead>
+                                <!-- /Table-Body -->
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@Html.DisplayFor(modelItem => item.User.UserName)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.User.Email)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.User.Company.CompanyName)</td>
+                                            <td>@string.Join(" , ", item.Roles.ToList())</td>
+                                            <td>
+                                                <a class="btn btn-primary" asp-controller="UserRoles" asp-action="Manage" asp-route-userId="@item.UserId">Manage Roles</a>
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-success" asp-action="EditUser" asp-controller="Admin" asp-route-id="@item.User.Id">Edit</a>
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-info" asp-action="UserDetails" asp-route-id="@item.User.Id">Details</a>
+                                            </td>
+                                            <td>
+                                                <button id="modalDeleteButton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" data-id="@item.User.Id">Delete</button>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                                <!-- /Table-footer -->
+                                <tfoot>
+                                    <tr>
+                                        <th> @Html.DisplayNameFor(model => model.User.UserName)</th>
+                                        <th> @Html.DisplayNameFor(model => model.User.Email)</th>
+                                        <th> Company</th>
+                                        <th> @Html.DisplayNameFor(model => model.Roles)</th>
+                                        <th> Manage Roles</th>
+                                        <th> Edit</th>
+                                        <th> Details </th>
+                                        <th> Delete</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
 
 <div class="modal fade" data-backdrop="static" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -83,6 +128,14 @@
                         location.reload();
                     });
             })
+        });
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         });
     </script>
 }

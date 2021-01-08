@@ -1,4 +1,5 @@
-﻿@using Microsoft.AspNetCore.Identity
+﻿
+@using Microsoft.AspNetCore.Identity
 @using DarboOrganizavimoPlatforma.Domains
 
 @inject SignInManager<AppUser> SignInManager
@@ -9,21 +10,16 @@
 }
 @if (User.Identity.IsAuthenticated)
 {
-    <div class="navbar-right">
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-                <p>Hello @User.Identity.Name! </p>
+        <ul class="nav navbar-nav navbar-right ml-auto">
+            <li class="nav-item">
+                <i class="fas fa-user-alt"></i>
+                <p>@User.Identity.Name</p>
             </li>
-            <li>
-                <a asp-controller="Auth" asp-action="Logout" class="btn btn-link navbar-btn navbar-link">Logout</a>
+            <li class="nav-item">
+                <a asp-controller="Auth" asp-action="Logout" class="btn btn-link navbar-btn navbar-link">
+                    <i class="fa fa-sign-out-alt"></i>
+                    <p>Logout</p>
+                </a>
             </li>
         </ul>
-    </div>
 }
-else
-{
-    <ul class="nav navbar-nav navbar-right">
-        <li><a asp-controller="Auth" asp-action="Login">Login</a></li>
-    </ul>
-}
-
