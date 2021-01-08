@@ -46,7 +46,8 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
                 }
                 return RedirectToAction("Index", "Home");
             }
-            return View();
+            ViewBag.AuthError = "Invalid login data";
+            return View("~/Views/Auth/Login.cshtml", model);
         }
 
         public async Task<IActionResult> Logout()

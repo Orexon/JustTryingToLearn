@@ -8,12 +8,6 @@
 }
 
 <form class="form-signin text-center" id="quickForm" method="post" asp-controller="Auth" asp-action="Login" asp-route-returnUrl="@ViewData["returnUrl"]" asp-antiforgery="true">
-    @if (ViewBag.AuthError != null)
-    {
-        <div class="alert alert-danger" role="alert">
-            @ViewBag.AuthError
-        </div>
-    }
     <img class="mb-1" src="~/images/WOPSloganpng.png" alt="WopLogo&Slogan" width="200" height="100">
     <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -29,6 +23,12 @@
     </div>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
     <p id="text1" class="mt-5 mb-3 text-muted">&copy; 2020-2021</p>
+    @if (ViewBag.AuthError != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @ViewBag.AuthError
+        </div>
+    }
 </form>
 
 @section Scripts

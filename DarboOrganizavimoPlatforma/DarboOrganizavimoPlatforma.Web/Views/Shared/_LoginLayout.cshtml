@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using DarboOrganizavimoPlatforma.Domains
+
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -10,7 +15,7 @@
     <!-- Custom styles for this template -->
     <link href="~/css/signin.css" rel="stylesheet">
     @RenderSection("Styles", false)
-    @RenderSection("Scripts", false)
+    @RenderSection("Scripts")
 </head>
 <body class="text-center">
     <div class="container">

@@ -19,13 +19,11 @@ namespace DarboOrganizavimoPlatforma.Data
         public DbSet<ProjectTeam> ProjectTeams { get; set; }
         public DbSet<UserAssignment> UserAssignments { get; set; }
 
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Server=DESKTOP-L95N66N;Database=DOP;Trusted_Connection=True;MultipleActiveResultSets=true");
         }
 
-        // make Delete+- foreach user in List<appuser> remove from list. if list is empty. Delete. 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -98,7 +96,7 @@ namespace DarboOrganizavimoPlatforma.Data
             //    .HasOne(e => e.Project)
             //    .WithMany(e => e.ProjectTeams);
 
-            //Database table names
+            //Database default table name change
             builder.HasDefaultSchema("Identity");
             builder.Entity<AppUser>(b =>
             {
@@ -135,6 +133,63 @@ namespace DarboOrganizavimoPlatforma.Data
             builder.Entity<IdentityUserToken<Guid>>(entity =>
             {
                 entity.ToTable("UserTokens");
+            });
+
+
+            //Admin Seed 
+            Guid ADMIN_ID = Guid.NewGuid();
+            Guid ADMIN_ROLE = Guid.NewGuid();
+            Guid COMPANY_ID = Guid.NewGuid();
+
+            //seed admin role
+
+            builder.Entity<IdentityRole<Guid>>().HasData(new IdentityRole<Guid>
+            {
+                Name = "Admin",
+                NormalizedName = "ADMIN",
+                Id = ADMIN_ROLE,
+                ConcurrencyStamp = "27747190-7b7d-453d-ba7b-5bfa31119160"
+            });
+
+            //Create admin company
+            var company = new Company
+            {
+                CompanyId = COMPANY_ID,
+                CompanyName = "Admin Company",
+                CompanyDescription = "Admin Company",
+                CreateTime = DateTime.Now
+            };
+
+            //seed user
+            builder.Entity<Company>().HasData(company);
+
+            //create user
+            var appUser = new AppUser
+            {
+                Id = ADMIN_ID,
+                CompanyId = COMPANY_ID,
+                Email = "admin@admin.com",
+                NormalizedEmail = "ADMIN@ADMIN.COM",
+                EmailConfirmed = true,
+                UserName = "admin@admin.com",
+                NormalizedUserName = "ADMIN@ADMIN.COM",
+                PasswordHash = "AQAAAAEAACcQAAAAEOpvPVTNsK5osJyR0T+4qh/+6m4CKrv7u+KH+rrB+ptHxAyVknaIysUmJm/UTPOhkw==",
+                ConcurrencyStamp = "27747190-7b7d-453d-ba7b-5bfa31119160",
+                MemberName = "Mindaugas",
+                SecurityStamp = "IHDXOW62GL33UAOIJKMU6JBSKSBC63JJ"
+            };
+
+            //set user password
+            
+
+            //seed user
+            builder.Entity<AppUser>().HasData(appUser);
+
+            //set user role to admin
+            builder.Entity<IdentityUserRole<Guid>>().HasData(new IdentityUserRole<Guid>
+            {
+                RoleId = ADMIN_ROLE,
+                UserId = ADMIN_ID
             });
         }
     }

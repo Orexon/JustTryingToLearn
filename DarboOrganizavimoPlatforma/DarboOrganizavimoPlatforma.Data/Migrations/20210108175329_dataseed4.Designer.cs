@@ -4,14 +4,16 @@ using DarboOrganizavimoPlatforma.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DarboOrganizavimoPlatforma.Data.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20210108175329_dataseed4")]
+    partial class dataseed4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -139,20 +141,16 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("a3f06181-f2b5-443d-95b2-458967b76e59"),
+                            Id = new Guid("c29d312c-a35b-483f-98ad-4e0ba2da51c6"),
                             AccessFailedCount = 0,
-                            CompanyId = new Guid("4ab0289a-485b-4cff-8da2-17e6b2ef7538"),
-                            ConcurrencyStamp = "27747190-7b7d-453d-ba7b-5bfa31119160",
+                            CompanyId = new Guid("5d60a334-7e82-4998-8d84-8849dc71c80e"),
+                            ConcurrencyStamp = "f39bf4c8-7b52-4c0f-be15-2a974260a384",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             JoinDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LockoutEnabled = false,
-                            MemberName = "Mindaugas",
-                            NormalizedEmail = "ADMIN@ADMIN.COM",
-                            NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOpvPVTNsK5osJyR0T+4qh/+6m4CKrv7u+KH+rrB+ptHxAyVknaIysUmJm/UTPOhkw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENbVpQ9nkwJwvOn9RH//p9U2jZvINiwR2feY1trHZ6bkhVupgmT+HUpGsy/yY5jPog==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "IHDXOW62GL33UAOIJKMU6JBSKSBC63JJ",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         });
@@ -214,11 +212,11 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
                     b.HasData(
                         new
                         {
-                            CompanyId = new Guid("4ab0289a-485b-4cff-8da2-17e6b2ef7538"),
+                            CompanyId = new Guid("5d60a334-7e82-4998-8d84-8849dc71c80e"),
                             CompanyDescription = "Admin Company",
                             CompanyMemberSize = 0,
                             CompanyName = "Admin Company",
-                            CreateTime = new DateTime(2021, 1, 8, 21, 23, 37, 725, DateTimeKind.Local).AddTicks(899)
+                            CreateTime = new DateTime(2021, 1, 8, 19, 53, 29, 394, DateTimeKind.Local).AddTicks(2033)
                         });
                 });
 
@@ -348,8 +346,8 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("d2d000b9-d719-40f5-a528-903a7ff75351"),
-                            ConcurrencyStamp = "27747190-7b7d-453d-ba7b-5bfa31119160",
+                            Id = new Guid("b388b16b-1f80-48de-ab8f-e45164e4fc1c"),
+                            ConcurrencyStamp = "1e5bc67b-ed97-4dfe-acb7-6376ea2aeb67",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -439,8 +437,8 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = new Guid("a3f06181-f2b5-443d-95b2-458967b76e59"),
-                            RoleId = new Guid("d2d000b9-d719-40f5-a528-903a7ff75351")
+                            UserId = new Guid("c29d312c-a35b-483f-98ad-4e0ba2da51c6"),
+                            RoleId = new Guid("b388b16b-1f80-48de-ab8f-e45164e4fc1c")
                         });
                 });
 

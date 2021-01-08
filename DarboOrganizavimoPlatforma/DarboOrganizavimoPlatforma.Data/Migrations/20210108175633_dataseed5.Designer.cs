@@ -4,14 +4,16 @@ using DarboOrganizavimoPlatforma.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DarboOrganizavimoPlatforma.Data.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20210108175633_dataseed5")]
+    partial class dataseed5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -139,22 +141,18 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("a3f06181-f2b5-443d-95b2-458967b76e59"),
+                            Id = new Guid("ac2c8c23-130e-436d-96c0-6d7110aa5068"),
                             AccessFailedCount = 0,
-                            CompanyId = new Guid("4ab0289a-485b-4cff-8da2-17e6b2ef7538"),
-                            ConcurrencyStamp = "27747190-7b7d-453d-ba7b-5bfa31119160",
-                            Email = "admin@admin.com",
+                            CompanyId = new Guid("06051660-4eda-4bad-a63a-06f0fa38f3ab"),
+                            ConcurrencyStamp = "e44436fc-7ad3-4619-bd6f-cda903b2cc78",
+                            Email = "admin@admin",
                             EmailConfirmed = true,
                             JoinDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LockoutEnabled = false,
-                            MemberName = "Mindaugas",
-                            NormalizedEmail = "ADMIN@ADMIN.COM",
-                            NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOpvPVTNsK5osJyR0T+4qh/+6m4CKrv7u+KH+rrB+ptHxAyVknaIysUmJm/UTPOhkw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBLJPZ1L4AVjo7JH8l1O2QW1D3VxO6jm+Vk0FG1uCUCHMs6jNI9RDpwL5yb0sj/AEA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "IHDXOW62GL33UAOIJKMU6JBSKSBC63JJ",
                             TwoFactorEnabled = false,
-                            UserName = "admin@admin.com"
+                            UserName = "admin@admin"
                         });
                 });
 
@@ -214,11 +212,11 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
                     b.HasData(
                         new
                         {
-                            CompanyId = new Guid("4ab0289a-485b-4cff-8da2-17e6b2ef7538"),
+                            CompanyId = new Guid("06051660-4eda-4bad-a63a-06f0fa38f3ab"),
                             CompanyDescription = "Admin Company",
                             CompanyMemberSize = 0,
                             CompanyName = "Admin Company",
-                            CreateTime = new DateTime(2021, 1, 8, 21, 23, 37, 725, DateTimeKind.Local).AddTicks(899)
+                            CreateTime = new DateTime(2021, 1, 8, 19, 56, 33, 199, DateTimeKind.Local).AddTicks(7051)
                         });
                 });
 
@@ -348,8 +346,8 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("d2d000b9-d719-40f5-a528-903a7ff75351"),
-                            ConcurrencyStamp = "27747190-7b7d-453d-ba7b-5bfa31119160",
+                            Id = new Guid("dc7b7468-e167-4b09-830a-36ac5e3aa5b2"),
+                            ConcurrencyStamp = "8995dee6-fee9-4188-b935-e257212dc817",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -439,8 +437,8 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = new Guid("a3f06181-f2b5-443d-95b2-458967b76e59"),
-                            RoleId = new Guid("d2d000b9-d719-40f5-a528-903a7ff75351")
+                            UserId = new Guid("ac2c8c23-130e-436d-96c0-6d7110aa5068"),
+                            RoleId = new Guid("dc7b7468-e167-4b09-830a-36ac5e3aa5b2")
                         });
                 });
 

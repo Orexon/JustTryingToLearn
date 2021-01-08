@@ -5,6 +5,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20210108165255_dataseed.cs" />
+    <Compile Remove="Migrations\20210108165255_dataseed.Designer.cs" />
+    <Compile Remove="Migrations\20210108170048_dataseed.cs" />
+    <Compile Remove="Migrations\20210108170048_dataseed.Designer.cs" />
+    <Compile Remove="Migrations\20210108170401_dataseed.cs" />
+    <Compile Remove="Migrations\20210108170401_dataseed.Designer.cs" />
+    <Compile Remove="Migrations\20210108170538_dataseed.cs" />
+    <Compile Remove="Migrations\20210108170538_dataseed.Designer.cs" />
+    <Compile Remove="Migrations\20210108173054_dataseed1.cs" />
+    <Compile Remove="Migrations\20210108173054_dataseed1.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.10" />
   </ItemGroup>
