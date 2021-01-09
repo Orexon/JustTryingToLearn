@@ -420,3 +420,6 @@ C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\
 C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Web\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LoginPartial.cshtml.g.cs
 C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Web\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LoginLayout.cshtml.g.cs
 C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Web\obj\Debug\netcoreapp3.1\Razor\Views\Assignment\AdminCreateAssignment.cshtml.g.cs
+C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Web\obj\Debug\netcoreapp3.1\Razor\Views\ATask\EditTask.cshtml.g.cs
+C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Web\obj\Debug\netcoreapp3.1\Razor\Views\ATask\GetAllTasks.cshtml.g.cs
+C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Web\obj\Debug\netcoreapp3.1\Razor\Views\ATask\TaskDetails.cshtml.g.cs

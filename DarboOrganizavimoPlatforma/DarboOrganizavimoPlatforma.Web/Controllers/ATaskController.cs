@@ -40,11 +40,14 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             _assignmentService = assignmentService;
             _taskService = taskService;
         }
+
+        //Get All Tasks for Admin
         public async Task<IActionResult> GetAllTasks()
         {
             return View(await _taskService.GetTasks());
         }
 
+        //Create Task For Manager/User when viewing from assigment.
         [HttpGet]
         public async Task<IActionResult> CreateAssignmentTask(Guid assignmentId)
         {
@@ -88,15 +91,81 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
         }
 
 
+        [HttpGet]
+        public async Task<IActionResult> EditTask(Guid id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            ATask task = await _taskService.GetTaskById(id);
 
+            EditTaskViewModel model = new EditTaskViewModel()
+            {
+                Title = task.Title,
+                Description = task.Description,
+                ATaskStatus = task.ATaskStatus
+            };
+            return View(model);
+        }
 
-        //[HttpGet]
-        //public async Task<IActionResult> DeleteTask(Guid teamid, string id)
-        //{
-        //    AppUser appUser = await _userManager.FindByIdAsync(id);
-        //    Team team = await _teamService.GetTeamById(teamid);
-        //    await _teamService.RemoveTeamUser(teamid, team, id, appUser);
-        //    return RedirectToAction("AddTeamMember", "Manager", new { @id = teamid });
-        //}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditTask(Guid id, EditTaskViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                ATask task = await _taskService.GetTaskById(id);
+                AppUser currentUser = _userManager.GetUserAsync(User).Result;
+
+                task.Title = model.Title;
+                task.Description = model.Description;
+                task.ATaskStatus = model.ATaskStatus;
+                if (model.ATaskStatus == CompletionStatus.Done)
+                {
+                    task.CompleteTime = DateTime.Now;
+                }
+                await _taskService.EditTask(task);
+
+                if (await _userManager.IsInRoleAsync(currentUser, "Manager"))
+                {
+                    //IF MANAGER RETURN WHERE?
+                    return RedirectToAction("", "Manager");
+                }
+                //ELSE IF MEMBER/TEAM LEADER, return where.
+                return RedirectToAction("GetAllTasks", "ATask");
+            }
+            return View(model);
+        }
+
+        public async Task<IActionResult> TaskDetails(Guid id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            ATask aTask = await _taskService.GetTaskById(id);
+
+            if (aTask == null)
+            {
+                return NotFound();
+            }
+            return View(aTask);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteTask(Guid id)
+        {
+            AppUser currentUser = _userManager.GetUserAsync(User).Result;
+            ATask aTask = await _taskService.GetTaskById(id);
+            await _taskService.DeleteTask(aTask);
+
+            if (await _userManager.IsInRoleAsync(currentUser, "Manager"))
+            {
+                //IF MANAGER RETURN WHERE?
+                return RedirectToAction("", "Manager");
+            }
+            return RedirectToAction("GetAllTasks", "ATask");
+        }
     }
 }

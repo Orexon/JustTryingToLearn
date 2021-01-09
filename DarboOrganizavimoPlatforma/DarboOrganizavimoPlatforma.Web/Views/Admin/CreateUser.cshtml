@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Member Creation</h2>
+<h2>User Creation</h2>
 
 <form method="post" asp-controller="Admin" asp-action="CreateUser">
     <div class="form-group">
@@ -46,6 +46,9 @@
         </select>
         <span asp-validation-for="UserRole" class="text-danger"></span>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <div>
+        <a class="btn btn-secondary float-left" asp-controller="Admin" asp-action="GetUserList">Back to Users List</a>
+        <button type="submit" class="btn btn-success float-right">Submit</button>
+    </div>
 </form>
 

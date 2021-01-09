@@ -23,7 +23,7 @@ namespace DarboOrganizavimoPlatforma.Services
         //All Assignments for admin.
         public async Task<List<Assignment>> GetAssignments() //Async
         {
-            return await _context.Assignments.Include(x=>x.Team).ThenInclude(x => x.Company.CompanyName).Include(x => x.UsersAssigned).ToListAsync();
+            return await _context.Assignments.Include(x=>x.Team).ThenInclude(x => x.Company).Include(x => x.UsersAssigned).ToListAsync();
         }
         //All Assignments for admin.
         public List<Assignment> GetAssignmentList()  //Synchronous

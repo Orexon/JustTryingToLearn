@@ -1,0 +1,82 @@
+﻿@model DarboOrganizavimoPlatforma.Domains.ATask
+@using DarboOrganizavimoPlatforma.Domains
+@{
+    ViewData["Title"] = "Task Details";
+}
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Details</h1>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <!-- Default box -->
+    <div class="card card-solid">
+        <div class="card-body pb-0">
+            <div class="row d-flex align-items-stretch">
+                <div class="col-12 col-sm-8 col-md-8 d-flex align-items-stretch">
+                    <div class="card bg-light">
+                        <div class="card-header text-muted border-bottom-0">
+                            @Model.Assignment.AssignmentName
+                        </div>
+                        <div class="card-body pt-0">
+                            <div class="row">
+                                <div class="col-7">
+                                    <h2 class="lead"><b>Task @Model.Title</b></h2>
+                                    <p class="text-muted text-sm"><b>Description:</b> @Model.Description </p>
+                                    <ul class="ml-4 mb-0 fa-ul text-muted">
+                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-user "></i></span><p class="text-muted text-sm"><b>Written By:</b> @Model.WrittenBy</p></li>
+                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-clock"></i></span><p class="text-muted text-sm"><b>Create Time:</b> @Model.CreateTime</p></li>
+                                    </ul>
+                                </div>
+                                <div class="col-5">
+                                    <ul class="ml-4 mb-0 fa-ul text-muted">
+                                        <li class="small"><p class="text-muted text-sm"><b>Status:</b>@Model.ATaskStatus</p></li>
+                                        <li class="small"><p class="text-muted text-sm"><b>Complete Time:</b></p>
+                                            @if (@Model.ATaskStatus != CompletionStatus.Done)
+                                            { 
+                                                <p>tobeCompleted</p>
+                                            }else { <p>@Model.CompleteTime</p>}
+                                            </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="text-right">
+                                <a asp-controller="ATask" asp-action="EditTask" asp-route-id="@Model.ATaskId" class="btn btn-sm bg-teal">
+                                    <i class="fas fa-edit"></i>Edit
+                                </a>
+                                <a asp-controller="ATask" asp-action="DeleteTask" asp-route-id="@Model.ATaskId" class="btn btn-sm btn-danger">
+                                    <i class="fas fa-trash-alt"></i>Delete
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer">
+            @if (User.IsInRole("Admin"))
+            {
+                <a asp-controller="ATask" asp-action="GetAllTasks" class="btn btn-primary" style="width:auto">Back to Task List</a>
+            }
+            else
+            {
+                //if manager correct returns
+                <a asp-controller="Manager" asp-action="CompanyProjectList" class="btn btn-primary" style="width:auto">Back to // List</a>
+            }
+        </div>
+        <!-- /.card-footer -->
+    </div>
+    <!-- /.card -->
+</section>
+<!-- /.content -->

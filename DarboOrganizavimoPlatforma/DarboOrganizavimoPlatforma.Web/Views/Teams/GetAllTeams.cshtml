@@ -24,7 +24,7 @@
             <div class="col-12">
                 <div class="card mt-2">
                     <div class="card-header">
-                        <h3 class="card-title">All Teams</h3>
+                        <h3 class="card-title">Teams list</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -120,6 +120,14 @@
                         location.reload();
                     });
             })
+        });
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         });
     </script>
 }

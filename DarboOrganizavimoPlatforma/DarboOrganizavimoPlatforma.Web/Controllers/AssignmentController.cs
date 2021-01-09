@@ -54,51 +54,6 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             return View(await _assignmentService.GetTeamAssignments(TeamId));
         }
 
-        //Get Get Post// Get ID > Get Another Id > Post. With Create. // NEEDS REWORK
-        public async Task<ActionResult> AdminCreateAssignment()
-        {
-            //ViewBag.AllCompanies = new SelectList(await _companyService.GetCompanies(), "CompanyId", "CompanyName");
-            //ViewBag.AllCompanyTeams = new SelectList(await _teamService.GetCompanyTeams(CompanyId), "TeamId", "TeamName");
-
-            CascadingSelectViewModel model = new CascadingSelectViewModel();
-
-            List<Company> companies = await _companyService.GetCompanies();
-
-            foreach (Company company in companies)
-            {
-                model.Companies.Add(new SelectListItem { Text = company.CompanyName, Value = company.CompanyId.ToString() });
-            }
-            return View(model);
-        }
-
-        [HttpPost]
-        public async Task<ActionResult> AdminCreateAssignment(Guid? CompanyId, Guid? TeamId)
-        {
-            CascadingSelectViewModel model = new CascadingSelectViewModel();
-
-            List<Company> companies = await _companyService.GetCompanies();
-
-            foreach (Company company in companies)
-            {
-                model.Companies.Add(new SelectListItem { Text = company.CompanyName, Value = company.CompanyId.ToString() });
-            }
-
-            if (CompanyId.HasValue)
-            {
-                List<Team> teams = await _teamService.GetCompanyTeams(CompanyId);
-
-
-                foreach (Team team in teams)
-                {
-                    model.Teams.Add(new SelectListItem { Text = team.TeamName, Value = team.TeamId.ToString() });
-                }
-            }
-            return View(model);
-        }
-
-
-
-
         // GET: Manager Assignment/Create // Logic mistake.When entering directly - need fix. Select..when should get current team id.
         [HttpGet]
         public async Task<IActionResult> CreateAssignment()
@@ -238,8 +193,6 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             return View(assignment);
         }
 
-
-
         //Delete Assignment
         [HttpPost]
         public async Task<IActionResult> DeleteAssignment(Guid id)
@@ -329,5 +282,54 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             await _assignmentService.RemoveUserAssignment(AssignmentId, assignment, id, appUser);
             return RedirectToAction("AssignUsersToAssignment", "Assignment", new {@id = TeamId, AssignmentId });
         }
+
+
+
+
+
+
+
+        //Get Get Post// Get ID > Get Another Id > Post. With Create. // NEEDS REWORK
+        public async Task<ActionResult> AdminCreateAssignment()
+        {
+            //ViewBag.AllCompanies = new SelectList(await _companyService.GetCompanies(), "CompanyId", "CompanyName");
+            //ViewBag.AllCompanyTeams = new SelectList(await _teamService.GetCompanyTeams(CompanyId), "TeamId", "TeamName");
+
+            CascadingSelectViewModel model = new CascadingSelectViewModel();
+
+            List<Company> companies = await _companyService.GetCompanies();
+
+            foreach (Company company in companies)
+            {
+                model.Companies.Add(new SelectListItem { Text = company.CompanyName, Value = company.CompanyId.ToString() });
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> AdminCreateAssignment(Guid? CompanyId, Guid? TeamId)
+        {
+            CascadingSelectViewModel model = new CascadingSelectViewModel();
+
+            List<Company> companies = await _companyService.GetCompanies();
+
+            foreach (Company company in companies)
+            {
+                model.Companies.Add(new SelectListItem { Text = company.CompanyName, Value = company.CompanyId.ToString() });
+            }
+
+            if (CompanyId.HasValue)
+            {
+                List<Team> teams = await _teamService.GetCompanyTeams(CompanyId);
+
+
+                foreach (Team team in teams)
+                {
+                    model.Teams.Add(new SelectListItem { Text = team.TeamName, Value = team.TeamId.ToString() });
+                }
+            }
+            return View(model);
+        }
+
     }
 }

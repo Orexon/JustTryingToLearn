@@ -11,6 +11,9 @@ namespace DarboOrganizavimoPlatforma.Services.Interfaces
         Task<List<ATask>> GetTasks();
         Task<List<ATask>> GetAssignmentTasks(Guid assignmentId);
         Task NewATask(ATask aTask);
-
+        Task<ATask> GetTaskById(Guid taskId);
+        Task<ATask> GetTaskById(string taskId);
+        Task<int> EditTask(ATask task);
+        Task<int> DeleteTask(ATask task);
     }
 }

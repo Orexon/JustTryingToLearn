@@ -34,7 +34,28 @@ namespace DarboOrganizavimoPlatforma.Services
             _context.ATasks.Add(aTask);
             await _context.SaveChangesAsync();
         }
+        //Single Task by Id
+        public async Task<ATask> GetTaskById(Guid taskId)
+        {
+            return await _context.ATasks.Include(x => x.AppUser).Include(x => x.Assignment).FirstOrDefaultAsync(m => m.ATaskId == taskId);
+        }
+        public async Task<ATask> GetTaskById(string taskId)
+        {
+            Guid guidTaskId = Guid.Parse(taskId);
+            return await _context.ATasks.Include(x => x.AppUser).Include(x => x.Assignment).FirstOrDefaultAsync(m => m.ATaskId == guidTaskId);
+        }
 
+        public async Task<int> EditTask(ATask task)
+        {
+            _context.ATasks.Update(task);
+            return await _context.SaveChangesAsync();
+        }
+
+        public async Task<int> DeleteTask(ATask task)
+        {
+            _context.ATasks.Remove(task);
+            return await _context.SaveChangesAsync();
+        }
 
 
         ////Gets ALL assignments of User.

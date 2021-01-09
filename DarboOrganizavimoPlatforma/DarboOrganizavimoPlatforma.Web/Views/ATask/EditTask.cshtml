@@ -1,0 +1,65 @@
+﻿@model DarboOrganizavimoPlatforma.Web.Models.EditTaskViewModel
+@using DarboOrganizavimoPlatforma.Domains
+@{
+    ViewData["Title"] = "EditProject";
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6 offset-sm-3">
+                <h1>Task Edit</h1>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Task</h3>
+                </div>
+                <div class="card-body">
+                    <form asp-controller="ATask" asp-action="EditTask">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="Title" class="control-label">Task Title</label>
+                            <input asp-for="Title" class="form-control" />
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Description" class="control-label">Task Description</label>
+                            <input asp-for="Description" class="form-control" rows="4" />
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ATaskStatus">Select Company Size Plan from a list of size plans</label>
+                            <select class="form-control" asp-for="ATaskStatus" asp-items="Html.GetEnumSelectList<CompletionStatus>()">
+                                <option selected></option>
+                            </select>
+                            <span asp-validation-for="ATaskStatus" class="text-danger"></span>
+                        </div>
+                        <div class="form-group ">
+                            <input type="submit" value="Save Changes" class="btn btn-success float-left">
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a asp-controller="ATask" asp-action="GetAllTasks" class="btn btn-secondary float-right">Cancel</a>
+                            }
+                            else
+                            {
+                                <a asp-controller="/" asp-action="/" class="btn btn-primary float-right">Back to Team List</a>
+                            }
+                        </div>
+                    </form>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+    </div>
+</section>
+<!-- /.content -->
