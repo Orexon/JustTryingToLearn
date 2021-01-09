@@ -1,17 +1,17 @@
-﻿@model IEnumerable<DarboOrganizavimoPlatforma.Web.Models.UserListViewModel>
+﻿@model IEnumerable<DarboOrganizavimoPlatforma.Domains.ATask>
 
 @{
-    ViewData["Title"] = "GetUserList";
+    ViewData["Title"] = "GetTaskList";
 }
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-6 col-sm-6">
-                <h1>Admin - All Users</h1>
+                <h1>Admin - All Tasks</h1>
             </div>
             <div class="col-6 col-sm-3 offset-sm-3 text-right">
-                <a asp-controller="Admin" asp-action="CreateUser" class="btn btn-primary" role="button">Add New User</a>
+                <a asp-controller="ATask" asp-action="AdminCreateNewTask" class="btn btn-primary" role="button">Add New Task</a>
             </div>
         </div>
     </div><!-- /.container-fluid -->
@@ -24,7 +24,7 @@
             <div class="col-12">
                 <div class="card mt-2">
                     <div class="card-header">
-                        <h3 class="card-title">User list</h3>
+                        <h3 class="card-title">Task list</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -32,11 +32,14 @@
                             <!-- /Table-Header -->
                             <thead>
                                 <tr>
-                                    <th> @Html.DisplayNameFor(model => model.User.UserName)</th>
-                                    <th> @Html.DisplayNameFor(model => model.User.Email)</th>
-                                    <th> Company</th>
-                                    <th> @Html.DisplayNameFor(model => model.Roles)</th>
-                                    <th> Manage Roles</th>
+                                    <th> @Html.DisplayNameFor(model => model.AppUser.Company)</th>
+                                    <th> @Html.DisplayNameFor(model => model.Assignment.Team)</th>
+                                    <th> @Html.DisplayNameFor(model => model.Assignment)</th>
+                                    <th> @Html.DisplayNameFor(model => model.AssignmentId)</th>
+                                    <th> @Html.DisplayNameFor(model => model.Title)</th>
+                                    <th> @Html.DisplayNameFor(model => model.WrittenBy)</th>
+                                    <th> @Html.DisplayNameFor(model => model.ATaskStatus)</th>
+                                    <th> @Html.DisplayNameFor(model => model.CreateTime)</th>
                                     <th> Edit</th>
                                     <th> Details </th>
                                     <th> Delete</th>
@@ -47,25 +50,31 @@
                                 @foreach (var item in Model)
                                 {
                                     <tr>
-                                        <td>@Html.DisplayFor(modelItem => item.User.UserName)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.User.Email)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.User.Company.CompanyName)</td>
-                                        <td>@string.Join(" , ", item.Roles.ToList())</td>
-                                        <td><a class="btn btn-primary" asp-controller="UserRoles" asp-action="Manage" asp-route-userId="@item.UserId">Manage Roles</a></td>
-                                        <td><a class="btn btn-success" asp-action="EditUser" asp-controller="Admin" asp-route-id="@item.User.Id">Edit</a></td>
-                                        <td><a class="btn btn-info" asp-action="UserDetails" asp-route-id="@item.User.Id">Details</a></td>
-                                        <td><button id="modalDeleteButton" type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal" data-id="@item.User.Id">Delete</button></td>
+                                        <td>@Html.DisplayFor(modelItem => item.AppUser.Company)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Assignment.Team)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Assignment)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.AssignmentId)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Title)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.WrittenBy)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.ATaskStatus)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.CreateTime)</td>
+                                        <td><a class="btn btn-success" asp-action="EditTask" asp-controller="ATask" asp-route-id="@item.ATaskId">Edit</a></td>
+                                        <td><a class="btn btn-info" asp-action="TaskDetails" asp-controller="ATask" asp-route-id="@item.ATaskId">Details</a></td>
+                                        <td><button id="modalDeleteButton" type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal" data-id="@item.ATaskId">Delete</button></td>
                                     </tr>
                                 }
                             </tbody>
                             <!-- /Table-footer -->
                             <tfoot>
                                 <tr>
-                                    <th> @Html.DisplayNameFor(model => model.User.UserName)</th>
-                                    <th> @Html.DisplayNameFor(model => model.User.Email)</th>
-                                    <th> Company</th>
-                                    <th> @Html.DisplayNameFor(model => model.Roles)</th>
-                                    <th> Manage Roles</th>
+                                    <th> @Html.DisplayNameFor(model => model.AppUser.Company)</th>
+                                    <th> @Html.DisplayNameFor(model => model.Assignment.Team)</th>
+                                    <th> @Html.DisplayNameFor(model => model.Assignment)</th>
+                                    <th> @Html.DisplayNameFor(model => model.AssignmentId)</th>
+                                    <th> @Html.DisplayNameFor(model => model.Title)</th>
+                                    <th> @Html.DisplayNameFor(model => model.WrittenBy)</th>
+                                    <th> @Html.DisplayNameFor(model => model.ATaskStatus)</th>
+                                    <th> @Html.DisplayNameFor(model => model.CreateTime)</th>
                                     <th> Edit</th>
                                     <th> Details </th>
                                     <th> Delete</th>
@@ -84,7 +93,6 @@
     <!-- /.container-fluid -->
 </section>
 <!-- /.content -->
-
 <!-- Modal on Delete Click-->
 <div class="modal fade" data-backdrop="static" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">

@@ -3,57 +3,88 @@
 @{
     ViewData["Title"] = "Index";
 }
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-6 col-sm-6">
+                <h1>Admin - All Teams</h1>
+            </div>
+            <div class="col-6 col-sm-3 offset-sm-3 text-right">
+                <a asp-controller="Teams" asp-action="AdminCreateTeam" class="btn btn-primary" role="button">Add New Team</a>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
 
-<h1>Team List</h1>
-
-<p>
-    <a asp-action="AdminCreateTeam">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.TeamName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TeamDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Company)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreateTime)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TeamName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TeamDescription)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Company.CompanyName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreateTime)
-                </td>
-                <td>
-                    <a class="btn btn-success" asp-action="EditTeam" asp-route-id="@item.TeamId">Edit</a> |
-                    <a class="btn btn-info" asp-action="TeamDetails" asp-route-id="@item.TeamId">Details</a> |
-                    <button id="modalDeleteButton" type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal" data-id="@item.TeamId">Delete</button>
-
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card mt-2">
+                    <div class="card-header">
+                        <h3 class="card-title">All Teams</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="example1" class="table table-bordered table-hover">
+                            <!-- /Table-Header -->
+                            <thead>
+                                <tr>
+                                    <th>@Html.DisplayNameFor(model => model.TeamName)</th>
+                                    <th>@Html.DisplayNameFor(model => model.TeamId)</th>
+                                    <th>@Html.DisplayNameFor(model => model.Company.CompanyName)</th>
+                                    <th>@Html.DisplayNameFor(model => model.CreateTime)</th>
+                                    <th>@Html.DisplayNameFor(model => model.TeamUsers.Count)</th>
+                                    <th> Edit</th>
+                                    <th> Details </th>
+                                    <th> Delete</th>
+                                </tr>
+                            </thead>
+                            <!-- /Table-Body -->
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.TeamName)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.TeamId)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Company.CompanyName)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.CreateTime)</td>
+                                    <th>@Html.DisplayFor(modelItem => item.TeamUsers.Count)</th>
+                                    <td><a class="btn btn-success" asp-controller="Team" asp-action="EditTeam" asp-route-id="@item.TeamId"> Edit</a></td>
+                                    <td><a class="btn btn-info" asp-controller="Team" asp-action="TeamDetails" asp-route-id="@item.TeamId">Details</a></td>
+                                    <td><button id="modalDeleteButton" type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal" data-id="@item.TeamId">Delete</button></td>
+                                </tr>
+                                }
+                            </tbody>
+                            <!-- /Table-footer -->
+                            <tfoot>
+                                <tr>
+                                    <th>@Html.DisplayNameFor(model => model.TeamName)</th>
+                                    <th>@Html.DisplayNameFor(model => model.TeamId)</th>
+                                    <th>@Html.DisplayNameFor(model => model.Company.CompanyName)</th>
+                                    <th>@Html.DisplayNameFor(model => model.CreateTime)</th>
+                                    <th>@Html.DisplayNameFor(model => model.TeamUsers.Count)</th>
+                                    <th> Edit</th>
+                                    <th> Details </th>
+                                    <th> Delete</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+<!-- Modal on Delete Click-->
 <div class="modal fade" data-backdrop="static" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">

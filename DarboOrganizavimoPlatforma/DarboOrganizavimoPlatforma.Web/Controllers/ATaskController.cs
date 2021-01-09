@@ -40,6 +40,10 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             _assignmentService = assignmentService;
             _taskService = taskService;
         }
+        public async Task<IActionResult> GetAllTasks()
+        {
+            return View(await _taskService.GetTasks());
+        }
 
         [HttpGet]
         public async Task<IActionResult> CreateAssignmentTask(Guid assignmentId)
@@ -82,6 +86,8 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             }
             return View(model);
         }
+
+
 
 
         //[HttpGet]

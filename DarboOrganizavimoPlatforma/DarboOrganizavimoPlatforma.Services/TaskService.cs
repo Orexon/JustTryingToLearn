@@ -21,7 +21,7 @@ namespace DarboOrganizavimoPlatforma.Services
         //All Tasks -  for admin.
         public async Task<List<ATask>> GetTasks() //Async
         {
-            return await _context.ATasks.Include(x => x.Assignment).ThenInclude(x => x.Team).ThenInclude(x => x.Company).ThenInclude(x => x.AppUsers).ToListAsync();
+            return await _context.ATasks.Include(x => x.Assignment).ThenInclude(x => x.Team).Include(x=>x.AppUser).ThenInclude(x => x.Company).ToListAsync();
         }
         //All Assignment Tasks.
         public async Task<List<ATask>> GetAssignmentTasks(Guid assignmentId)

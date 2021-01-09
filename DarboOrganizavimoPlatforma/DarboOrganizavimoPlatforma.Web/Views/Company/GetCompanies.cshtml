@@ -1,40 +1,88 @@
 ﻿@model IEnumerable<DarboOrganizavimoPlatforma.Domains.Company>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Company List";
 }
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-6 col-sm-6">
+                <h1>Admin - Company list</h1>
+            </div>
+            <div class="col-6 col-sm-3 offset-sm-3 text-right">
+                <a asp-controller="Company" asp-action="CreateCompany" class="btn btn-primary" role="button">Add New Company</a>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
 
-<h1>Index</h1>
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card mt-2">
+                    <div class="card-header">
+                        <h3 class="card-title">All Companies</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="example1" class="table table-bordered table-hover">
+                            <!-- /Table-Header -->
+                            <thead>
+                                <tr>
+                                    <th>@Html.DisplayNameFor(model => model.CompanyName)</th>
+                                    <th>@Html.DisplayNameFor(model => model.CompanyId)</th>
+                                    <th>@Html.DisplayNameFor(model => model.CompanyMemberSize)</th>
+                                    <th>@Html.DisplayNameFor(model => model.CreateTime)</th>
+                                    <th>Edit</th>
+                                    <th>Details</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <!-- /Table-Body -->
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => item.CompanyName)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.CompanyId)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.CompanyMemberSize)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.CreateTime)</td>
+                                        <td><a class="btn btn-success" asp-controller="Company" asp-action="EditCompany" asp-route-id="@item.CompanyId">Edit</a></td>
+                                        <td><a class="btn btn-info" asp-controller="Company" asp-action="Details" asp-route-id="@item.CompanyId">Details</a></td>
+                                        <td><button id="modalDeleteButton" type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal" data-id="@item.CompanyId">Delete</button></td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <!-- /Table-footer -->
+                            <tfoot>
+                                <tr>
+                                    <th>@Html.DisplayNameFor(model => model.CompanyName)</th>
+                                    <th>@Html.DisplayNameFor(model => model.CompanyId)</th>
+                                    <th>@Html.DisplayNameFor(model => model.CompanyMemberSize)</th>
+                                    <th>@Html.DisplayNameFor(model => model.CreateTime)</th>
+                                    <th> Edit</th>
+                                    <th> Details </th>
+                                    <th> Delete</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
 
-<p>
-    <a asp-action="CreateCompany">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CompanyName)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CompanyName)
-                </td>
-                <td>
-                    <a asp-action="EditCompany" asp-route-id="@item.CompanyId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.CompanyId">Details</a> |
-                    <button id="modalDeleteButton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" data-id="@item.CompanyId">Delete</button>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
+<!-- Modal on Delete Click-->
 <div class="modal fade" data-backdrop="static" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -70,6 +118,14 @@
                         location.reload();
                     });
             })
+        });
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         });
     </script>
 }

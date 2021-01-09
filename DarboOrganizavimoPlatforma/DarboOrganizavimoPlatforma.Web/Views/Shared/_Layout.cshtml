@@ -25,7 +25,8 @@
 </head>
 <body class="hold-transition sidebar-mini">
     @{
-        var Name = UserManager.GetUserName(User);
+        var user = UserManager.GetUserAsync(User).Result;
+        var name = user.MemberName;
     }
     <div class="wrapper">
         <!-- Navbar -->
@@ -42,7 +43,7 @@
             <ul class="nav navbar-nav navbar-right ml-auto">
                 <li class="nav-item btn navbar-btn">
                     <i class="fas fa-user-alt"></i>
-                    @User.Identity.Name
+                    @name
                 </li>
                 <li class="nav-item">
                     <a asp-controller="Auth" asp-action="Logout" class="btn btn-link navbar-btn">
@@ -67,8 +68,7 @@
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <!-- Add icons to the links using the .nav-icon class
-                         with font-awesome or any other icon font library -->
+                        <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Admin" asp-action="Index">
                                 <i class="nav-icon fas fa-home"></i>
@@ -76,20 +76,89 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>Simple Link</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>
-                                    Simple Link
-                                </p>
+                            <a class="nav-link" asp-controller="Admin" asp-action="Index">
+                                <i class="nav-icon fas fa-home"></i>
+                                <p>User Profile</p>
                             </a>
                         </li>
                         <!-- Depending on Role -->
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Admin" asp-action="GetUserList">
+                                    <i class="nav-icon fas fa-users"></i>
+                                    <p>Manage Users</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Company" asp-action="GetCompanies">
+                                    <i class="nav-icon fas fa-building"></i>
+                                    <p>Manage Companies</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Project" asp-action="GetAllProjects">
+                                    <i class="nav-icon fas fa-project-diagram"></i>
+                                    <p>Manage Projects</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Teams" asp-action="GetAllTeams">
+                                    <i class="nav-icon fas fa-users-cog"></i>
+                                    <p>Manage Teams</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Assignments" asp-action="GetAllAssignments">
+                                    <i class="nav-icon fas fa-clipboard-list"></i>
+                                    <p>Manage Assignments</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Tasks" asp-action="GetAllTasks">
+                                    <i class="nav-icon fas fa-tasks"></i>
+                                    <p>Manage Tasks</p>
+                                </a>
+                            </li>
+                            <li class="nav-item menu-open">
+                                <a href="#" class="nav-link active">
+                                    <i class="nav-icon fas fa-plus"></i>
+                                    <p>Create New<i class="right fas fa-plus"></i></p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="Admin" asp-action="CreateUser">
+                                            <i class="fas fa-user-plus nav-icon"></i>
+                                            <p>Add new User</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link " asp-controller="Company" asp-action="CreateCompany">
+                                            <i class="far fa-building nav-icon"></i>
+                                            <p>Add new Company</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="Project" asp-action="AdminCreateProject">
+                                            <i class="fas fa-file-alt nav-icon"></i>
+                                            <p>Add new Project</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link " asp-controller="Teams" asp-action="AdminCreateTeam">
+                                            <i class="fas fa-user-friends nav-icon"></i>
+                                            <p>Add new Team</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link " asp-controller="Assignment" asp-action="AdminCreateAssignment">
+                                            <i class="fas fa-user-friends nav-icon"></i>
+                                            <p>Add new Assignment</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
                         @if (User.IsInRole("Manager"))
                         {
                             <li class="nav-item menu-open">

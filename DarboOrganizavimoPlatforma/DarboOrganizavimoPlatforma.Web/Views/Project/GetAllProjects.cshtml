@@ -4,50 +4,87 @@
     ViewData["Title"] = "GetAllProjects";
 }
 
-<h1>Project List</h1>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-6 col-sm-6">
+                <h1>Admin - Project list</h1>
+            </div>
+            <div class="col-6 col-sm-3 offset-sm-3 text-right">
+                <a asp-controller="Company" asp-action="CreateCompany" class="btn btn-primary" role="button">Add New Company</a>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
 
-<p>
-    <a asp-action="AdminCreateProject">Create New</a>
-</p>
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card mt-2">
+                    <div class="card-header">
+                        <h3 class="card-title">Projects</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="example1" class="table table-bordered table-hover">
+                            <!-- /Table-Header -->
+                            <thead>
+                                <tr>
+                                    <th>@Html.DisplayNameFor(model => model.ProjectName)</th>
+                                    <th>@Html.DisplayNameFor(model => model.ProjectId)</th>
+                                    <th>@Html.DisplayNameFor(model => model.Company.CompanyName)</th>
+                                    <th>@Html.DisplayNameFor(model => model.CreateTime)</th>
+                                    <th> Edit</th>
+                                    <th> Details </th>
+                                    <th> Delete</th>
+                                </tr>
+                            </thead>
+                            <!-- /Table-Body -->
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => item.ProjectName)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.ProjectId)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Company)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.CreateTime)</td>
+                                        <td><a class="btn btn-success" asp-controller="Project" asp-action="EditProject" asp-route-id="@item.ProjectId">Edit</a></td>
+                                        <td><a class="btn btn-info" asp-controller="Project" asp-action="ProjectDetails" asp-route-id="@item.ProjectId">Details</a></td>
+                                        <td><button id="modalDeleteButton" type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal" data-id="@item.ProjectId">Delete</button></td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <!-- /Table-footer -->
+                            <tfoot>
+                                <tr>
+                                    <th>@Html.DisplayNameFor(model => model.ProjectName)</th>
+                                    <th>@Html.DisplayNameFor(model => model.ProjectId)</th>
+                                    <th>@Html.DisplayNameFor(model => model.Company.CompanyName)</th>
+                                    <th>@Html.DisplayNameFor(model => model.CreateTime)</th>
+                                    <th> Edit</th>
+                                    <th> Details </th>
+                                    <th> Delete</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ProjectName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProjectDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Company)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProjectName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProjectDescription)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Company.CompanyName)
-                </td>
-                <td>
-                    <a class="btn btn-success" asp-controller="Project" asp-action="EditProject" asp-route-id="@item.ProjectId">Edit</a> |
-                    <a class="btn btn-info" asp-controller="Project" asp-action="ProjectDetails" asp-route-id="@item.ProjectId">Details</a> |
-                    <button id="modalDeleteButton" type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal" data-id="@item.ProjectId">Delete</button>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
 
+<!-- Modal on Delete Click-->
 <div class="modal fade" data-backdrop="static" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">

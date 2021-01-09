@@ -154,37 +154,44 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             return RedirectToAction("GetUserList", "Admin");
         }
 
-        //Errors
-        [HttpGet]
-        public async Task<IActionResult> AdminAddUserToCompany()
-        {
-            ViewBag.AllCompanies = new SelectList(_companyService.GetCompaniesList(), "CompanyId", "CompanyName");
-            ViewBag.AllUsers =  new SelectList(await _userManager.Users.ToListAsync(), "Id", "Email");
-            return View();
-        }
+
+        ////Errors
+        //[HttpGet]
+        //public async Task<IActionResult> AdminAddUserToCompany()
+        //{
+        //    ViewBag.AllCompanies = new SelectList(_companyService.GetCompaniesList(), "CompanyId", "CompanyName");
+        //    ViewBag.AllUsers =  new SelectList(await _userManager.Users.ToListAsync(), "Id", "Email");
+        //    return View();
+        //}
 
 
-        [HttpPost]
-        public async Task<IActionResult> AdminAddUserToCompany(AdminAddUserToCompanyViewModel model)
-        {
-            ViewBag.AllCompanies = new SelectList(_companyService.GetCompaniesList(), "CompanyId", "CompanyName");
-            ViewBag.AllUsers = new SelectList(await _userManager.Users.ToListAsync(), "Id", "Email");
+        //[HttpPost]
+        //public async Task<IActionResult> AdminAddUserToCompany(AdminAddUserToCompanyViewModel model)
+        //{
+        //    ViewBag.AllCompanies = new SelectList(_companyService.GetCompaniesList(), "CompanyId", "CompanyName");
+        //    ViewBag.AllUsers = new SelectList(await _userManager.Users.ToListAsync(), "Id", "Email");
            
-            Company company = await _companyService.GetCompanyById(model.CompanyID);
-            AppUser user = await _userManager.FindByIdAsync(model.AppUserID);
+        //    Company company = await _companyService.GetCompanyById(model.CompanyID);
+        //    AppUser user = await _userManager.FindByIdAsync(model.AppUserID);
 
-            if (ModelState.IsValid)
-            {
-                if (company.AppUsers.Count >= (int)company.CompanyMemberSize)
-                {
-                    ViewBag.SizeExceeded = "Company Membership Size Exceeded";
-                    return View(model);
-                }
-                company.AppUsers.Add(user);
-                RedirectToAction("AdminAddUserToCompany");
-            }
-            return View(model);
-        }
+        //    if (ModelState.IsValid)
+        //    {
+        //        if (company.AppUsers.Count >= (int)company.CompanyMemberSize)
+        //        {
+        //            ViewBag.SizeExceeded = "Company Membership Size Exceeded";
+        //            return View(model);
+        //        }
+        //        company.AppUsers.Add(user);
+        //        RedirectToAction("AdminAddUserToCompany");
+        //    }
+        //    return View(model);
+        //}
+
+
+
+
+
+
 
         //+ Admin - Remove User from company - Delete User + 
         //  Admin - Remove multiple User from company. 

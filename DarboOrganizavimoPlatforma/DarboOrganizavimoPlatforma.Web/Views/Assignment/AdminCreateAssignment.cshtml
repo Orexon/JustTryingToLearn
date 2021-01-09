@@ -1,0 +1,64 @@
+﻿@model DarboOrganizavimoPlatforma.Web.Models.CascadingSelectViewModel
+
+
+
+@*<div class="row">
+    <div class="col-md-4">
+        <form method="post" asp-controller="Assignment" asp-action="AdminCreateAssignment">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group  mt-3">
+                <label asp-for="Companies">Select User Role  from a list of roles</label>
+                <select class="form-control" asp-for="Companies" asp-items=@Model.Companies>
+                    <option selected onchange="document.forms[0].submit();"></option>
+                </select>
+                <span asp-validation-for="Companies" class="text-danger"></span>
+            </div>
+
+            <div class="form-group  mt-3">
+                <label asp-for="Teams">Select User Role  from a list of roles</label>
+                <select class="form-control" asp-for="Teams" asp-items=@Model.Teams>
+                    <option selected onchange="document.forms[0].submit();"></option>
+                </select>
+                <span asp-validation-for="Teams" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-primary" />
+            </div>
+
+        </form>
+    </div>
+</div>*@
+
+
+@using (Html.BeginForm("AdminCreateAssignment", "Assignment", FormMethod.Post))
+{
+    @Html.DropDownListFor(m => m.CompanyId, Model.Companies, "Please select", new { onchange = "document.forms[0].submit();" })
+    <br />
+    <br />
+
+    @Html.DropDownListFor(m => m.TeamId, Model.Teams, "Please select", new { onchange = "document.forms[0].submit();", disabled = "disabled" })
+    <br />
+    <br />
+
+    <input type="submit" value="Submit" />
+}
+
+@section Scripts
+    {
+    <script type="text/javascript">
+        $(function () {
+            if ($("#TeamId option").length > 1) {
+                $("#TeamId").removeAttr("disabled");
+            }
+            if ($("#CompanyId").val() != "" && $("#TeamId").val() != "") {
+                var message = "Country: " + $("#CountryId option:selected").text();
+                message += "\nState: " + $("#StateId option:selected").text();
+                alert(message);
+            }
+        });
+    </script>
+}
+
+

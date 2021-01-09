@@ -34,8 +34,7 @@ namespace DarboOrganizavimoPlatforma.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-
-
+            //TeamUser ManyToMany Connecting table.
             builder.Entity<TeamUser>()
                 .HasKey(tu => new { tu.AppUserId, tu.TeamId });
             builder.Entity<TeamUser>()
@@ -94,7 +93,6 @@ namespace DarboOrganizavimoPlatforma.Data
             builder.Entity<Project>()
                 .HasOne(e => e.Company)
                 .WithMany(e => e.CompanyProjects);
-
 
             //builder.Entity<Project>()
             //    .HasMany(e => e.ProjectTeams)
@@ -183,7 +181,8 @@ namespace DarboOrganizavimoPlatforma.Data
                 PasswordHash = "AQAAAAEAACcQAAAAEOpvPVTNsK5osJyR0T+4qh/+6m4CKrv7u+KH+rrB+ptHxAyVknaIysUmJm/UTPOhkw==",
                 ConcurrencyStamp = "27747190-7b7d-453d-ba7b-5bfa31119160",
                 MemberName = "Mindaugas",
-                SecurityStamp = "IHDXOW62GL33UAOIJKMU6JBSKSBC63JJ"
+                SecurityStamp = "IHDXOW62GL33UAOIJKMU6JBSKSBC63JJ",
+                JoinDateTime = DateTime.Now
             };
 
             //seed user

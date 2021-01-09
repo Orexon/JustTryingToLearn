@@ -24,7 +24,7 @@ namespace DarboOrganizavimoPlatforma.Services
 
         public async Task<List<Team>> GetTeams() //Async
         {
-            return await _context.Teams.Include(x => x.Company).ToListAsync();
+            return await _context.Teams.Include(x => x.Company).Include(x=>x.TeamUsers).ToListAsync();
         }
 
         public List<Team> GetTeamsList()  //Synchronous
@@ -73,6 +73,10 @@ namespace DarboOrganizavimoPlatforma.Services
             return availableTeamUsers;
         }
         public async Task<List<Team>> GetCompanyTeams(Guid id) //Async
+        {
+            return await _context.Teams.Where(x => x.Company.CompanyId == id).ToListAsync();
+        }
+        public async Task<List<Team>> GetCompanyTeams(Guid? id) //Async
         {
             return await _context.Teams.Where(x => x.Company.CompanyId == id).ToListAsync();
         }

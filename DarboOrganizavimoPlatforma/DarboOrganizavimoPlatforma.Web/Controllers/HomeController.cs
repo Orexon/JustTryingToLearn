@@ -1,5 +1,7 @@
-﻿using DarboOrganizavimoPlatforma.Web.Models;
+﻿using DarboOrganizavimoPlatforma.Domains;
+using DarboOrganizavimoPlatforma.Web.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -13,15 +15,23 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly UserManager<AppUser> _userManager;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, UserManager<AppUser> userManager)
         {
             _logger = logger;
+            _userManager = userManager;
         }
-
-        public IActionResult Index()
+        
+        public async Task<IActionResult> Index()
         {
             _logger.LogError("My Error");
+            AppUser currentUser = _userManager.GetUserAsync(User).Result;
+
+            if (await _userManager.IsInRoleAsync(currentUser, "Admin"))
+            {
+                return RedirectToAction("Index", "Admin");
+            }
             return View();
         }
 
