@@ -19,5 +19,6 @@ namespace DarboOrganizavimoPlatforma.Web.Models
 
         [Required(ErrorMessage = "Please Select Status of the Task")]
         public CompletionStatus ATaskStatus { get; set; }
+        public Guid? AssignmentId { get; set; }
     }
 }

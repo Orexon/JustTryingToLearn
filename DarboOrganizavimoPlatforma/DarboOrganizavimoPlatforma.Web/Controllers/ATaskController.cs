@@ -110,7 +110,7 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> EditTask(Guid id)
+        public async Task<IActionResult> EditTask(Guid id, Guid? assignmentId)
         {
             if (id == null)
             {
@@ -120,6 +120,7 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
 
             EditTaskViewModel model = new EditTaskViewModel()
             {
+                AssignmentId = assignmentId,
                 Title = task.Title,
                 Description = task.Description,
                 ATaskStatus = task.ATaskStatus
@@ -129,7 +130,7 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditTask(Guid id, EditTaskViewModel model)
+        public async Task<IActionResult> EditTask(Guid id, Guid assignmentId, EditTaskViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -147,10 +148,13 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
 
                 if (await _userManager.IsInRoleAsync(currentUser, "Manager"))
                 {
-                    //IF MANAGER RETURN WHERE?
-                    return RedirectToAction("", "Manager");
+                    if (assignmentId != null && assignmentId != Guid.Empty)
+                    {
+                        return RedirectToAction("CreateAssignmentTask", "ATask", new { assignmentId });
+                    }
+
+                    return RedirectToAction("GetCompanyTasks", "ATask");
                 }
-                //ELSE IF MEMBER/TEAM LEADER, return where.
                 return RedirectToAction("GetAllTasks", "ATask");
             }
             return View(model);
@@ -172,7 +176,7 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> DeleteTask(Guid id)
+        public async Task<IActionResult> DeleteTask(Guid id, Guid? assignmentId)
         {
             AppUser currentUser = _userManager.GetUserAsync(User).Result;
             ATask aTask = await _taskService.GetTaskById(id);
@@ -180,7 +184,10 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
 
             if (await _userManager.IsInRoleAsync(currentUser, "Manager"))
             {
-                //IF MANAGER RETURN WHERE?
+                if (assignmentId != null)
+                {
+                    return RedirectToAction("CreateAssignmentTask", "ATask", new { assignmentId });
+                }
                 return RedirectToAction("GetCompanyTasks", "ATask");
             }
             return RedirectToAction("GetAllTasks", "ATask");

@@ -5,84 +5,320 @@
     ViewData["Title"] = "AssignUsersToAssignment";
 }
 
-<h1>Add a new Task for Assignment</h1>
-<hr />
-<div class="container">
-    <div class="row">
-        <div class="col-12">
-            <form class="col-12" asp-controller="ATask" asp-route-AssignmentId="@Model.AssignmentId" asp-action="CreateAssignmentTask">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="row">
-                    <div class="form-group col-6 mb-1">
-                        <label asp-for="Title" class="control-label"></label>
-                        <input asp-for="Title" class="form-control" />
-                        <span asp-validation-for="Title" class="text-danger"></span>
-                    </div>
-                    <div class="form-group col-6 mb-1">
-                        <label asp-for="ATaskStatus">Select Assignment Status</label>
-                        <select class="form-control" asp-for="ATaskStatus" asp-items="Html.GetEnumSelectList<CompletionStatus>()">
-                            <option selected></option>
-                        </select>
-                        <span asp-validation-for="ATaskStatus" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-12 mb-1">
-                        <label asp-for="Description" class="control-label"></label>
-                        <textarea asp-for="Description" class="form-control" rows="2"></textarea>
-                        <span asp-validation-for="Description" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" value="add" class="btn btn-primary" />
-                    </div>
-                </div>
-            </form>
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1> Assignment Task List </h1>
+            </div>
+            <div class="col-sm-6 float-right">
+                <a class="btn btn-primary" asp-route-TeamId="@Model.AssignmentTeamId" asp-controller="Assignment" asp-action="GetTeamAssignmentList">Back to Teams Assignment List</a>
+            </div>
         </div>
-    </div>
-</div>
-
-<div class="container">
-    @if (Model.AssignmentTasks.Count > 0)
-    {
+    </div><!-- /.container-fluid -->
+</section>
+<section class="content">
+    <div class="container-fluid">
+        <!-- ./row -->
         <div class="row">
-            <div class="col-12">
-                @foreach (var item in Model.AssignmentTasks)
-                {
-                    <div class="card col-12 mb-2">
-                        <div class="row card-header">
-                            <p class="col-10">@item.Assignment.AssignmentName Task</p>
-                            <p class="col-2 badge badge-pill badge-success">@item.ATaskStatus</p>
-                        </div>
-                        <div class="card-body row col-12">
-                            <header class="card-title col-12">@item.Title</header>
-                            <p class="card-text col-12">@item.Description</p>
-                        </div>
-                        <div class="row card-footer">
-                            <p class="col-10">@item.WrittenBy at @item.CreateTime</p>
-                            <div class="col-2 float-right">
-                                <button class="btn btn-danger btn-sm mr-1" asp-controller="ATask" asp-action="DeleteTask" asp-route-id="@item.ATaskId">Delete</button>
-                                <button class="btn btn-info btn-sm" asp-controller="ATask" asp-action="Edit" asp-route-id="@item.ATaskId">Edit</button>
+            <div class="col-12 col-sm-12">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">New Task for Assignment</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <form class="col-12" asp-controller="ATask" asp-route-AssignmentId="@Model.AssignmentId" asp-action="CreateAssignmentTask">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    <div class="row">
+                                        <div class="form-group col-6 mb-1">
+                                            <label asp-for="Title" class="control-label"></label>
+                                            <input asp-for="Title" class="form-control" />
+                                            <span asp-validation-for="Title" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group col-6 mb-1">
+                                            <label asp-for="ATaskStatus">Select Assignment Status</label>
+                                            <select class="form-control" asp-for="ATaskStatus" asp-items="Html.GetEnumSelectList<CompletionStatus>()">
+                                                <option selected></option>
+                                            </select>
+                                            <span asp-validation-for="ATaskStatus" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-12 mb-1">
+                                            <label asp-for="Description" class="control-label"></label>
+                                            <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                                            <span asp-validation-for="Description" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <input type="submit" value="add" class="btn btn-primary" />
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
-                }
+                </div>
+                <div class="card card-primary card-tabs">
+                    <div class="card-header p-0 pt-1">
+                        <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="custom-tabs-one-home-tab" data-toggle="pill" href="#custom-tabs-one-home" role="tab" aria-controls="custom-tabs-one-home" aria-selected="true">All Tasks</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill" href="#custom-tabs-one-profile" role="tab" aria-controls="custom-tabs-one-profile" aria-selected="false">ToDo Tasks</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="custom-tabs-one-messages-tab" data-toggle="pill" href="#custom-tabs-one-messages" role="tab" aria-controls="custom-tabs-one-messages" aria-selected="false">In Progress Tasks</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="custom-tabs-one-settings-tab" data-toggle="pill" href="#custom-tabs-one-settings" role="tab" aria-controls="custom-tabs-one-settings" aria-selected="false">Completed</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content" id="custom-tabs-one-tabContent">
+                            <div class="tab-pane fade show active" id="custom-tabs-one-home" role="tabpanel" aria-labelledby="custom-tabs-one-home-tab">
+                                <div class="row">
+                                    @if (Model.AssignmentTasks.Count > 0)
+                                    {
+                                        @foreach (var item in Model.AssignmentTasks)
+                                        {
+                                            <div class="col-6 col-sm-4 col-md-4 d-flex align-items-stretch">
+                                                <div class="card bg-light">
+                                                    <div class="card-header text-muted border-bottom-0">
+                                                        @Html.DisplayFor(modelItem => item.Assignment.AssignmentName)
+                                                    </div>
+                                                    <div class="card-body pt-0">
+                                                        <div class="row">
+                                                            <div class="col-7">
+                                                                <h2 class="lead"><b>Task @Html.DisplayFor(modelItem => item.Title)</b></h2>
+                                                                <p class="text-muted text-sm"><b>Description:</b> @Html.DisplayFor(modelItem => item.Description)</p>
+                                                                <ul class="ml-4 mb-0 fa-ul text-muted">
+                                                                    <li class="small"><span class="fa-li"><i class="fas fa-lg fa-user"></i></span><p class="text-muted text-sm"><b>Written By:</b>  @Html.DisplayFor(modelItem => item.WrittenBy)</p></li>
+                                                                    <li class="small"><span class="fa-li"><i class="fas fa-lg fa-clock"></i></span><p class="text-muted text-sm"><b>Create Time:</b> @Html.DisplayFor(modelItem => item.CreateTime)</p></li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="col-5">
+                                                                <ul class="ml-4 mb-0 fa-ul text-muted">
+                                                                    <li class="small"><p class="text-muted text-sm"><b>Status:</b>@Html.DisplayFor(modelItem => item.ATaskStatus)</p></li>
+                                                                    <li class="small">
+                                                                        <p class="text-muted text-sm"><b>Complete Time:</b></p>
+                                                                        @if (item.ATaskStatus != CompletionStatus.Done)
+                                                                        {
+                                                                            <p>tobeCompleted</p>
+                                                                        }
+                                                                        else
+                                                                        { <p> @Html.DisplayFor(modelItem => item.CompleteTime)</p>}
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-footer">
+                                                        <div class="text-right">
+                                                            <a asp-controller="ATask" asp-action="EditTask" asp-route-assignmentId="@Model.AssignmentId" asp-route-id="@item.ATaskId" class="btn btn-sm bg-teal">
+                                                                <i class="fas fa-edit"></i>Edit
+                                                            </a>
+                                                            <a asp-controller="ATask" asp-action="DeleteTask" asp-route-assignmentId="@Model.AssignmentId" asp-route-id="@item.ATaskId" class="btn btn-sm btn-danger">
+                                                                <i class="fas fa-trash-alt"></i>Delete
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <div class="col-12">
+                                            <p class="text-center">Currently the assginment has no Tasks</p>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="custom-tabs-one-profile" role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
+                                <div class="row">
+                                    @if (Model.AssignmentTasks.Count > 0)
+                                    {
+                                        @foreach (var item in Model.AssignmentTasks.Where(x => x.ATaskStatus == CompletionStatus.ToDo))
+                                        {
+                                            <div class="col-6 col-sm-4 col-md-4 d-flex align-items-stretch">
+                                                <div class="card bg-light">
+                                                    <div class="card-header text-muted border-bottom-0">
+                                                        @Html.DisplayFor(modelItem => item.Assignment.AssignmentName)
+                                                    </div>
+                                                    <div class="card-body pt-0">
+                                                        <div class="row">
+                                                            <div class="col-7">
+                                                                <h2 class="lead"><b>Task @Html.DisplayFor(modelItem => item.Title)</b></h2>
+                                                                <p class="text-muted text-sm"><b>Description:</b> @Html.DisplayFor(modelItem => item.Description)</p>
+                                                                <ul class="ml-4 mb-0 fa-ul text-muted">
+                                                                    <li class="small"><span class="fa-li"><i class="fas fa-lg fa-user "></i></span><p class="text-muted text-sm"><b>Written By:</b>  @Html.DisplayFor(modelItem => item.WrittenBy)</p></li>
+                                                                    <li class="small"><span class="fa-li"><i class="fas fa-lg fa-clock"></i></span><p class="text-muted text-sm"><b>Create Time:</b> @Html.DisplayFor(modelItem => item.CreateTime)</p></li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="col-5">
+                                                                <ul class="ml-4 mb-0 fa-ul text-muted">
+                                                                    <li class="small"><p class="text-muted text-sm"><b>Status:</b>@Html.DisplayFor(modelItem => item.ATaskStatus)</p></li>
+                                                                    <li class="small">
+                                                                        <p class="text-muted text-sm"><b>Complete Time:</b></p>
+                                                                        @if (item.ATaskStatus != CompletionStatus.Done)
+                                                                        {
+                                                                            <p>tobeCompleted</p>
+                                                                        }
+                                                                        else
+                                                                        { <p> @Html.DisplayFor(modelItem => item.CompleteTime)</p>}
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-footer">
+                                                        <div class="text-right">
+                                                            <a asp-controller="ATask" asp-action="EditTask" asp-route-assignmentId="@Model.AssignmentId" asp-route-id="@item.ATaskId" class="btn btn-sm bg-teal">
+                                                                <i class="fas fa-edit"></i>Edit
+                                                            </a>
+                                                            <a asp-controller="ATask" asp-action="DeleteTask" asp-route-assignmentId="@Model.AssignmentId" asp-route-id="@item.ATaskId" class="btn btn-sm btn-danger">
+                                                                <i class="fas fa-trash-alt"></i>Delete
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <div class="col-12">
+                                            <p class="text-center">Currently the assginment has no Tasks</p>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="custom-tabs-one-messages" role="tabpanel" aria-labelledby="custom-tabs-one-messages-tab">
+                                <div class="row">
+                                    @if (Model.AssignmentTasks.Count > 0)
+                                    {
+                                        @foreach (var item in Model.AssignmentTasks.Where(x => x.ATaskStatus == CompletionStatus.InProgress))
+                                        {
+                                            <div class="col-6 col-sm-4 col-md-4 d-flex align-items-stretch">
+                                                <div class="card bg-light">
+                                                    <div class="card-header text-muted border-bottom-0">
+                                                        @Html.DisplayFor(modelItem => item.Assignment.AssignmentName)
+                                                    </div>
+                                                    <div class="card-body pt-0">
+                                                        <div class="row">
+                                                            <div class="col-7">
+                                                                <h2 class="lead"><b>Task @Html.DisplayFor(modelItem => item.Title)</b></h2>
+                                                                <p class="text-muted text-sm"><b>Description:</b> @Html.DisplayFor(modelItem => item.Description)</p>
+                                                                <ul class="ml-4 mb-0 fa-ul text-muted">
+                                                                    <li class="small"><span class="fa-li"><i class="fas fa-lg fa-user "></i></span><p class="text-muted text-sm"><b>Written By:</b>  @Html.DisplayFor(modelItem => item.WrittenBy)</p></li>
+                                                                    <li class="small"><span class="fa-li"><i class="fas fa-lg fa-clock"></i></span><p class="text-muted text-sm"><b>Create Time:</b> @Html.DisplayFor(modelItem => item.CreateTime)</p></li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="col-5">
+                                                                <ul class="ml-4 mb-0 fa-ul text-muted">
+                                                                    <li class="small"><p class="text-muted text-sm"><b>Status:</b>@Html.DisplayFor(modelItem => item.ATaskStatus)</p></li>
+                                                                    <li class="small">
+                                                                        <p class="text-muted text-sm"><b>Complete Time:</b></p>
+                                                                        @if (item.ATaskStatus != CompletionStatus.Done)
+                                                                        {
+                                                                            <p>tobeCompleted</p>
+                                                                        }
+                                                                        else
+                                                                        { <p> @Html.DisplayFor(modelItem => item.CompleteTime)</p>}
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-footer">
+                                                        <div class="text-right">
+                                                            <a asp-controller="ATask" asp-action="EditTask" asp-route-assignmentId="@Model.AssignmentId" asp-route-id="@item.ATaskId" class="btn btn-sm bg-teal">
+                                                                <i class="fas fa-edit"></i>Edit
+                                                            </a>
+                                                            <a asp-controller="ATask" asp-action="DeleteTask" asp-route-assignmentId="@Model.AssignmentId" asp-route-id="@item.ATaskId" class="btn btn-sm btn-danger">
+                                                                <i class="fas fa-trash-alt"></i>Delete
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <div class="col-12">
+                                            <p class="text-center">Currently the assginment has no Tasks</p>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="custom-tabs-one-settings" role="tabpanel" aria-labelledby="custom-tabs-one-settings-tab">
+                                <div class="row">
+                                    @if (Model.AssignmentTasks.Count > 0)
+                                    {
+                                        @foreach (var item in Model.AssignmentTasks.Where(x => x.ATaskStatus == CompletionStatus.Done))
+                                        {
+                                            <div class="col-6 col-sm-4 col-md-4 d-flex align-items-stretch">
+                                                <div class="card bg-light">
+                                                    <div class="card-header text-muted border-bottom-0">
+                                                        @Html.DisplayFor(modelItem => item.Assignment.AssignmentName)
+                                                    </div>
+                                                    <div class="card-body pt-0">
+                                                        <div class="row">
+                                                            <div class="col-7">
+                                                                <h2 class="lead"><b>Task @Html.DisplayFor(modelItem => item.Title)</b></h2>
+                                                                <p class="text-muted text-sm"><b>Description:</b> @Html.DisplayFor(modelItem => item.Description)</p>
+                                                                <ul class="ml-4 mb-0 fa-ul text-muted">
+                                                                    <li class="small"><span class="fa-li"><i class="fas fa-lg fa-user "></i></span><p class="text-muted text-sm"><b>Written By:</b>  @Html.DisplayFor(modelItem => item.WrittenBy)</p></li>
+                                                                    <li class="small"><span class="fa-li"><i class="fas fa-lg fa-clock"></i></span><p class="text-muted text-sm"><b>Create Time:</b> @Html.DisplayFor(modelItem => item.CreateTime)</p></li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="col-5">
+                                                                <ul class="ml-4 mb-0 fa-ul text-muted">
+                                                                    <li class="small"><p class="text-muted text-sm"><b>Status:</b>@Html.DisplayFor(modelItem => item.ATaskStatus)</p></li>
+                                                                    <li class="small"><p class="text-muted text-sm"><b>Complete Time:</b>@Html.DisplayFor(modelItem => item.CompleteTime)</p></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-footer">
+                                                        <div class="text-right">
+                                                            <a asp-controller="ATask" asp-action="EditTask" asp-route-assignmentId="@Model.AssignmentId" asp-route-id="@item.ATaskId" class="btn btn-sm bg-teal">
+                                                                <i class="fas fa-edit"></i>Edit
+                                                            </a>
+                                                            <a asp-controller="ATask" asp-action="DeleteTask" asp-route-assignmentId="@Model.AssignmentId" asp-route-id="@item.ATaskId" class="btn btn-sm btn-danger">
+                                                                <i class="fas fa-trash-alt"></i>Delete
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <div class="col-12">
+                                            <p class="text-center">Currently the assginment has no Tasks</p>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card -->
+                </div>
             </div>
         </div>
-    }
-    else
-    {
-        <div class="col-12 card">
-            <div class="card-body">
-                <p class="text-center">Currently the assginment has no Tasks</p>
-            </div>
-        </div>
-    }
-</div>
-<div>
-    <a class="btn btn-primary" asp-route-TeamId="@Model.AssignmentTeamId" asp-controller="Assignment" asp-action="GetTeamAssignmentList">Back to Teams Assignment List</a>
-</div>
-
-
+        <!-- /.card -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
 
 @section Scripts
 {
