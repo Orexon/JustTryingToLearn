@@ -38,7 +38,6 @@
                                     <th>@Html.DisplayNameFor(model => model.AssignmentName)</th>
                                     <th>@Html.DisplayNameFor(model => model.CreateTime)</th>
                                     <th>@Html.DisplayNameFor(model => model.AssignmentId)</th>
-                                    <th>@Html.DisplayNameFor(model => model.AssignmentTasks)</th>
                                     <th> Edit</th>
                                     <th> Details </th>
                                     <th> Delete</th>
@@ -54,7 +53,6 @@
                                     <td>@Html.DisplayFor(modelItem => item.AssignmentName)</td>
                                     <td>@Html.DisplayFor(modelItem => item.CreateTime)</td>
                                     <th>@Html.DisplayFor(modelItem => item.AssignmentId)</th>
-                                    <th>@Html.DisplayFor(modelItem => item.AssignmentTasks.Count)</th>
                                     <td><a class="btn btn-success" asp-controller="Assignment" asp-action="EditAssignment" asp-route-AssignmentId="@item.AssignmentId">Edit</a></td>
                                     <td><a class="btn btn-info" asp-controller="Assignment" asp-action="ProjectAssignment" asp-route-AssignmentId="@item.AssignmentId">Details</a></td>
                                     <td><button id="modalDeleteButton" type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal" data-AssignmentId="@item.AssignmentId">Delete</button></td>
@@ -69,7 +67,6 @@
                                     <th>@Html.DisplayNameFor(model => model.AssignmentName)</th>
                                     <th>@Html.DisplayNameFor(model => model.CreateTime)</th>
                                     <th>@Html.DisplayNameFor(model => model.AssignmentId)</th>
-                                    <th>@Html.DisplayNameFor(model => model.AssignmentTasks)</th>
                                     <th> Edit</th>
                                     <th> Details </th>
                                     <th> Delete</th>

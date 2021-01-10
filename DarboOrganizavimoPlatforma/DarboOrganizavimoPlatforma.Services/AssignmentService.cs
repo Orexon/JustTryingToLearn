@@ -49,6 +49,13 @@ namespace DarboOrganizavimoPlatforma.Services
             List<AppUser> AssignmentUsers = await _context.UserAssignments.Include(x => x.Assignment).Where(x => x.AssignmentId == AssignmentId).Include(x=>x.AppUser).Select(e => e.AppUser).ToListAsync();
             return AssignmentUsers;
         }
+
+        //public async Task<List<Assignment>> CompanyAssignments(Guid companyId)
+        //{
+        //    _context.Assignments.Where
+        //    return 
+        //}
+
         //Gets all Users assigned to a specific Team but not assigned to a specific Assignment. 
         public async Task<List<AppUser>> GetListOfAvailableAssignmentUsers(Guid TeamId, Guid AssignmentId)
         {

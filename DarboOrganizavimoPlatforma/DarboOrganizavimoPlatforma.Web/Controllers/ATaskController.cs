@@ -49,24 +49,18 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             return View(await _taskService.GetTasks());
         }
 
-        //public async Task<IActionResult> GetCompanyTasks()
-        //{
-        //    AppUser user = _userManager.GetUserAsync(User).Result;
-        //    Guid companyId = user.CompanyId;
-        //    // Get Company Tasks List. 
-        //    // Get completed 
-        //    // In Progress
-        //    // To do
+        //Gets all company Tasks - for manager.
+        public async Task<IActionResult> GetCompanyTasks()
+        {
+            AppUser user = _userManager.GetUserAsync(User).Result;
+            Guid companyId = user.CompanyId;
 
-        //    CompanyTasksViewModel model = new CompanyTasksViewModel()
-        //    {
-
-        //    };
-        //    return View(model);
-
-
-        //    return View();
-        //}
+            CompanyTasksViewModel model = new CompanyTasksViewModel()
+            {
+                AllCompanyTasks = await _taskService.GetCompanyTasks(companyId)
+            };
+            return View(model);
+        }
 
         //Create Task For Manager/User when viewing from assigment.
         [HttpGet]
@@ -177,7 +171,7 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             return View(aTask);
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> DeleteTask(Guid id)
         {
             AppUser currentUser = _userManager.GetUserAsync(User).Result;
@@ -187,7 +181,7 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             if (await _userManager.IsInRoleAsync(currentUser, "Manager"))
             {
                 //IF MANAGER RETURN WHERE?
-                return RedirectToAction("", "Manager");
+                return RedirectToAction("GetCompanyTasks", "ATask");
             }
             return RedirectToAction("GetAllTasks", "ATask");
         }

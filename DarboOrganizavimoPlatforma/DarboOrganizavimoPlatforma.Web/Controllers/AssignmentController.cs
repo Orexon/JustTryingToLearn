@@ -57,6 +57,7 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
 
 
 
+
         // GET: Manager Assignment/Create // Logic mistake.When entering directly - need fix. Select..when should get current team id.
         [HttpGet]
         public async Task<IActionResult> CreateAssignment()
@@ -86,8 +87,7 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
                     AssignmentStatus = CompletionStatus.ToDo, // = 0
                     AssignmentTasks = new List<ATask>(),
                     TeamId = model.TeamId,
-                    Team = await _teamService.GetTeamById(model.TeamId),
-                    
+                    Team = await _teamService.GetTeamById(model.TeamId), 
                 };
                 await _assignmentService.NewAssignment(newAssignment);
 

@@ -15,6 +15,7 @@ namespace DarboOrganizavimoPlatforma.Domains
         public List<Team> Teams { get; set; }
         public List<Project> CompanyProjects { get; set; }
         public List<ATask> Tasks { get; set; }
+        //public List<Assignment> Assignments { get; set; }
         public DateTime CreateTime { get; set; }
         public CompanyMemberSize CompanyMemberSize { get; set; }
     }

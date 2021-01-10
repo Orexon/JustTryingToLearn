@@ -94,7 +94,7 @@ namespace DarboOrganizavimoPlatforma.Data
                 .HasOne(e => e.Company)
                 .WithMany(e => e.CompanyProjects);
 
-            //Company To Team/Team To Company Relationship
+            //Company To ATask/ATask To Company Relationship
             builder.Entity<Company>()
                 .HasMany(e => e.Tasks)
                 .WithOne(e => e.Company);
@@ -102,20 +102,13 @@ namespace DarboOrganizavimoPlatforma.Data
                 .HasOne(e => e.Company)
                 .WithMany(e => e.Tasks);
 
-            //Company To Team/Team To Company Relationship
+            //Assignment To ATask/ATask To Assignment Relationship
             builder.Entity<Assignment>()
                 .HasMany(e => e.AssignmentTasks)
                 .WithOne(e => e.Assignment);
             builder.Entity<ATask>()
                 .HasOne(e => e.Assignment)
                 .WithMany(e => e.AssignmentTasks);
-
-            //builder.Entity<Project>()
-            //    .HasMany(e => e.ProjectTeams)
-            //    .WithOne(e => e.Project);
-            //builder.Entity<Team>()
-            //    .HasOne(e => e.Project)
-            //    .WithMany(e => e.ProjectTeams);
 
             //Database default table name change
             builder.HasDefaultSchema("Identity");

@@ -21,12 +21,12 @@ namespace DarboOrganizavimoPlatforma.Services
         //All Tasks -  for admin.
         public async Task<List<ATask>> GetTasks() //Async
         {
-            return await _context.ATasks.Include(x => x.Assignment).ThenInclude(x => x.Team).Include(x=>x.AppUser).ThenInclude(x => x.Company).ToListAsync();
+            return await _context.ATasks.Include(x => x.Assignment).ThenInclude(x => x.Team).Include(x => x.AppUser).ThenInclude(x => x.Company).ToListAsync();
         }
         //All Assignment Tasks.
         public async Task<List<ATask>> GetAssignmentTasks(Guid assignmentId)
         {
-            return await _context.ATasks.Include(x => x.Assignment).Include(x=>x.AppUser).Where(x => x.AssignmentId == assignmentId).ToListAsync();
+            return await _context.ATasks.Include(x => x.Assignment).Include(x => x.AppUser).Where(x => x.AssignmentId == assignmentId).ToListAsync();
         }
         // New Assignment Task.
         public async Task NewATask(ATask aTask)
@@ -57,66 +57,32 @@ namespace DarboOrganizavimoPlatforma.Services
             return await _context.SaveChangesAsync();
         }
 
-        //public async Task<List<ATask>> GetCompanyTasks(Guid companyId)
-        //{
-        //    List<ATask> companyTasks = await _context.Companies.Where(x => x.CompanyId == companyId).Include(x => x.Teams).ThenInclude(x => x.TeamAssignments).ThenInclude(x => x.AssignmentTasks).;
+        //Gets All Company Tasks
+        public async Task<List<ATask>> GetCompanyTasks(Guid companyId)
+        {
+            List<ATask> companyTasks = await _context.ATasks.Where(x => x.Company.CompanyId == companyId).Include(x=>x.Assignment).ToListAsync();
+            return companyTasks;
+        }
 
-        //     _context.ATasks.Select(x=>x.)
-        //        Include(x=>x.Assignment).ThenInclude(x=>x.Team.Company.CompanyId == companyId).Where()
-        //}
+        //Gets All Company Tasks with status ToDo
+        public async Task<List<ATask>> GetCompanyToDoTasks(Guid companyId)
+        {
+            List<ATask> companyTodoTasks = await _context.ATasks.Where(x => x.Company.CompanyId == companyId && x.ATaskStatus == CompletionStatus.ToDo).Include(x => x.Assignment).ToListAsync();
+            return companyTodoTasks;
+        }
 
-        ////Gets ALL assignments of User.
-        //public async Task<List<Assignment>> GetUserAssignmentList(Guid UserId)
-        //{
-        //    List<Assignment> userAssignments = await _context.UserAssignments.Include(x => x.AppUser).Where(e => e.AppUser.Id == UserId).Select(e => e.Assignment).ToListAsync();
-        //    return userAssignments;
-        //}
-        ////Gets ALL assignments of User in a specific Team. 
-        //public async Task<List<Assignment>> GetUserTeamAssignmentList(Guid UserId, Guid TeamId)
-        //{
-        //    List<Assignment> userTeamAssignments = await _context.UserAssignments.Include(x => x.Assignment).Where(x => x.Assignment.TeamId == TeamId && x.AppUserId == UserId).Select(e => e.Assignment).ToListAsync();
-        //    return userTeamAssignments;
-        //}
-        ////Gets ALL Users assigned to a specific Assignment. 
-        //public async Task<List<AppUser>> GetAssignmentUserList(Guid AssignmentId)
-        //{
-        //    List<AppUser> AssignmentUsers = await _context.UserAssignments.Include(x => x.Assignment).Where(x => x.AssignmentId == AssignmentId).Include(x => x.AppUser).Select(e => e.AppUser).ToListAsync();
-        //    return AssignmentUsers;
-        //}
-        ////Gets all Users assigned to a specific Team but not assigned to a specific Assignment. 
-        //public async Task<List<AppUser>> GetListOfAvailableAssignmentUsers(Guid TeamId, Guid AssignmentId)
-        //{
-        //    List<AppUser> teamMemberList = await _teamService.GetTeamsMemberList(TeamId);
-        //    List<AppUser> AssignmentUserList = await GetAssignmentUserList(AssignmentId);
-        //    List<AppUser> availableAssignmentUsers = teamMemberList.Except(AssignmentUserList).ToList();
+        //Gets All Company Tasks with status InProgress
+        public async Task<List<ATask>> GetCompanyInProgressTasks(Guid companyId)
+        {
+            List<ATask> CompanyInProgressTasks = await _context.ATasks.Where(x => x.Company.CompanyId == companyId && x.ATaskStatus == CompletionStatus.InProgress).Include(x => x.Assignment).ToListAsync();
+            return CompanyInProgressTasks;
+        }
 
-        //    return availableAssignmentUsers;
-        //}
-
-        ////Get all Assignments of a specific team.
-        //public async Task<List<Assignment>> GetTeamAssignments(Guid TeamId)
-        //{
-        //    return await _context.Assignments.Include(x => x.Team).Include(x => x.UsersAssigned).Where(x => x.Team.TeamId == TeamId).ToListAsync();
-        //}
-
-        ////Single Assignment by Id
-        //public async Task<Assignment> GetAssignmentById(Guid id)
-        //{
-        //    return await _context.Assignments.Include(x => x.Team).Include(x => x.UsersAssigned).FirstOrDefaultAsync(m => m.AssignmentId == id);
-        //}
-
-        ////Single Assignment by Id Overloaded.
-        //public async Task<Assignment> GetAssignmentById(string id)
-        //{
-        //    Guid assignmentId = Guid.Parse(id);
-        //    return await _context.Assignments.FirstOrDefaultAsync(m => m.AssignmentId == assignmentId);
-        //}
-        ////New Assignment
-        //public async Task NewAssignment(Assignment newAssignment)
-        //{
-        //    _context.Assignments.Add(newAssignment);
-        //    await _context.SaveChangesAsync();
-        //}
-
+        //Gets All Company Tasks with status Completed
+        public async Task<List<ATask>> GetCompanyCompletedTasks(Guid companyId)
+        {
+            List<ATask> compnayCompletedTasks = await _context.ATasks.Where(x => x.Company.CompanyId == companyId && x.ATaskStatus == CompletionStatus.Done).Include(x => x.Assignment).ToListAsync();
+            return compnayCompletedTasks;
+        }
     }
 }
