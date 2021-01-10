@@ -34,7 +34,7 @@
                             <thead>
                                 <tr>
                                     <th>@Html.DisplayNameFor(model => model.Team.Company.CompanyName)</th>
-                                    <th>@Html.DisplayNameFor(model => model.Team)</th>
+                                    <th>@Html.DisplayNameFor(model => model.Team.TeamName)</th>
                                     <th>@Html.DisplayNameFor(model => model.AssignmentName)</th>
                                     <th>@Html.DisplayNameFor(model => model.CreateTime)</th>
                                     <th>@Html.DisplayNameFor(model => model.AssignmentId)</th>
@@ -50,10 +50,11 @@
                                 {
                                 <tr>
                                     <td>@Html.DisplayFor(modelItem => item.Team.Company.CompanyName)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.Team)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Team.TeamName)</td>
                                     <td>@Html.DisplayFor(modelItem => item.AssignmentName)</td>
                                     <td>@Html.DisplayFor(modelItem => item.CreateTime)</td>
                                     <th>@Html.DisplayFor(modelItem => item.AssignmentId)</th>
+                                    <th>@Html.DisplayNameFor(model => model.AssignmentTasks.Count)</th>
                                     <td><a class="btn btn-success" asp-controller="Assignment" asp-action="EditAssignment" asp-route-AssignmentId="@item.AssignmentId">Edit</a></td>
                                     <td><a class="btn btn-info" asp-controller="Assignment" asp-action="ProjectAssignment" asp-route-AssignmentId="@item.AssignmentId">Details</a></td>
                                     <td><button id="modalDeleteButton" type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal" data-AssignmentId="@item.AssignmentId">Delete</button></td>
@@ -64,7 +65,7 @@
                             <tfoot>
                                 <tr>
                                     <th>@Html.DisplayNameFor(model => model.Team.Company.CompanyName)</th>
-                                    <th>@Html.DisplayNameFor(model => model.Team)</th>
+                                    <th>@Html.DisplayNameFor(model => model.Team.TeamName)</th>
                                     <th>@Html.DisplayNameFor(model => model.AssignmentName)</th>
                                     <th>@Html.DisplayNameFor(model => model.CreateTime)</th>
                                     <th>@Html.DisplayNameFor(model => model.AssignmentId)</th>

@@ -10,11 +10,12 @@ namespace DarboOrganizavimoPlatforma.Web.Models
     {
         [Required(ErrorMessage = "Please Enter a valid Email")]
         [EmailAddress(ErrorMessage = "Incorrect Email")]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Please Enter a valid Password")]
         [StringLength(15)]
-        [DataType(DataType.Password)]
+        [DataType(DataType.Password, ErrorMessage = "Please Enter a valid Password")]
         public string Password { get; set; }
     }
 }

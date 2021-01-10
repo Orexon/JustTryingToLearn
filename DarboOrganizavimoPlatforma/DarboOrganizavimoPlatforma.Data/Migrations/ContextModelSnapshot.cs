@@ -83,8 +83,17 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("JoinDateTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Location")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -103,6 +112,9 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
@@ -111,6 +123,12 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Position")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("ProfilePicture")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
@@ -139,13 +157,13 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("a3f06181-f2b5-443d-95b2-458967b76e59"),
+                            Id = new Guid("cddd1eb5-40e6-45bb-98ea-53f96df063e9"),
                             AccessFailedCount = 0,
-                            CompanyId = new Guid("4ab0289a-485b-4cff-8da2-17e6b2ef7538"),
+                            CompanyId = new Guid("3c4cc9f3-fcaa-45cf-9a38-8385ff31e453"),
                             ConcurrencyStamp = "27747190-7b7d-453d-ba7b-5bfa31119160",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
-                            JoinDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            JoinDateTime = new DateTime(2021, 1, 9, 21, 29, 9, 22, DateTimeKind.Local).AddTicks(5924),
                             LockoutEnabled = false,
                             MemberName = "Mindaugas",
                             NormalizedEmail = "ADMIN@ADMIN.COM",
@@ -214,11 +232,11 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
                     b.HasData(
                         new
                         {
-                            CompanyId = new Guid("4ab0289a-485b-4cff-8da2-17e6b2ef7538"),
+                            CompanyId = new Guid("3c4cc9f3-fcaa-45cf-9a38-8385ff31e453"),
                             CompanyDescription = "Admin Company",
                             CompanyMemberSize = 0,
                             CompanyName = "Admin Company",
-                            CreateTime = new DateTime(2021, 1, 8, 21, 23, 37, 725, DateTimeKind.Local).AddTicks(899)
+                            CreateTime = new DateTime(2021, 1, 9, 21, 29, 9, 22, DateTimeKind.Local).AddTicks(303)
                         });
                 });
 
@@ -348,7 +366,7 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("d2d000b9-d719-40f5-a528-903a7ff75351"),
+                            Id = new Guid("bd1d32c2-f192-4a2b-9ef0-b8a913420d4e"),
                             ConcurrencyStamp = "27747190-7b7d-453d-ba7b-5bfa31119160",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
@@ -439,8 +457,8 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = new Guid("a3f06181-f2b5-443d-95b2-458967b76e59"),
-                            RoleId = new Guid("d2d000b9-d719-40f5-a528-903a7ff75351")
+                            UserId = new Guid("cddd1eb5-40e6-45bb-98ea-53f96df063e9"),
+                            RoleId = new Guid("bd1d32c2-f192-4a2b-9ef0-b8a913420d4e")
                         });
                 });
 

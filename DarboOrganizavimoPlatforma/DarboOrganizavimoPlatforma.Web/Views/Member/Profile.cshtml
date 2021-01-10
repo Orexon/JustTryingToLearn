@@ -1,0 +1,75 @@
+﻿@model DarboOrganizavimoPlatforma.Domains.AppUser
+
+@{
+    ViewData["Title"] = "AddTeamMember";
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-12 text-center">
+                <h1>@Model.MemberName Profile</h1>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-md-12">
+                <div class="row justify-content-center">
+                    <div class="col-md-8 card card-primary card-outline mr-1">
+                        <div class="card-body box-profile">
+                            <div class="text-center">
+                                @if (Model.ProfilePicture != null)
+                                {
+                                    <img class="profile-user-img img-circle" src="data:image/*;base64,@(Convert.ToBase64String(Model.ProfilePicture))" alt="User profile picture">
+                                }
+                                else
+                                {
+                                    <img class="profile-user-img img-fluid img-circle" src="" alt="User profile picture" />
+                                }
+                            </div>
+                            <h3 class="profile-username text-center">@Model.FirstName @Model.LastName</h3>
+                            <p class="text-muted text-center">@Model.Position</p>
+                            <ul class="list-group list-group-unbordered mb-3">
+                                <li class="list-group-item">
+                                    <b>Company</b> <a class="float-right">@Model.Company.CompanyName</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Joined</b> <a class="float-right">@Model.JoinDateTime</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Email</b> <a class="float-right">@Model.Email</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>PhoneNumber</b> <a class="float-right">@Model.PhoneNumber</a>
+                                </li>
+                            </ul>
+                            <div class="card-header">
+                                <h3 class="card-title">About Me</h3>
+                            </div>
+                            <!--/.card-header -->
+                            <div class="card-body">
+                                <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
+                                <p class="text-muted">@Model.Location</p>
+                                <hr>
+                                <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
+                                <p class="text-muted">@Model.Notes</p>
+                            </div>
+                        </div>
+                        <div class="row pb-2">
+                            <div class="col-12">
+                                <a asp-controller="Member" asp-action="EditUserProfile"  class="btn btn-primary btn-sm btn-info"><b>Edit Information</b></a>
+                                <a asp-controller="Member" asp-action="ChangePasswordAndEmail" class="btn btn-primary btn-sm btn-warning"><b>Change Password</b></a>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!--/.card -->
+                </div>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>

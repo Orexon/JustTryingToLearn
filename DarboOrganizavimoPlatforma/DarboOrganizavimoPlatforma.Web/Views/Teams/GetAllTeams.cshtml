@@ -115,7 +115,7 @@
             var btn = $(this).find('#button1');
             console.log(recipient)
             btn.on('click', function (event) {
-                $.post("Teams/DeleteTeam/" + recipient,
+                $.post("/Teams/DeleteTeam/" + recipient,
                     function (data) {
                         location.reload();
                     });

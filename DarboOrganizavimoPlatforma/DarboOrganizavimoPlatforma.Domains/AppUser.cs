@@ -16,5 +16,12 @@ namespace DarboOrganizavimoPlatforma.Domains
         public ICollection<TeamUser> TeamUsers { get; set; }
         public ICollection<UserAssignment> UserAssignments { get; set; } 
         public List<ATask> Tasks { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Location { get; set; } //Make a class on it's own. city/country - etc.
+        public byte[] ProfilePicture { get; set; }
+        public string Position { get; set; }
+        public string Notes { get; set; }
+
     }
 }

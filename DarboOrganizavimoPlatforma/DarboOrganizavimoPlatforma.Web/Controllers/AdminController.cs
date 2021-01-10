@@ -2,12 +2,14 @@
 using DarboOrganizavimoPlatforma.Domains;
 using DarboOrganizavimoPlatforma.Services.Interfaces;
 using DarboOrganizavimoPlatforma.Web.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -110,7 +112,12 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
                 Email = user.Email,
                 MemberName = user.MemberName,
                 UserName = user.UserName,
-                PhoneNumber = user.PhoneNumber,       
+                PhoneNumber = user.PhoneNumber,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Location = user.Location,
+                Position = user.Position,
+                Notes = user.Notes
             };
             return View(model);
         }
@@ -126,6 +133,11 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
                 user.Email = model.Email;
                 user.MemberName = model.MemberName;
                 user.UserName = model.UserName;
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
+                user.Location = model.Location;
+                user.Position = model.Position;
+                user.Notes = model.Notes;
                 user.PhoneNumber = model.PhoneNumber;
                 if (!string.IsNullOrEmpty(model.Password))
                 {

@@ -15,6 +15,10 @@
     <Compile Remove="Migrations\20210108170538_dataseed.Designer.cs" />
     <Compile Remove="Migrations\20210108173054_dataseed1.cs" />
     <Compile Remove="Migrations\20210108173054_dataseed1.Designer.cs" />
+    <Compile Remove="Migrations\20210109160555_AppUserExtend.cs" />
+    <Compile Remove="Migrations\20210109160555_AppUserExtend.Designer.cs" />
+    <Compile Remove="Migrations\20210109170427_Deletes.cs" />
+    <Compile Remove="Migrations\20210109170427_Deletes.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

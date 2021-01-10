@@ -41,6 +41,12 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right ml-auto">
+                <li class="nav-item" style="align-self: center;">
+                    @if (UserManager.GetUserAsync(User).Result.ProfilePicture != null)
+                    {
+                        <img class="img-circle" style="width:40px;height:40px; object-fit:cover; border-radius:30px" src="data:image/*;base64,@(Convert.ToBase64String(UserManager.GetUserAsync(User).Result.ProfilePicture))">
+                    }
+                </li>
                 <li class="nav-item btn navbar-btn">
                     <i class="fas fa-user-alt"></i>
                     @name
@@ -70,13 +76,29 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Admin" asp-action="Index">
-                                <i class="nav-icon fas fa-home"></i>
-                                <p>Home</p>
-                            </a>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a class="nav-link" asp-controller="Admin" asp-action="Index">
+                                    <i class="nav-icon fas fa-home"></i>
+                                    <p>Home</p>
+                                </a>
+                            }
+                            else if (User.IsInRole("Manager"))
+                            {
+                                <a class="nav-link" asp-controller="Admin" asp-action="Index">
+                                    <i class="nav-icon fas fa-home"></i>
+                                    <p>Home</p>
+                                </a>
+                            } else
+                            {
+                                <a class="nav-link" asp-controller="Admin" asp-action="Index">
+                                    <i class="nav-icon fas fa-home"></i>
+                                    <p>Home</p>
+                                </a>
+                            }
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Admin" asp-action="Index">
+                            <a class="nav-link" asp-controller="Member" asp-action="Profile">
                                 <i class="nav-icon fas fa-home"></i>
                                 <p>User Profile</p>
                             </a>
