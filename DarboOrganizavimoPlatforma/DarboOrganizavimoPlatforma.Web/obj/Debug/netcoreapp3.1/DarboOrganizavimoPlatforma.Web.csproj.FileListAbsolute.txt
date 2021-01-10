@@ -425,3 +425,4 @@ C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\
 C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Web\obj\Debug\netcoreapp3.1\Razor\Views\Member\Profile.cshtml.g.cs
 C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Web\obj\Debug\netcoreapp3.1\Razor\Views\Member\ChangePasswordAndEmail.cshtml.g.cs
 C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Web\obj\Debug\netcoreapp3.1\Razor\Views\Member\EditUserProfile.cshtml.g.cs
+C:\Users\P3CK\Desktop\ProgramingProjects\C# Code\DOP\DarboOrganizavimoPlatforma\DarboOrganizavimoPlatforma.Web\obj\Debug\netcoreapp3.1\Razor\Views\ATask\GetCompanyTasks.cshtml.g.cs

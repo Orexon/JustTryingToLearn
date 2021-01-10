@@ -65,7 +65,8 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
                     CompanyId = companyId,
                     AppUsers = new List<AppUser>(),
                     CompanyProjects = new List<Project>(),
-                    Teams = new List<Team>()
+                    Teams = new List<Team>(),
+                    Tasks = new List<ATask>()
                 };
                 await _companyService.NewCompany(newCompany);
 

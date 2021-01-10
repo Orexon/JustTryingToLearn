@@ -4,14 +4,16 @@ using DarboOrganizavimoPlatforma.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DarboOrganizavimoPlatforma.Data.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20210110140459_CompanyTask")]
+    partial class CompanyTask
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,7 +37,7 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
                     b.Property<Guid>("AssignmentId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CompanyId")
+                    b.Property<Guid?>("CompanyTaskCompanyId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CompleteTime")
@@ -59,7 +61,7 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
 
                     b.HasIndex("AssignmentId");
 
-                    b.HasIndex("CompanyId");
+                    b.HasIndex("CompanyTaskCompanyId");
 
                     b.ToTable("ATasks");
                 });
@@ -162,13 +164,13 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("d1d2b97f-69e0-4e01-a36f-fc20448e0568"),
+                            Id = new Guid("239b4a97-f04b-4b47-bbfb-154d35e74a07"),
                             AccessFailedCount = 0,
-                            CompanyId = new Guid("c90f5069-15e9-47b7-8c7c-156cd1a61c49"),
+                            CompanyId = new Guid("5108dccb-e999-4adc-9830-ef9498a837be"),
                             ConcurrencyStamp = "27747190-7b7d-453d-ba7b-5bfa31119160",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
-                            JoinDateTime = new DateTime(2021, 1, 10, 16, 51, 4, 343, DateTimeKind.Local).AddTicks(9007),
+                            JoinDateTime = new DateTime(2021, 1, 10, 16, 4, 59, 516, DateTimeKind.Local).AddTicks(486),
                             LockoutEnabled = false,
                             MemberName = "Mindaugas",
                             NormalizedEmail = "ADMIN@ADMIN.COM",
@@ -237,11 +239,11 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
                     b.HasData(
                         new
                         {
-                            CompanyId = new Guid("c90f5069-15e9-47b7-8c7c-156cd1a61c49"),
+                            CompanyId = new Guid("5108dccb-e999-4adc-9830-ef9498a837be"),
                             CompanyDescription = "Admin Company",
                             CompanyMemberSize = 0,
                             CompanyName = "Admin Company",
-                            CreateTime = new DateTime(2021, 1, 10, 16, 51, 4, 343, DateTimeKind.Local).AddTicks(2923)
+                            CreateTime = new DateTime(2021, 1, 10, 16, 4, 59, 515, DateTimeKind.Local).AddTicks(5675)
                         });
                 });
 
@@ -371,7 +373,7 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("674dbadf-8b93-4c18-9296-aeab7dd4d322"),
+                            Id = new Guid("9e64519d-f47d-4519-ac6f-d414bc0ff137"),
                             ConcurrencyStamp = "27747190-7b7d-453d-ba7b-5bfa31119160",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
@@ -462,8 +464,8 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = new Guid("d1d2b97f-69e0-4e01-a36f-fc20448e0568"),
-                            RoleId = new Guid("674dbadf-8b93-4c18-9296-aeab7dd4d322")
+                            UserId = new Guid("239b4a97-f04b-4b47-bbfb-154d35e74a07"),
+                            RoleId = new Guid("9e64519d-f47d-4519-ac6f-d414bc0ff137")
                         });
                 });
 
@@ -500,9 +502,9 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DarboOrganizavimoPlatforma.Domains.Company", "Company")
-                        .WithMany("Tasks")
-                        .HasForeignKey("CompanyId");
+                    b.HasOne("DarboOrganizavimoPlatforma.Domains.Company", "CompanyTask")
+                        .WithMany("CompanyTasks")
+                        .HasForeignKey("CompanyTaskCompanyId");
                 });
 
             modelBuilder.Entity("DarboOrganizavimoPlatforma.Domains.AppUser", b =>

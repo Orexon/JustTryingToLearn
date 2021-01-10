@@ -94,6 +94,22 @@ namespace DarboOrganizavimoPlatforma.Data
                 .HasOne(e => e.Company)
                 .WithMany(e => e.CompanyProjects);
 
+            //Company To Team/Team To Company Relationship
+            builder.Entity<Company>()
+                .HasMany(e => e.Tasks)
+                .WithOne(e => e.Company);
+            builder.Entity<ATask>()
+                .HasOne(e => e.Company)
+                .WithMany(e => e.Tasks);
+
+            //Company To Team/Team To Company Relationship
+            builder.Entity<Assignment>()
+                .HasMany(e => e.AssignmentTasks)
+                .WithOne(e => e.Assignment);
+            builder.Entity<ATask>()
+                .HasOne(e => e.Assignment)
+                .WithMany(e => e.AssignmentTasks);
+
             //builder.Entity<Project>()
             //    .HasMany(e => e.ProjectTeams)
             //    .WithOne(e => e.Project);

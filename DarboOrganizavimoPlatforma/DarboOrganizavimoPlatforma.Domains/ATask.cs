@@ -17,6 +17,7 @@ namespace DarboOrganizavimoPlatforma.Domains
         public AppUser AppUser { get; set; }
         public Guid AppUserId { get; set; }
         public string WrittenBy { get; set; }
+        public Company Company { get; set; }
 
     }
 }

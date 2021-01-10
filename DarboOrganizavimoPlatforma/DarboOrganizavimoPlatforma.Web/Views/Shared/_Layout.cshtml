@@ -47,9 +47,11 @@
                         <img class="img-circle" style="width:40px;height:40px; object-fit:cover; border-radius:30px" src="data:image/*;base64,@(Convert.ToBase64String(UserManager.GetUserAsync(User).Result.ProfilePicture))">
                     }
                 </li>
-                <li class="nav-item btn navbar-btn">
-                    <i class="fas fa-user-alt"></i>
-                    @name
+                <li class="nav-item">
+                    <a class="btn navbar-btn" asp-controller="Member" asp-action="Profile">
+                        <i class="fas fa-user-alt"></i>
+                        @name
+                    </a>
                 </li>
                 <li class="nav-item">
                     <a asp-controller="Auth" asp-action="Logout" class="btn btn-link navbar-btn">
@@ -99,7 +101,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Member" asp-action="Profile">
-                                <i class="nav-icon fas fa-home"></i>
+                                <i class="nav-icon fas fa-user-circle"></i>
                                 <p>User Profile</p>
                             </a>
                         </li>
@@ -183,7 +185,7 @@
                         }
                         @if (User.IsInRole("Manager"))
                         {
-                            <li class="nav-item menu-open">
+                            <li class="nav-item">
                                 <a href="#" class="nav-link active">
                                     <i class="nav-icon fas fa-tachometer-alt"></i>
                                     <p>
@@ -193,11 +195,24 @@
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
+                                        <a class="nav-link" asp-controller="Manager" asp-action="CompanyProjectList">
+                                            <i class="fas fa-circle nav-icon"></i>
+                                            <p>Company Projects</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link " asp-controller="Manager" asp-action="CompanyTeamsList">
+                                            <i class="fas fa-circle nav-icon"></i>
+                                            <p>Company Teams</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
                                         <a class="nav-link" asp-controller="Manager" asp-action="CompanyMemberList">
                                             <i class="fas fa-circle nav-icon"></i>
                                             <p>Company Members</p>
                                         </a>
                                     </li>
+
                                     <li class="nav-item">
                                         <a class="nav-link " asp-controller="Manager" asp-action="CompanyTeamsList">
                                             <i class="fas fa-circle nav-icon"></i>
@@ -210,9 +225,21 @@
                                             <p>Company Projects</p>
                                         </a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="Manager" asp-action="CompanyProjectList">
+                                            <i class="fas fa-circle nav-icon"></i>
+                                            <p>Company Projects</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="Manager" asp-action="CompanyProjectList">
+                                            <i class="fas fa-circle nav-icon"></i>
+                                            <p>Company Projects</p>
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
-                            <li class="nav-item menu-open">
+                            <li class="nav-item">
                                 <a href="#" class="nav-link active">
                                     <i class="nav-icon fas fa-tachometer-alt"></i>
                                     <p>

@@ -4,14 +4,16 @@ using DarboOrganizavimoPlatforma.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DarboOrganizavimoPlatforma.Data.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20210110141232_CompanyTask1")]
+    partial class CompanyTask1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -162,13 +164,13 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("d1d2b97f-69e0-4e01-a36f-fc20448e0568"),
+                            Id = new Guid("78868282-42d2-4ef2-8a6f-5d3f2a5f7527"),
                             AccessFailedCount = 0,
-                            CompanyId = new Guid("c90f5069-15e9-47b7-8c7c-156cd1a61c49"),
+                            CompanyId = new Guid("660486ea-ef6d-42d0-870c-82396bbb6cc1"),
                             ConcurrencyStamp = "27747190-7b7d-453d-ba7b-5bfa31119160",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
-                            JoinDateTime = new DateTime(2021, 1, 10, 16, 51, 4, 343, DateTimeKind.Local).AddTicks(9007),
+                            JoinDateTime = new DateTime(2021, 1, 10, 16, 12, 31, 800, DateTimeKind.Local).AddTicks(7869),
                             LockoutEnabled = false,
                             MemberName = "Mindaugas",
                             NormalizedEmail = "ADMIN@ADMIN.COM",
@@ -237,11 +239,11 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
                     b.HasData(
                         new
                         {
-                            CompanyId = new Guid("c90f5069-15e9-47b7-8c7c-156cd1a61c49"),
+                            CompanyId = new Guid("660486ea-ef6d-42d0-870c-82396bbb6cc1"),
                             CompanyDescription = "Admin Company",
                             CompanyMemberSize = 0,
                             CompanyName = "Admin Company",
-                            CreateTime = new DateTime(2021, 1, 10, 16, 51, 4, 343, DateTimeKind.Local).AddTicks(2923)
+                            CreateTime = new DateTime(2021, 1, 10, 16, 12, 31, 800, DateTimeKind.Local).AddTicks(2969)
                         });
                 });
 
@@ -371,7 +373,7 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("674dbadf-8b93-4c18-9296-aeab7dd4d322"),
+                            Id = new Guid("f9145751-3e31-49da-83bc-8be88473c784"),
                             ConcurrencyStamp = "27747190-7b7d-453d-ba7b-5bfa31119160",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
@@ -462,8 +464,8 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = new Guid("d1d2b97f-69e0-4e01-a36f-fc20448e0568"),
-                            RoleId = new Guid("674dbadf-8b93-4c18-9296-aeab7dd4d322")
+                            UserId = new Guid("78868282-42d2-4ef2-8a6f-5d3f2a5f7527"),
+                            RoleId = new Guid("f9145751-3e31-49da-83bc-8be88473c784")
                         });
                 });
 

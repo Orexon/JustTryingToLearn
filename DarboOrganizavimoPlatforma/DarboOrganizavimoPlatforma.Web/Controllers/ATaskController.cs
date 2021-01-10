@@ -33,12 +33,14 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly IAssignmentService _assignmentService;
         private readonly ITaskService _taskService;
+        private readonly ICompanyService _companyService;
 
-        public ATaskController(UserManager<AppUser> userManager, IAssignmentService assignmentService, ITaskService taskService)
+        public ATaskController(UserManager<AppUser> userManager, IAssignmentService assignmentService, ITaskService taskService, ICompanyService companyService)
         {
             _userManager = userManager;
             _assignmentService = assignmentService;
             _taskService = taskService;
+            _companyService = companyService;
         }
 
         //Get All Tasks for Admin
@@ -47,11 +49,31 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             return View(await _taskService.GetTasks());
         }
 
+        //public async Task<IActionResult> GetCompanyTasks()
+        //{
+        //    AppUser user = _userManager.GetUserAsync(User).Result;
+        //    Guid companyId = user.CompanyId;
+        //    // Get Company Tasks List. 
+        //    // Get completed 
+        //    // In Progress
+        //    // To do
+
+        //    CompanyTasksViewModel model = new CompanyTasksViewModel()
+        //    {
+
+        //    };
+        //    return View(model);
+
+
+        //    return View();
+        //}
+
         //Create Task For Manager/User when viewing from assigment.
         [HttpGet]
         public async Task<IActionResult> CreateAssignmentTask(Guid assignmentId)
         {
             AppUser user = _userManager.GetUserAsync(User).Result;
+            
 
             var newviewmodel = new NewAssignmentTaskViewModel
             {
@@ -59,7 +81,7 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
                 AppUserId = user.Id,
                 AssignmentId = assignmentId,
                 Assignment = await _assignmentService.GetAssignmentById(assignmentId), //etc
-                AssignmentTasks = await _taskService.GetAssignmentTasks(assignmentId),
+                AssignmentTasks = await _taskService.GetAssignmentTasks(assignmentId)
             };
             return View(newviewmodel);
         }     
@@ -68,11 +90,13 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
         public async Task<IActionResult> CreateAssignmentTask(NewAssignmentTaskViewModel model, Guid AssignmentId)
         {
             AppUser user = _userManager.GetUserAsync(User).Result;
+            Guid companyId = user.CompanyId;
 
             if (ModelState.IsValid)
             {
                 ATask atask = new ATask
                 {
+                    Company = await _companyService.GetCompanyById(companyId),
                     Title = model.Title,
                     Description = model.Description,
                     AssignmentId = AssignmentId,
