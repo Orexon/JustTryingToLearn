@@ -180,8 +180,8 @@
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link " asp-controller="ATask" asp-action="AdminCreateTask">
-                                            <i class="fas fa-clipboard-list nav-icon"></i>
-                                            <p>Add new Assignment</p>
+                                            <i class="fas fa-check nav-icon"></i>
+                                            <p>Add new Task</p>
                                         </a>
                                     </li>
                                 </ul>
@@ -191,22 +191,19 @@
                         {
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-tachometer-alt"></i>
-                                    <p>
-                                        Manage Company
-                                        <i class="right fas fa-angle-left"></i>
-                                    </p>
+                                    <i class="nav-icon fas fa-mail-bulk"></i>
+                                    <p>Manage Company<i class="right fas fa-angle-left"></i></p>
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
                                         <a class="nav-link" asp-controller="Manager" asp-action="CompanyProjectList">
-                                            <i class="fas fa-circle nav-icon"></i>
+                                            <i class="fas fa-file-alt nav-icon"></i>
                                             <p>Company Projects</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link " asp-controller="Manager" asp-action="CompanyTeamsList">
-                                            <i class="fas fa-circle nav-icon"></i>
+                                            <i class="fas fa-users-cog nav-icon"></i>
                                             <p>Company Teams</p>
                                         </a>
                                     </li>
@@ -216,31 +213,30 @@
                                             <p>Company Members</p>
                                         </a>
                                     </li>
-
                                     <li class="nav-item">
-                                        <a class="nav-link " asp-controller="Assignment" asp-action="">
-                                            <i class="fas nav-icon"></i>
+                                        <a class="nav-link" asp-controller="Assignment" asp-action="GetCompanyAssignments">
+                                            <i class="fas fa-clipboard-list nav-icon"></i>
                                             <p>Company Assignments</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" asp-controller="ATask" asp-action="GetCompanyTasks">
-                                            <i class="fas fa-clipboard-list nav-icon"></i>
+                                            <i class="fas fa-check nav-icon"></i>
                                             <p>Company Tasks</p>
                                         </a>
                                     </li>
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link active">
+                                <a href="#" class="nav-link">
                                     <i class="nav-icon fas fa-laptop-medical"></i>
                                     <p>Create<i class="right fas fa-angle-left"></i></p>
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a class="nav-link" asp-controller="Manager" asp-action="CreateUser">
-                                            <i class="fas fa-user-plus nav-icon"></i>
-                                            <p>New User</p>
+                                        <a class="nav-link" asp-controller="Manager" asp-action="CreateProject">
+                                            <i class="fas fa-file-alt nav-icon"></i>
+                                            <p>New Project</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
@@ -250,9 +246,15 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" asp-controller="Manager" asp-action="CreateProject">
-                                            <i class="fas fa-file-alt nav-icon"></i>
-                                            <p>New Project</p>
+                                        <a class="nav-link" asp-controller="Manager" asp-action="CreateUser">
+                                            <i class="fas fa-user-plus nav-icon"></i>
+                                            <p>New User</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="Assignment" asp-action="CreateAssignment">
+                                            <i class="fas fa-clipboard-list nav-icon"></i>
+                                            <p>New Assignment</p>
                                         </a>
                                     </li>
                                 </ul>

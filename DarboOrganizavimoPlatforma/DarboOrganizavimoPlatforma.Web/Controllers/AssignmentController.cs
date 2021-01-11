@@ -32,7 +32,7 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             return View(await _assignmentService.GetAssignments());
         }
 
-        //Gets ALL assignments of Current logged in User. // Member Controller part..? 
+        //Gets ALL assignments of Current logged in User. // Member Controller
         public async Task<IActionResult> GetMemberAssignmentList()
         {
             AppUser user = _userManager.GetUserAsync(User).Result;
@@ -40,7 +40,7 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             return View(await _assignmentService.GetUserAssignmentList(UserId));
         }
 
-        //Gets ALL assignments of Current logged in User in a specific Team. // Member Controller part..? 
+        //Gets ALL assignments of Current logged in User in a specific Team. // Member Controller
         public async Task<IActionResult> GetTeamMemberAssignmentList(Guid TeamId)
         {
             AppUser user = _userManager.GetUserAsync(User).Result;
@@ -53,12 +53,15 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
         {
             return View(await _assignmentService.GetTeamAssignments(TeamId));
         }
+        public async Task<IActionResult> GetCompanyAssignments()
+        {
+            AppUser user = _userManager.GetUserAsync(User).Result;
+            Guid companyId = user.CompanyId;
+            List<Assignment> companyAssignments = await _assignmentService.GetCompanyAssignments(companyId);
+            return View(companyAssignments);
+        }
 
-
-
-
-
-        // GET: Manager Assignment/Create // Logic mistake.When entering directly - need fix. Select..when should get current team id.
+        // GET: Manager Assignment/ Create
         [HttpGet]
         public async Task<IActionResult> CreateAssignment()
         {
@@ -87,7 +90,8 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
                     AssignmentStatus = CompletionStatus.ToDo, // = 0
                     AssignmentTasks = new List<ATask>(),
                     TeamId = model.TeamId,
-                    Team = await _teamService.GetTeamById(model.TeamId), 
+                    Team = await _teamService.GetTeamById(model.TeamId),
+                    Company = await _companyService.GetCompanyById(id)
                 };
                 await _assignmentService.NewAssignment(newAssignment);
 
@@ -112,6 +116,8 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateTeamAssignment(NewTeamAssignmentViewModel model, Guid TeamId)
         {
+            AppUser user = _userManager.GetUserAsync(User).Result;
+            Guid id = user.CompanyId;
             if (ModelState.IsValid)
             {
                 Assignment newAssignment = new Assignment
@@ -122,7 +128,8 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
                     AssignmentStatus = CompletionStatus.ToDo, // = 0
                     AssignmentTasks = new List<ATask>(),
                     TeamId = TeamId,
-                    Team = await _teamService.GetTeamById(TeamId)
+                    Team = await _teamService.GetTeamById(TeamId),
+                    Company = await _companyService.GetCompanyById(id)
                 };
                 await _assignmentService.NewAssignment(newAssignment);
 
@@ -222,7 +229,6 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             ViewBag.AvailableTeamUsers = new SelectList(await _assignmentService.GetListOfAvailableAssignmentUsers(id, AssignmentId), "Id", "MemberName");
 
             List<AppUser> AssignmentMemberList = await _assignmentService.GetAssignmentUserList(AssignmentId);
-            //visi assignment members;
             var assignmentMemberListViewModel = new List<UserListViewModel>();
             
 
@@ -287,13 +293,7 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             return RedirectToAction("AssignUsersToAssignment", "Assignment", new {@id = TeamId, AssignmentId });
         }
 
-
-
-
-
-
-
-        //Get Get Post// Get ID > Get Another Id > Post. With Create. // NEEDS REWORK
+        //Get Get Post// Get ID > Get Another Id > Post. With Create. // NEEDS REWORK > cascade select
         public async Task<ActionResult> AdminCreateAssignment()
         {
             //ViewBag.AllCompanies = new SelectList(await _companyService.GetCompanies(), "CompanyId", "CompanyName");
@@ -310,6 +310,7 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             return View(model);
         }
 
+        //cascading select list...
         [HttpPost]
         public async Task<ActionResult> AdminCreateAssignment(Guid? CompanyId, Guid? TeamId)
         {

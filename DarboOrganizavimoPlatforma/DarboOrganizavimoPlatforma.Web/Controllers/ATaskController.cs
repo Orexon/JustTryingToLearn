@@ -3,6 +3,7 @@ using DarboOrganizavimoPlatforma.Services.Interfaces;
 using DarboOrganizavimoPlatforma.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,19 +13,10 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
 {
     public class ATaskController : Controller
     {
-
-        //All Assignment Tasks.(list of Task with the Html view of Task description etc..)
-
         //User Specific Tasks
-
         //Change Task status.
-        //Delete Task.
-
-        //Set To In Progress - appuser name to list or smth.
-
-        //Select Assignment. View assignment Tasks. -> Pass Assignment id. -> Completed//ToDo//In Progress buttons at the top to open task views
-        //Create Task at the top of the page. [Title Input field, Description Input field, Select Status Input field]. Create button. 
-        //List of Current Tasks -> Number of a Task -> Their Status ->   Edit.Delete.More Detail. -> 
+        //Set To In Progress - appuser name to list.
+        //Number of a Task ->
 
 
         private readonly UserManager<AppUser> _userManager;
@@ -58,6 +50,49 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             };
             return View(model);
         }
+
+        //Create Task When Choosing Assignment.
+
+        [HttpGet]
+        public async Task<IActionResult> CreateTask()
+        {
+            AppUser user = _userManager.GetUserAsync(User).Result;
+            Guid companyId = user.CompanyId;
+            ViewBag.companyAssignments = new SelectList(await _assignmentService.GetCompanyAssignments(companyId), "AssignmentId", "AssignmentName");
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateTask(CreateTaskViewModel model)
+        {
+            AppUser user = _userManager.GetUserAsync(User).Result;
+            Guid companyId = user.CompanyId;
+            ViewBag.companyAssignments = new SelectList(await _assignmentService.GetCompanyAssignments(companyId), "AssignmentId", "AssignmentName");
+
+            if (ModelState.IsValid)
+            {
+                Guid guidAssignmentId = Guid.Parse(model.AssignmentId);
+
+                ATask atask = new ATask
+                {
+                    Company = await _companyService.GetCompanyById(companyId),
+                    Title = model.Title,
+                    Description = model.Description,
+                    AssignmentId = guidAssignmentId,
+                    Assignment = await _assignmentService.GetAssignmentById(guidAssignmentId),
+                    AppUser = _userManager.GetUserAsync(User).Result,
+                    AppUserId = user.Id,
+                    ATaskStatus = model.ATaskStatus,
+                    WrittenBy = user.UserName,
+                    CreateTime = DateTime.Now,
+                };
+
+                await _taskService.NewATask(atask);
+                return RedirectToAction("CreateAssignmentTask", new { guidAssignmentId });
+            }
+            return View(model);
+        }
+
 
         //Create Task For Manager/User when viewing from assigment.
         [HttpGet]

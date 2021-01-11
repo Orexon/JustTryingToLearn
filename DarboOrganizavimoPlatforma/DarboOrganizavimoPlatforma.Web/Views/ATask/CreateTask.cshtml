@@ -1,0 +1,62 @@
+﻿@model DarboOrganizavimoPlatforma.Web.Models.CreateTaskViewModel
+
+@{
+    ViewData["Title"] = "Create User";
+}
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-8 offset-sm-2">
+                <h1 class="text-center">Create Task</h1>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-sm-8 offset-sm-2">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">New Task</h3>
+                </div>
+                <form method="post" asp-controller="ATask" asp-action="CreateTask">
+                    <div class="card-body">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="row"> 
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label asp-for="Title" class="control-label">Title</label>
+                                    <input asp-for="Title" class="form-control">
+                                    <span asp-validation-for="Title" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Description" class="control-label">Description</label>
+                                    <input asp-for="Description" class="form-control">
+                                    <span asp-validation-for="Description" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="AssignmentId" class="control-label">Select which assignment task belongs to</label>
+                                    <select class="form-control" asp-for="AssignmentId" asp-items=@ViewBag.companyAssignments>
+                                        <option selected></option>
+                                    </select>
+                                    <span asp-validation-for="AssignmentId" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- /.card-body -->
+                    <div class="card-footer">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success">Submit</button>
+                            <a class="btn btn-secondary float-right" asp-controller="Assignment" asp-action="GetCompanyAssignments">Back to Assignment List</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- /.card -->
+        </div>
+    </div>
+</section>
+<!-- /.content -->

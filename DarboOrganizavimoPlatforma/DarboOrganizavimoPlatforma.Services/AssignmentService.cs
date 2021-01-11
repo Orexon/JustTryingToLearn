@@ -30,7 +30,12 @@ namespace DarboOrganizavimoPlatforma.Services
         {
             return _context.Assignments.Include(x => x.UsersAssigned).Include(x=>x.Team).ToList();
         }
-
+        //Gets ALL assignments from a specific company. 
+        public async Task<List<Assignment>> GetCompanyAssignments(Guid companyId)
+        {
+            List<Assignment> companyAssignments = await _context.Assignments.Include(x => x.Company).Where(x => x.Company.CompanyId == companyId).Include(x => x.Team).ToListAsync();
+            return companyAssignments;
+        }
         //Gets ALL assignments of User.
         public async Task<List<Assignment>> GetUserAssignmentList(Guid UserId) 
         {
@@ -49,12 +54,7 @@ namespace DarboOrganizavimoPlatforma.Services
             List<AppUser> AssignmentUsers = await _context.UserAssignments.Include(x => x.Assignment).Where(x => x.AssignmentId == AssignmentId).Include(x=>x.AppUser).Select(e => e.AppUser).ToListAsync();
             return AssignmentUsers;
         }
-
-        //public async Task<List<Assignment>> CompanyAssignments(Guid companyId)
-        //{
-        //    _context.Assignments.Where
-        //    return 
-        //}
+       
 
         //Gets all Users assigned to a specific Team but not assigned to a specific Assignment. 
         public async Task<List<AppUser>> GetListOfAvailableAssignmentUsers(Guid TeamId, Guid AssignmentId)
