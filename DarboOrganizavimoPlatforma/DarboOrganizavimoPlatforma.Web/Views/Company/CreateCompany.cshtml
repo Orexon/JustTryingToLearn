@@ -2,71 +2,95 @@
 @using DarboOrganizavimoPlatforma.Domains;
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Company";
 }
-
-<h4>Create Company</h4>
-<hr />
-
-<form asp-action="CreateCompany">
-    <div class="row">
-        <div class="col-md-6">
-            <h5>Company</h5>
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="CompanyName" class="control-label"></label>
-                <input asp-for="CompanyName" class="form-control" />
-                <span asp-validation-for="CompanyName" class="text-danger"></span>
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-6 col-sm-6">
+                <h1>Create Company</h1>
             </div>
-            <div class="form-group mb-3">
-                <label asp-for="CompanyDescription" class="control-label"></label>
-                <textarea asp-for="CompanyDescription" class="form-control" rows="3"></textarea>
-                <span asp-validation-for="CompanyDescription" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CompanyMemberSize">Select Company Size Plan from a list of size plans</label>
-                <select class="form-control" asp-for="CompanyMemberSize" asp-items="Html.GetEnumSelectList<CompanyMemberSize>()">
-                    <option selected></option>
-                </select>
-                <span asp-validation-for="CompanyMemberSize" class="text-danger"></span>
+            <div class="col-6 col-sm-3 offset-sm-3 text-right">
+                <a asp-controller="Company" asp-action="GetCompanies" class="btn btn-primary" role="button">Back to Company List</a>
             </div>
         </div>
+    </div><!-- /.container-fluid -->
+</section>
 
-        <div class="col-md-6">
-            <div class="form-group">
-                <h5>Company Manager</h5>
-                <label for="inputName">Member name</label>
-                <input asp-for="MemberName" type="text" class="form-control" id="inputName">
-                <span asp-validation-for="@Model.MemberName" class="text-danger"></span>
+<section class="content">
+    <form asp-controller="Company" asp-action="CreateCompany">
+        <div class="card card-primary row">
+            <div class="card-header">
+                <div class="card-title">New Company</div>
             </div>
-            <div class="form-group">
-                <label for="email">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" asp-for="Email">
-                <span asp-validation-for="Email" class="text-danger"></span>
-                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card card-info">
+                            <div class="card-header">
+                                <div class="card-title"><h5>Company</h5></div>
+                            </div>
+                            <div class="card-body">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="form-group">
+                                    <label asp-for="CompanyName" class="control-label"></label>
+                                    <input asp-for="CompanyName" class="form-control" />
+                                    <span asp-validation-for="CompanyName" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="CompanyDescription" class="control-label"></label>
+                                    <textarea asp-for="CompanyDescription" class="form-control" rows="5"></textarea>
+                                    <span asp-validation-for="CompanyDescription" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="CompanyMemberSize">Select Company Size Plan from a list of size plans</label>
+                                    <select class="form-control" asp-for="CompanyMemberSize" asp-items="Html.GetEnumSelectList<CompanyMemberSize>()">
+                                        <option selected></option>
+                                    </select>
+                                    <span asp-validation-for="CompanyMemberSize" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card card-secondary">
+                            <div class="card-header">
+                                <div class="card-title"><h5>Company Manager</h5></div>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label asp-for="MemberName">Member name</label>
+                                    <input asp-for="MemberName" type="text" class="form-control" id="inputName">
+                                    <span asp-validation-for="@Model.MemberName" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Email">Email address</label>
+                                    <input asp-for="Email" type="email" class="form-control">
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                                <div class="form-group pb-1">
+                                    <label asp-for="Password">Password</label>
+                                    <input asp-for="Password" type="password" class="form-control">
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                </div>
+                                <div class="form-group pb-1">
+                                    <label asp-for="ConfirmPassword">Password Confirm</label>
+                                    <input type="password" class="form-control" asp-for="ConfirmPassword">
+                                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="Password">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" asp-for="Password">
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label for="Pasword Confirm">Password Confirm</label>
-                <input type="password" class="form-control" id="exampleInputPassword2" asp-for="ConfirmPassword">
-                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            <div class="card-footer">
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
             </div>
         </div>
-
-        <div class="form-group">
-            <input type="submit" value="Create" class="btn btn-primary" />
-        </div>
-    </div>
-</form>
-
-
-<div>
-    <a asp-action="GetCompanies">Back to List</a>
-</div>
+    </form>
+</section>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

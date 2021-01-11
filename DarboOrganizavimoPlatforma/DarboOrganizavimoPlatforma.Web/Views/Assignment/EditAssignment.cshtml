@@ -5,46 +5,67 @@
     ViewData["Title"] = "EditAssignment";
 }
 
-<h1>Edit @Model.AssignmentName </h1>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6 offset-sm-3">
+                <h1>Edit @Model.AssignmentName</h1>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
 
-<h4>Assignment</h4>
-<hr />
-<div class="row">
-    <div class="col-md-6">
-        <form asp-controller="Assignment" asp-route-AssignmentId="@Model.AssignmentId" asp-action="EditAssignment">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="AssignmentName" class="control-label"></label>
-                <input asp-for="AssignmentName" class="form-control" />
-                <span asp-validation-for="AssignmentName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AssignmentDescription" class="control-label"></label>
-                <input asp-for="AssignmentDescription" class="form-control" />
-                <span asp-validation-for="AssignmentDescription" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AssignmentStatus">Select Assignment Status</label>
-                <select class="form-control" asp-for="AssignmentStatus" asp-items="Html.GetEnumSelectList<CompletionStatus>()">
-                    <option selected></option>
-                </select>
-                <span asp-validation-for="AssignmentStatus" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Assignment</h3>
+                </div>
+                <div class="card-body">
+                    <form asp-controller="Assignment" asp-route-AssignmentId="@Model.AssignmentId" asp-action="EditAssignment">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="AssignmentName" class="control-label"></label>
+                            <input asp-for="AssignmentName" class="form-control" />
+                            <span asp-validation-for="AssignmentName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="AssignmentDescription" class="control-label"></label>
+                            <textarea asp-for="AssignmentDescription" class="form-control" rows="4"></textarea>
+                            <span asp-validation-for="AssignmentDescription" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="AssignmentStatus">Select Assignment Status</label>
+                            <select class="form-control" asp-for="AssignmentStatus" asp-items="Html.GetEnumSelectList<CompletionStatus>()">
+                                <option selected></option>
+                            </select>
+                            <span asp-validation-for="AssignmentStatus" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Save Changes" class="btn btn-success float-left">
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a asp-controller="Assignment" asp-action="GetAllAssignments" class="btn btn-primary float-right" style="width:auto">Back to Assignment List</a>
+                            }
+                            else
+                            {
+                                if (Model.AssignmentId != null)
+                                {
+                                    <a asp-controller="Assignment" asp-route-TeamId="@Model.TeamId" asp-action="GetTeamAssignmentList" class="btn btn-primary float-right">Back to Team Assignment List</a>
+                                }
+                                else
+                                {
+                                    <a asp-controller="ATask" asp-action="GetCompanyTasks" class="btn btn-primary float-right">All Assignemnts</a>
+                                }
+                            }
+                        </div>
+                    </form>
+                </div> <!-- /.card-body -->
+            </div> <!-- /.card -->
+        </div>
     </div>
-</div>
-
-
-@if (User.IsInRole("Admin"))
-{
-    <a asp-controller="Assignment" asp-action="GetAllAssignments" class="btn btn-primary" style="width:auto">Back to Assignment List</a>
-}
-else
-{
-    <a asp-controller="Assignment" asp-route-TeamId="@Model.TeamId" asp-action="GetTeamAssignmentList" class="btn btn-primary" style="width:auto">Back to Team Assignment List</a>
-}
-
-
+</section>
+<!-- /.content -->

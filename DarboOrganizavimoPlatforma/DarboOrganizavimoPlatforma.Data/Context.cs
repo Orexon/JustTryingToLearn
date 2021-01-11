@@ -110,6 +110,14 @@ namespace DarboOrganizavimoPlatforma.Data
                 .HasOne(e => e.Assignment)
                 .WithMany(e => e.AssignmentTasks);
 
+            //Company To Assignment/Assignment To Company Relationship
+            builder.Entity<Company>()
+                .HasMany(e => e.Assignments)
+                .WithOne(e => e.Company);
+            builder.Entity<Assignment>()
+                .HasOne(e => e.Company)
+                .WithMany(e => e.Assignments);
+
             //Database default table name change
             builder.HasDefaultSchema("Identity");
             builder.Entity<AppUser>(b =>

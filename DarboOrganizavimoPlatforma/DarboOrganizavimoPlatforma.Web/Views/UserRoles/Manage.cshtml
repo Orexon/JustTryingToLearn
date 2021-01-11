@@ -1,38 +1,50 @@
 ﻿@model List<ManageUserRolesViewModel>
 @{
     ViewData["Title"] = "Manage";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<form method="post">
-    <div class="card">
-        <div class="card-header">
-            <h2>Manage User Roles</h2>
-            Add/Remove Roles for User @ViewBag.UserName.
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-sm-12">
+                <h1>Manage User Roles</h1>
+            </div>
         </div>
-        <div class="card-body">
-            @for (int i = 0; i < Model.Count; i++)
-            {
-                <div class="form-check m-1">
-                    <input type="hidden" asp-for="@Model[i].RoleId" />
-                    <input type="hidden" asp-for="@Model[i].RoleName" />
-                    <input asp-for="@Model[i].Selected" class="form-check-input" />
-                    <label class="form-check-label" asp-for="@Model[i].Selected">
-                        @Model[i].RoleName
-                    </label>
+    </div><!-- /.container-fluid -->
+</section>
+
+<section class="content">
+    <div class="container-fluid">
+        <form method="post">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Add/Remove Roles for User <strong>@ViewBag.UserName</strong>.</h3>
+                </div>                   
+                <div class="card-body">
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <div class="form-check m-1">
+                            <input type="hidden" asp-for="@Model[i].RoleId" />
+                            <input type="hidden" asp-for="@Model[i].RoleName" />
+                            <input asp-for="@Model[i].Selected" class="form-check-input" />
+                            <label class="form-check-label" asp-for="@Model[i].Selected">
+                                @Model[i].RoleName
+                            </label>
+                        </div>
+                    }
+                    <div asp-validation-summary="All" class="text-danger"></div>
                 </div>
-            }
-            <div asp-validation-summary="All" class="text-danger"></div>
-        </div>
-        <div class="card-footer">
-            <input type="submit" value="Update" class="btn btn-primary" style="width:auto" />
-            @if (User.IsInRole("Admin"))
-            {
-                <a asp-controller="Admin" asp-action="GetUserList" class="btn btn-primary" style="width:auto">Cancel</a>
-            }
-            else
-            {
-                <a asp-controller="Manager" asp-action="CompanyMemberList" class="btn btn-primary" style="width:auto">Cancel</a>
-            }
-        </div>
+                <div class="card-footer">
+                    <input type="submit" value="Update" class="btn btn-primary" style="width:auto" />
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-controller="Admin" asp-action="GetUserList" class="btn btn-primary" style="width:auto">Cancel</a>
+                    }
+                    else
+                    {
+                        <a asp-controller="Manager" asp-action="CompanyMemberList" class="btn btn-primary" style="width:auto">Cancel</a>
+                    }
+                </div>
+            </div>
+        </form>
     </div>
-</form>
+</section>

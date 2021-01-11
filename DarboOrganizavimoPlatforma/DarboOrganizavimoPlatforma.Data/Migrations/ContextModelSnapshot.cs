@@ -162,13 +162,13 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("d1d2b97f-69e0-4e01-a36f-fc20448e0568"),
+                            Id = new Guid("bfcba01a-e31b-4686-9207-c8f97f85ab5a"),
                             AccessFailedCount = 0,
-                            CompanyId = new Guid("c90f5069-15e9-47b7-8c7c-156cd1a61c49"),
+                            CompanyId = new Guid("3768038d-91af-4052-b0f3-d8257ef2bddb"),
                             ConcurrencyStamp = "27747190-7b7d-453d-ba7b-5bfa31119160",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
-                            JoinDateTime = new DateTime(2021, 1, 10, 16, 51, 4, 343, DateTimeKind.Local).AddTicks(9007),
+                            JoinDateTime = new DateTime(2021, 1, 11, 9, 8, 37, 30, DateTimeKind.Local).AddTicks(1072),
                             LockoutEnabled = false,
                             MemberName = "Mindaugas",
                             NormalizedEmail = "ADMIN@ADMIN.COM",
@@ -196,6 +196,9 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
                     b.Property<int>("AssignmentStatus")
                         .HasColumnType("int");
 
+                    b.Property<Guid?>("CompanyId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("CompletedTime")
                         .HasColumnType("datetime2");
 
@@ -206,6 +209,8 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("AssignmentId");
+
+                    b.HasIndex("CompanyId");
 
                     b.HasIndex("TeamId");
 
@@ -237,11 +242,11 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
                     b.HasData(
                         new
                         {
-                            CompanyId = new Guid("c90f5069-15e9-47b7-8c7c-156cd1a61c49"),
+                            CompanyId = new Guid("3768038d-91af-4052-b0f3-d8257ef2bddb"),
                             CompanyDescription = "Admin Company",
                             CompanyMemberSize = 0,
                             CompanyName = "Admin Company",
-                            CreateTime = new DateTime(2021, 1, 10, 16, 51, 4, 343, DateTimeKind.Local).AddTicks(2923)
+                            CreateTime = new DateTime(2021, 1, 11, 9, 8, 37, 29, DateTimeKind.Local).AddTicks(6337)
                         });
                 });
 
@@ -371,7 +376,7 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("674dbadf-8b93-4c18-9296-aeab7dd4d322"),
+                            Id = new Guid("e0ff5917-ed14-4bee-b90d-4b6278fb195e"),
                             ConcurrencyStamp = "27747190-7b7d-453d-ba7b-5bfa31119160",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
@@ -462,8 +467,8 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = new Guid("d1d2b97f-69e0-4e01-a36f-fc20448e0568"),
-                            RoleId = new Guid("674dbadf-8b93-4c18-9296-aeab7dd4d322")
+                            UserId = new Guid("bfcba01a-e31b-4686-9207-c8f97f85ab5a"),
+                            RoleId = new Guid("e0ff5917-ed14-4bee-b90d-4b6278fb195e")
                         });
                 });
 
@@ -516,6 +521,10 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
 
             modelBuilder.Entity("DarboOrganizavimoPlatforma.Domains.Assignment", b =>
                 {
+                    b.HasOne("DarboOrganizavimoPlatforma.Domains.Company", "Company")
+                        .WithMany("Assignments")
+                        .HasForeignKey("CompanyId");
+
                     b.HasOne("DarboOrganizavimoPlatforma.Domains.Team", "Team")
                         .WithMany("TeamAssignments")
                         .HasForeignKey("TeamId")

@@ -125,7 +125,9 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             {
                 Email = user.Email,
                 MemberName = user.MemberName,
-                UserName = user.UserName
+                UserName = user.UserName,
+                Position = user.Position,
+                Notes = user.Notes
             };
             return View(model);
         }
@@ -141,6 +143,8 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
                 user.Email = model.Email;
                 user.MemberName = model.MemberName;
                 user.UserName = model.UserName;
+                user.Position = model.Position;
+                user.Notes = model.Notes;
                 if (!string.IsNullOrEmpty(model.Password))
                 {
                     user.PasswordHash = _passwordHasher.HashPassword(user, model.Password);

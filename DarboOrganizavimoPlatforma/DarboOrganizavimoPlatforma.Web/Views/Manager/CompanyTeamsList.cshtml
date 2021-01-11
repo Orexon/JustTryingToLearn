@@ -3,61 +3,87 @@
 @{
     ViewData["Title"] = "CompanyTeamsList";
 }
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-12 col-sm-12">
+                <h1>Team List</h1>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
 
-<h1>Team List</h1>
-
-<div class="container">
-    <div class="col-6">
-        <a class="btn btn-success" asp-controller="Manager" asp-action="CreateTeam"> Create New Team</a>
-        <a class="btn btn-success" asp-controller="Assignment" asp-action="CreateAssignment"> Create New Team Assignment</a>
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card mt-2">
+                    <div class="card-header">
+                        <h3 class="card-title">Teams list</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="pb-2">
+                            <a class="btn btn-success ml-1" asp-controller="Manager" asp-action="CreateTeam">Create New Team</a>
+                            <a class="btn btn-success" asp-controller="Assignment" asp-action="CreateAssignment">Create New Team Assignment</a>
+                        </div>
+                        <table id="example1" class="table table-bordered table-hover">
+                            <!-- /Table-Header -->
+                            <thead>
+                                <tr>
+                                    <th>@Html.DisplayNameFor(model => model.TeamName)</th>
+                                    <th>@Html.DisplayNameFor(model => model.TeamDescription)</th>
+                                    <th>View/Add Members</th>
+                                    <th>Team Assignments</th>
+                                    <th>Edit</th>
+                                    <th>Details </th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <!-- /Table-Body -->
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => item.TeamName)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.TeamId)</td>
+                                        <td><a class="btn btn-warning" asp-controller="Manager" asp-action="AddTeamMember" asp-route-id="@item.TeamId">View/Add</a></td>
+                                        <td><a class="btn btn-secondary" asp-controller="Assignment" asp-action="GetTeamAssignmentList" asp-route-TeamId="@item.TeamId">View/Add</a></td>
+                                        <td><a class="btn btn-success" asp-controller="Teams" asp-action="EditTeam" asp-route-id="@item.TeamId"> Edit</a></td>
+                                        <td><a class="btn btn-info" asp-controller="Teams" asp-action="TeamDetails" asp-route-id="@item.TeamId">Details</a></td>
+                                        <td><button id="modalDeleteButton" type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal" data-id="@item.TeamId">Delete</button></td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <!-- /Table-footer -->
+                            <tfoot>
+                                <tr>
+                                    <th>@Html.DisplayNameFor(model => model.TeamName)</th>
+                                    <th>@Html.DisplayNameFor(model => model.TeamDescription)</th>
+                                    <th>View/Add Members</th>
+                                    <th>Team Assignments</th>
+                                    <th>Edit</th>
+                                    <th>Details</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
     </div>
-</div>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.TeamName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TeamDescription)
-            </th>
-            <th>
-                View/Add Members
-            </th>
-            <th>
-                Team Assignments
-            </th>
-            <th>
-                Manage Team
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TeamName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TeamDescription)
-                </td>
-                <td>
-                    <a class="btn btn-secondary" asp-controller="Manager" asp-action="AddTeamMember" asp-route-id="@item.TeamId">View/Add</a>
-                </td>
-                <td>
-                    <a class="btn btn-secondary" asp-controller="Assignment" asp-action="GetTeamAssignmentList" asp-route-TeamId="@item.TeamId">View/Add</a>
-                </td>
-                <td>
-                    <a class="btn btn-success" asp-controller="Teams" asp-action="EditTeam" asp-route-id="@item.TeamId">Edit</a> |
-                    <a class="btn btn-info"  asp-controller="Teams" asp-action="TeamDetails" asp-route-id="@item.TeamId">Details</a> |
-                    <button id="modalDeleteButton" type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal" data-id="@item.TeamId">Delete</button>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+    <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
 
+<!-- Modal on Delete Click-->
 <div class="modal fade" data-backdrop="static" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -93,6 +119,14 @@
                         location.reload();
                     });
             })
+        });
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         });
     </script>
 }

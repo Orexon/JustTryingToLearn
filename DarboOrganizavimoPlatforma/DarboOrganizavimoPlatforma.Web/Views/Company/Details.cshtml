@@ -4,27 +4,46 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
 
-<div>
-    <h4>Company</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CompanyName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CompanyName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CompanyDescription)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CompanyDescription)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="EditCompany" asp-route-id="@Model.CompanyId">Edit</a> |
-    <a asp-action="GetCompanies">Back to List</a>
-</div>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-8 offset-sm-2">
+                <h1 class="text-center">@Model.CompanyName Details</h1>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Horizontal Form -->
+<section class="content">
+    <div class="row justify-content-center">
+        <div class="col-sm-8">
+            <div class="card card-info">
+                <div class="card-header">
+                    <h3 class="card-title">@Model.CompanyName</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label class="col-sm-3">@Html.DisplayNameFor(model => model.CompanyMemberSize)</label>
+                            <div class="col-sm-9">@Html.DisplayFor(model => model.CompanyMemberSize)</div>
+                        </div>
+                        <div class="col-sm-12">
+                            <label class="col-sm-12">@Html.DisplayNameFor(model => model.CompanyDescription)</label>
+                            <div class="col-sm-12">@Html.DisplayFor(model => model.CompanyDescription)</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                    <a class="btn btn-outline-success" asp-action="EditCompany" asp-route-id="@Model.CompanyId">Edit</a>
+                    <a class="btn btn-primary float-right" asp-action="GetCompanies">Back to List</a>
+                </div>
+                <!-- /.card-footer -->
+            </div>
+        </div>
+    </div>
+</section>

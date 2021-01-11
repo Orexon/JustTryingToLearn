@@ -5,42 +5,67 @@
     ViewData["Title"] = "EditCompany";
 }
 
-<h1>EditCompany</h1>
 
-<h4>Company</h4>
-<hr />
-<div class="row">
-    <div class="col-md-6">
-        <form asp-action="EditCompany">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="CompanyName" class="control-label"></label>
-                <input asp-for="CompanyName" class="form-control" />
-                <span asp-validation-for="CompanyName" class="text-danger"></span>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-12 col-sm-12">
+                <h1 text-center>Edit Company</h1>
             </div>
-            <div class="form-group mb-3">
-                <label asp-for="CompanyDescription" class="control-label"></label>
-                <textarea asp-for="CompanyDescription" class="form-control" rows="4"></textarea>
-                <span asp-validation-for="CompanyDescription" class="text-danger"></span>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<!-- Main content -->
+<section class="content">
+    <div class="row justify-content-center">
+        <div class="col-sm-6">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Company</h3>
+                </div>
+                <form asp-controller="Company" asp-action="EditCompany">
+                    <div class="card-body">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label asp-for="CompanyName" class="control-label"></label>
+                                    <input asp-for="CompanyName" class="form-control" />
+                                    <span asp-validation-for="CompanyName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label asp-for="CompanyMemberSize">Select Company Size Plan from a list of size plans</label>
+                                    <select class="form-control" asp-for="CompanyMemberSize" asp-items="Html.GetEnumSelectList<CompanyMemberSize>()">
+                                        <option selected></option>
+                                    </select>
+                                    <span asp-validation-for="CompanyMemberSize" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label asp-for="CompanyDescription" class="control-label">Company Description</label>
+                                    <textarea asp-for="CompanyDescription" class="form-control" rows="4"></textarea>
+                                    <span asp-validation-for="CompanyDescription" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- /.card-body -->
+                    <div class="card-footer">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success">Save</button>
+                            <a asp-controller="Company" asp-action="GetCompanies" class="btn btn-secondary float-right">Back to Copmany List</a>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="CompanyMemberSize">Select Company Size Plan from a list of size plans</label>
-                <select class="form-control" asp-for="CompanyMemberSize" asp-items="Html.GetEnumSelectList<CompanyMemberSize>()">
-                    <option selected></option>
-                </select>
-                <span asp-validation-for="CompanyMemberSize" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+            <!-- /.card -->
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="GetCompanies">Back to List</a>
-</div>
-
+</section>
+<!-- /.content -->
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

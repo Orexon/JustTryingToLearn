@@ -1,93 +1,117 @@
 ﻿@model DarboOrganizavimoPlatforma.Web.Models.AddTeamToProjectViewModel
 
 @{
-    ViewData["Title"] = "AddTeamMember";
+    ViewData["Title"] = "AssignTeamToProject";
 }
 
-
-<h1>Add Team To Project </h1>
-<hr />
-
-<div class="row">
-    <div class="col-12">
-        <form asp-controller="Manager" asp-action="AddProjectTeam">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group  mb-3">
-                <label asp-for="TeamId">Select Available Team</label>
-                <select class="form-control" asp-for="TeamId" asp-items=@ViewBag.AvailableTeams>
-                    <option selected></option>
-                </select>
-                <span asp-validation-for="TeamId" class="text-danger"></span>
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-6 col-sm-6">
+                <h1>Add Team To Project</h1>
             </div>
-            <div class="form-group">
-                <input type="submit" value="add" class="btn btn-primary" />
+            <div class="col-6 col-sm-3 offset-sm-3 text-right">
+                <a class="btn btn-primary float-right" asp-controller="Manager" asp-action="CompanyProjectList">Back to Project List</a>
             </div>
-        </form>
-    </div>
-</div>
-@if (Model.ProjectTeams.Count > 0)
-{
-    <div class="row">
-        <div class="col-12">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>
-                            TeamName
-                        </th>
-                        <th>
-                            CreateTime
-                        </th>
-                        <th>
-                            TeamDescription
-                        </th>
-                        <th>
-                            Manage
-                        </th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.ProjectTeams)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.TeamName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.CreateTime)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.TeamDescription)
-                            </td>
-                            <td>
-                                @*asp-all-route-data="@Model.TeamId" asp-route-teamid="@Model.TeamId" asp-route-id="@item.UserId"  *@
-                                <a class="btn btn-success" asp-controller="Manager" asp-action="RemoveTeamFromProject" asp-route-projectId="@Model.ProjectId" asp-route-TeamId="@item.TeamId">Remove From Project</a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
         </div>
-    </div>
-}
-else
-{
-    <div class="col-12 card">
-        <div class="card-body">
-            <p>Currently the Project has no Teams assigned to it</p>
+    </div><!-- /.container-fluid -->
+</section>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <form asp-controller="Manager" asp-action="AddProjectTeam">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group  mb-3">
+                        <label asp-for="TeamId">Select Available Team</label>
+                        <select class="form-control" asp-for="TeamId" asp-items=@ViewBag.AvailableTeams>
+                            <option selected></option>
+                        </select>
+                        <span asp-validation-for="TeamId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="add" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
-}
+    </div><!-- /.container-fluid -->
+</section>
 
-<div>
-    <a class="btn btn-primary" asp-controller="Manager" asp-action="CompanyProjectList">Back to Project List</a>
-</div>
-
+<section class="content">
+    <div class="container-fluid">
+        @if (Model.ProjectTeams.Count > 0)
+        {
+            <div class="row">
+                <div class="col-12">
+                    <div class="card mt-2">
+                        <div class="card-header">
+                            <h3 class="card-title">Projects list</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table id="example1" class="table table-bordered table-hover">
+                                <!-- /Table-Header -->
+                                <thead>
+                                    <tr>
+                                        <th>TeamName</th>
+                                        <th>CreateTime</th>
+                                        <th>TeamDescription</th>
+                                        <th>Manage</th>
+                                    </tr>
+                                </thead>
+                                <!-- /Table-Body -->
+                                <tbody>
+                                    @foreach (var item in Model.ProjectTeams)
+                                    {
+                                        <tr>
+                                            <td>@Html.DisplayFor(modelItem => item.TeamName)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.CreateTime)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.TeamDescription)</td>
+                                            <td><a class="btn btn-success" asp-controller="Manager" asp-action="RemoveTeamFromProject" asp-route-projectId="@Model.ProjectId" asp-route-TeamId="@item.TeamId">Remove From Project</a></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                                <!-- /Table-footer -->
+                                <tfoot>
+                                    <tr>
+                                        <th>TeamName</th>
+                                        <th>CreateTime</th>
+                                        <th>TeamDescription</th>
+                                        <th>Manage</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+        }
+        else
+        {
+            <div class="card justify-content-center col-8">
+                <div class="card-body">
+                    <p class="text-center text-bold">Currently the Project has no Teams assigned to it</p>
+                </div>
+            </div>
+        }
+    </div><!-- /.container-fluid -->
+</section>
 
 @section Scripts
-{
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+    {
+    <script type="text/javascript">
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        });
+    </script>
 }

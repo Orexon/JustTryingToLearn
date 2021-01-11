@@ -2,8 +2,6 @@
 @{
     ViewData["Title"] = "Index";
 }
-
-<div class="container">
     <div class="jumbotron text-center">
         <h1 class="display-4">Welcome to Admin Page</h1>
         <div class="row pt-5">
@@ -35,5 +33,60 @@
                 </div>
             </div>
         </div>
+        <div class="row pt-5">
+            <div class="col-6">
+                <div class="row">
+                    <p class="lead col-6">Team List</p>
+                    <a class="btn btn-primary btn " asp-controller="Project" asp-action="GetAllProjects" role="button">View Project list</a>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="row">
+                    <p class="lead col-6">Add a new Team</p>
+                    <a class="btn btn-primary btn" asp-controller="Project" asp-action="AdminCreateProject" role="button">Create a Project</a>
+                </div>
+            </div>
+        </div>
+        <div class="row pt-5">
+            <div class="col-6">
+                <div class="row">
+                    <p class="lead col-6">Team List</p>
+                    <a class="btn btn-primary btn " asp-controller="Teams" asp-action="GetAllTeams" role="button">View Teams list</a>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="row">
+                    <p class="lead col-6">Add a new Team</p>
+                    <a class="btn btn-primary btn" asp-controller="Teams" asp-action="AdminCreateTeam" role="button">Create a Team</a>
+                </div>
+            </div>
+        </div>
+        <div class="row pt-5">
+            <div class="col-6">
+                <div class="row">
+                    <p class="lead col-6">Team List</p>
+                    <a class="btn btn-primary btn " asp-controller="Assignment" asp-action="GetAllAssignments" role="button">View Companies list</a>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="row">
+                    <p class="lead col-6">Add a new Team</p>
+                    <a class="btn btn-primary btn" asp-controller="Assignment" asp-action="AdminCreateAssignment" role="button">Create an Assignment</a>
+                </div>
+            </div>
+        </div>
+        <div class="row pt-5">
+            <div class="col-6">
+                <div class="row">
+                    <p class="lead col-6">Team List</p>
+                    <a class="btn btn-primary btn " asp-controller="ATask" asp-action="GetAllTasks" role="button">View Companies list</a>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="row">
+                    <p class="lead col-6">Add a new Team</p>
+                    <a class="btn btn-primary btn" asp-controller="ATask" asp-action="AdminCreateTask" role="button">Create an Assignment</a>
+                </div>
+            </div>
+        </div>
     </div>
-</div>

@@ -15,7 +15,7 @@ namespace DarboOrganizavimoPlatforma.Domains
         public ICollection<UserAssignment> UsersAssigned { get; set; }
         public Team Team { get; set; }
         public Guid TeamId { get; set; }
-        //public Company Company { get; set; }
+        public Company Company { get; set; }
         public List<ATask> AssignmentTasks { get; set; }
     }
 }

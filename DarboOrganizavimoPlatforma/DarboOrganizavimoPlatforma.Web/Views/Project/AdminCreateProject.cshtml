@@ -1,0 +1,68 @@
+﻿@model DarboOrganizavimoPlatforma.Web.Models.AdminNewProjectViewModel
+
+@{
+    ViewData["Title"] = "AdminCreateProject";
+}
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-8 offset-sm-2">
+                <h1 class="text-center">Create Project</h1>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<p class="text-danger">
+    @ViewBag.SizeExceeded
+</p>
+<!-- Main content -->
+<section class="content justify-content-center">
+    <div class="row">
+        <div class="col-sm-8 offset-sm-2">
+                <form method="post" asp-controller="Project" asp-action="AdminCreateProject">
+                    <div class="card card-primary row">
+                        <div class="card-header">
+                            <h3 class="card-title">New Project</h3>
+                        </div>
+                        <div class="card-body">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label asp-for="ProjectName" class="control-label"></label>
+                                        <input asp-for="ProjectName" class="form-control" />
+                                        <span asp-validation-for="ProjectName" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group pb-1">
+                                        <label asp-for="CompanyID">Select Company Team belongs to</label>
+                                        <select class="form-control" asp-for="CompanyID" asp-items=@ViewBag.AllCompanies>
+                                            <option selected></option>
+                                        </select>
+                                        <span asp-validation-for="CompanyID" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label asp-for="ProjectDescription" class="control-label"></label>
+                                        <textarea asp-for="ProjectDescription" class="form-control" rows="5"></textarea>
+                                        <span asp-validation-for="ProjectDescription" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!-- /.card-body -->
+                        <div class="card-footer">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success">Submit</button>
+                                <a class="btn btn-secondary float-right" asp-controller="Project" asp-action="GetAllProjects">Back to Project List</a>
+                            </div>
+                        </div>
+                    </div> <!-- /.card -->
+                </form>
+            </div>
+        </div>
+</section>
+<!-- /.content -->
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

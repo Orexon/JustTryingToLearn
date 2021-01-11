@@ -4,39 +4,61 @@
     ViewData["Title"] = "CreateAssignment";
 }
 
-<h1>Create</h1>
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-8 offset-sm-2">
+                <h1 class="text-center">Create Assignment</h1>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
 
-<h4>Assignment</h4>
-<hr />
-<div class="row">
-    <div class="col-md-6">
-        <form asp-action="CreateAssignment">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group mb-3">
-                <label asp-for="AssignmentName" class="control-label"></label>
-                <input asp-for="AssignmentName" class="form-control" />
-                <span asp-validation-for="AssignmentName" class="text-danger"></span>
-            </div>
-            <div class="form-group mb-3">
-                <label asp-for="AssignmentDescription" class="control-label"></label>
-                <textarea asp-for="AssignmentDescription" class="form-control" rows="4"></textarea>
-                <span asp-validation-for="AssignmentDescription" class="text-danger"></span>
-            </div>
-            <div class="form-group mb-3">
-                <label asp-for="TeamId">Select a Team from a list of Company Teams</label>
-                <select class="form-control" asp-for="TeamId" asp-items="ViewBag.AllCompanyTeams">
-                    <option selected></option>
-                </select>
-                <span asp-validation-for="TeamId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+<!-- Main content -->
+<section class="content justify-content-center">
+    <div class="row">
+        <div class="col-sm-8 offset-sm-2">
+            <form method="post" asp-controller="Assignment" asp-action="CreateAssignment">
+                <div class="card card-primary row">
+                    <div class="card-header">
+                        <h3 class="card-title">New Assignment</h3>
+                    </div>
+                    <div class="card-body">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group mb-3">
+                                    <label asp-for="AssignmentName" class="control-label"></label>
+                                    <input asp-for="AssignmentName" class="form-control" />
+                                    <span asp-validation-for="AssignmentName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group mb-3">
+                                    <label asp-for="AssignmentDescription" class="control-label"></label>
+                                    <textarea asp-for="AssignmentDescription" class="form-control" rows="4"></textarea>
+                                    <span asp-validation-for="AssignmentDescription" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group mb-3">
+                                    <label asp-for="TeamId">Select a Team from a list of Company Teams</label>
+                                    <select class="form-control" asp-for="TeamId" asp-items="ViewBag.AllCompanyTeams">
+                                        <option selected></option>
+                                    </select>
+                                    <span asp-validation-for="TeamId" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- /.card-body -->
+                    <div class="card-footer">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success">Submit</button>
+                            <a class="btn btn-secondary float-right" asp-controller="Manager" asp-action="CompanyTeamsList">Back to Team List</a>
+                        </div>
+                    </div>
+                </div> <!-- /.card -->
+            </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-controller="Manager" asp-action="CompanyTeamsList">Back to Team List</a>
-</div>
-
+</section><!-- /.content -->

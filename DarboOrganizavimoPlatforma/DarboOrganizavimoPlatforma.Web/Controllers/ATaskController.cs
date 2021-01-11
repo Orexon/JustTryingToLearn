@@ -13,13 +13,10 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
     public class ATaskController : Controller
     {
 
-        //All Tasks. Admin Only. 
-
         //All Assignment Tasks.(list of Task with the Html view of Task description etc..)
 
         //User Specific Tasks
 
-        //Create Task.
         //Change Task status.
         //Delete Task.
 
@@ -152,7 +149,6 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
                     {
                         return RedirectToAction("CreateAssignmentTask", "ATask", new { assignmentId });
                     }
-
                     return RedirectToAction("GetCompanyTasks", "ATask");
                 }
                 return RedirectToAction("GetAllTasks", "ATask");

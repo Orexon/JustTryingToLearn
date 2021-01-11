@@ -1,0 +1,8 @@
+﻿.croplongtext {
+    width: 500px;
+    overflow: hidden;
+}
+.breaklongtext {
+    max-width: 500px;
+    word-wrap: break-word;
+}

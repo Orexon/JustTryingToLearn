@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="~/css/buttons.bootstrap4.css" />
     <!-- Theme style -->
     <link rel="stylesheet" href="~/css/adminlte.min.css">
+    <link rel="stylesheet" href="~/css/site - Copy.css">
 
 </head>
 <body class="hold-transition sidebar-mini">
@@ -35,9 +36,6 @@
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Home</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right ml-auto">
@@ -176,7 +174,13 @@
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link " asp-controller="Assignment" asp-action="AdminCreateAssignment">
-                                            <i class="fas fa-user-friends nav-icon"></i>
+                                            <i class="fas fa-clipboard-list nav-icon"></i>
+                                            <p>Add new Assignment</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link " asp-controller="ATask" asp-action="AdminCreateTask">
+                                            <i class="fas fa-clipboard-list nav-icon"></i>
                                             <p>Add new Assignment</p>
                                         </a>
                                     </li>
@@ -186,7 +190,7 @@
                         @if (User.IsInRole("Manager"))
                         {
                             <li class="nav-item">
-                                <a href="#" class="nav-link active">
+                                <a href="#" class="nav-link">
                                     <i class="nav-icon fas fa-tachometer-alt"></i>
                                     <p>
                                         Manage Company
@@ -208,20 +212,20 @@
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" asp-controller="Manager" asp-action="CompanyMemberList">
-                                            <i class="fas fa-circle nav-icon"></i>
+                                            <i class="fas fa-users nav-icon"></i>
                                             <p>Company Members</p>
                                         </a>
                                     </li>
 
                                     <li class="nav-item">
-                                        <a class="nav-link " asp-controller="Manager" asp-action="CompanyList">
-                                            <i class="fas fa-circle nav-icon"></i>
+                                        <a class="nav-link " asp-controller="Assignment" asp-action="">
+                                            <i class="fas nav-icon"></i>
                                             <p>Company Assignments</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" asp-controller="ATask" asp-action="GetCompanyTasks">
-                                            <i class="fas fa-circle nav-icon"></i>
+                                            <i class="fas fa-clipboard-list nav-icon"></i>
                                             <p>Company Tasks</p>
                                         </a>
                                     </li>
@@ -229,28 +233,25 @@
                             </li>
                             <li class="nav-item">
                                 <a href="#" class="nav-link active">
-                                    <i class="nav-icon fas fa-tachometer-alt"></i>
-                                    <p>
-                                        Create
-                                        <i class="right fas fa-angle-left"></i>
-                                    </p>
+                                    <i class="nav-icon fas fa-laptop-medical"></i>
+                                    <p>Create<i class="right fas fa-angle-left"></i></p>
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
                                         <a class="nav-link" asp-controller="Manager" asp-action="CreateUser">
-                                            <i class="fas fa-circle nav-icon"></i>
+                                            <i class="fas fa-user-plus nav-icon"></i>
                                             <p>New User</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" asp-controller="Manager" asp-action="CreateTeam">
-                                            <i class="fas fa-circle nav-icon"></i>
+                                            <i class="fas fa-users-cog nav-icon"></i>
                                             <p>New Team</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" asp-controller="Manager" asp-action="CreateProject">
-                                            <i class="fas fa-circle nav-icon"></i>
+                                            <i class="fas fa-file-alt nav-icon"></i>
                                             <p>New Project</p>
                                         </a>
                                     </li>

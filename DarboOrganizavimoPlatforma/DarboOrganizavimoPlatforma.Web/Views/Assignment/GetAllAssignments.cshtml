@@ -54,7 +54,7 @@
                                     <td>@Html.DisplayFor(modelItem => item.CreateTime)</td>
                                     <th>@Html.DisplayFor(modelItem => item.AssignmentId)</th>
                                     <td><a class="btn btn-success" asp-controller="Assignment" asp-action="EditAssignment" asp-route-AssignmentId="@item.AssignmentId">Edit</a></td>
-                                    <td><a class="btn btn-info" asp-controller="Assignment" asp-action="ProjectAssignment" asp-route-AssignmentId="@item.AssignmentId">Details</a></td>
+                                    <td><a class="btn btn-info" asp-controller="Assignment" asp-action="AssignmentDetails" asp-route-AssignmentId="@item.AssignmentId">Details</a></td>
                                     <td><button id="modalDeleteButton" type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal" data-AssignmentId="@item.AssignmentId">Delete</button></td>
                                 </tr>
                                 }
