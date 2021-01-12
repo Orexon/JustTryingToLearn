@@ -353,13 +353,5 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             return RedirectToAction("AddTeamMember", "Manager", new { @id = teamid });
         }
 
-        //Manager(CurrentUserCompany, SelectFromCompanyUsers, SelectFromCompanyTeams,ADD) TeamLeader(Select from CompanyUsers, add to Team. Cannot Create TEAMs or browse teams.)
-        //Add a member to a team, 2 tables - one with member select, another with current team member list, refreshes the page with the model once added, and shows current teams members
-
-        //Fix validation For all Creates where such user Email already exists in db UserEmail. 
-        //Add Responsibility/Work Roles/PositionRole creation -> Everyone can see it, by it they can decide,if its the right person for adding to a list. eg: Support, ITsupport, GeneralSupport.
-
-
-        //TeamLeader Role in all teams - have to do teamleader asign just for 1 Team. 
     }
 }

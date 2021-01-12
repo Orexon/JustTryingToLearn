@@ -136,15 +136,6 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             return View(await _teamService.GetTeamsMemberList(teamId));
         }
 
-
-
-
-
-        //Adding Users to Team.Cascading Select list.
-        //Add 1 user to team as Admin(All Company List +select Company,GetSelectedCompanyTeamList +selectTeam, GetThatComapanyUserList +SelectUser,ADD)  Enable Multiple.
-        //------------------------
-        //Get Team member List. For everyone. A button -> lets see current team member list.    If TeamLeader = AddMember to team -Select member from company.   
-        //Choose a team, get list. For Teamleader
         
     }
 }
