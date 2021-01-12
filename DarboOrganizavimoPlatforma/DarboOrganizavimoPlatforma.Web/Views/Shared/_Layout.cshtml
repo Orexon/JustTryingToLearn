@@ -84,14 +84,14 @@
                             }
                             else if (User.IsInRole("Manager"))
                             {
-                                <a class="nav-link" asp-controller="Manager" asp-action="Dashboard">
+                                <a class="nav-link" asp-controller="Home" asp-action="Index">
                                     <i class="nav-icon fas fa-home"></i>
                                     <p>Dashboard</p>
                                 </a>
                             }
                             else
                             {
-                                <a class="nav-link" asp-controller="Member" asp-action="Dashboard">
+                                <a class="nav-link" asp-controller="Home" asp-action="Index">
                                     <i class="nav-icon fas fa-home"></i>
                                     <p>Dashboard</p>
                                 </a>
@@ -172,18 +172,18 @@
                                             <p>Add new Team</p>
                                         </a>
                                     </li>
-                                    <li class="nav-item">
+                                    @*<li class="nav-item">
                                         <a class="nav-link " asp-controller="Assignment" asp-action="AdminCreateAssignment">
                                             <i class="fas fa-clipboard-list nav-icon"></i>
                                             <p>Add new Assignment</p>
                                         </a>
-                                    </li>
-                                    <li class="nav-item">
+                                    </li>*@
+                                    @*<li class="nav-item">
                                         <a class="nav-link " asp-controller="ATask" asp-action="AdminCreateTask">
                                             <i class="fas fa-check nav-icon"></i>
                                             <p>Add new Task</p>
                                         </a>
-                                    </li>
+                                    </li>*@
                                 </ul>
                             </li>
                         }

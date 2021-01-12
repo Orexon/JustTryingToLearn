@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace DarboOrganizavimoPlatforma.Web.Controllers
 {
+    [Authorize(Roles = "Admin,Manager,Member")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

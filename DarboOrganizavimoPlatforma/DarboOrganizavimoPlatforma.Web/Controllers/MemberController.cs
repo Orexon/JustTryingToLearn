@@ -2,6 +2,7 @@
 using DarboOrganizavimoPlatforma.Domains;
 using DarboOrganizavimoPlatforma.Services.Interfaces;
 using DarboOrganizavimoPlatforma.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +15,7 @@ using System.Threading.Tasks;
 
 namespace DarboOrganizavimoPlatforma.Web.Controllers
 {
+    [Authorize(Roles = "Member")]
     public class MemberController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
@@ -140,8 +142,8 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
         public async Task<IActionResult> ChangePasswordAndEmail(ChangePassAndEmailViewModel model)
         {
             AppUser currentUser = _userManager.GetUserAsync(User).Result;
-            //Guid userGuidId = currentUser.Id;
-            //string userStringId = userGuidId.ToString();
+            Guid userGuidId = currentUser.Id;
+            string userStringId = userGuidId.ToString();
 
             if (ModelState.IsValid)
             {
@@ -149,13 +151,19 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
                 {
                     currentUser.Email = model.Email;
                 }
-                if (!string.IsNullOrEmpty(model.ConfirmPassword))
+                if (!string.IsNullOrEmpty(model.currentPassword))
                 {
-                    //_userManager.ChangePasswordAsync(token)
-                    currentUser.PasswordHash = _passwordHasher.HashPassword(currentUser, model.ConfirmPassword);
+                    if (!string.IsNullOrEmpty(model.ConfirmPassword))
+                    {
+                        var result = await _userManager.ChangePasswordAsync(currentUser, model.currentPassword, model.ConfirmPassword);
+                        if (result.Succeeded)
+                        {
+                            currentUser.PasswordHash = _passwordHasher.HashPassword(currentUser, model.ConfirmPassword);
+                            await _userManager.UpdateAsync(currentUser);
+                            return RedirectToAction("Profile");
+                        }
+                    } 
                 }
-                await _userManager.UpdateAsync(currentUser);
-                return RedirectToAction("Profile");
             }
             return View(model);
         }

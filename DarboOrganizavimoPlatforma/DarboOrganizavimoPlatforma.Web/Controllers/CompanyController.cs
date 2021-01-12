@@ -6,9 +6,11 @@ using DarboOrganizavimoPlatforma.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using DarboOrganizavimoPlatforma.Services.Interfaces;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DarboOrganizavimoPlatforma.Web.Controllers
 {
+    [Authorize(Roles = "Admin,Manager")]
     public class CompanyController : Controller
     {
         private readonly UserManager<AppUser> _userManager;

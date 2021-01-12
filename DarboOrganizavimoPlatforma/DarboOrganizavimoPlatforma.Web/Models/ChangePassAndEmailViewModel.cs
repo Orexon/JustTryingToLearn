@@ -16,6 +16,10 @@ namespace DarboOrganizavimoPlatforma.Web.Models
         [DataType(DataType.EmailAddress, ErrorMessage = "Must be an email address.")]
         public string Email { get; set; }
 
+        [Required(ErrorMessage = "The Old password is required")]
+        [DataType(DataType.Password)]
+        public string currentPassword { get; set; }
+
         [Required(ErrorMessage = "Password Is Required.")]
         [DataType(DataType.Password, ErrorMessage = "The Password must have UPPERCASE and lowercase characters & Spe$ial Character")]
         [Display(Name = "Password")]

@@ -1,6 +1,7 @@
 ﻿using DarboOrganizavimoPlatforma.Domains;
 using DarboOrganizavimoPlatforma.Services.Interfaces;
 using DarboOrganizavimoPlatforma.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace DarboOrganizavimoPlatforma.Web.Controllers
 {
+    [Authorize(Roles = "Admin,Manager,Member")]
     public class ATaskController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
@@ -181,7 +183,7 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
                 }
                 else if (await _userManager.IsInRoleAsync(currentUser, "Member")) 
                 {
-                    return RedirectToAction("GetMemberAssignmentTasks", "Member");
+                    return RedirectToAction("GetMemberAssignmentsTasks", "Member");
                 }
                 return RedirectToAction("GetAllTasks", "ATask");
             }

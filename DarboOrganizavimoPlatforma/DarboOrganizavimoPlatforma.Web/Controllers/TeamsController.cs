@@ -12,7 +12,7 @@ using System.Collections.Generic;
 
 namespace DarboOrganizavimoPlatforma.Web.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,Manager")]
     public class TeamsController : Controller
     {
         private readonly UserManager<AppUser> _userManager;

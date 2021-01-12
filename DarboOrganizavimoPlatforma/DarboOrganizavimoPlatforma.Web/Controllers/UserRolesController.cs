@@ -2,6 +2,7 @@
 using DarboOrganizavimoPlatforma.Domains;
 using DarboOrganizavimoPlatforma.Services.Interfaces;
 using DarboOrganizavimoPlatforma.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -13,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace DarboOrganizavimoPlatforma.Web.Controllers
 {
+    [Authorize(Roles = "Admin,Manager")]
     public class UserRolesController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
@@ -29,8 +31,10 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Manage(string userId)
         {
-            ViewBag.userId = userId;
-            var user = await _userManager.FindByIdAsync(userId);
+            userId.ToString();
+
+            ViewBag.userId = userId.ToString();
+            var user = await _userManager.FindByIdAsync(userId.ToString());
             if (user == null)
             {
                 ViewBag.ErrorMessage = $"User with Id = {userId} cannot be found";
@@ -88,7 +92,7 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             var roles = await _userManager.GetRolesAsync(user);
 
             //If the current user is Admin & if Admin selects himself and if admin wants to remove admin role from himself - restrict removal. 
-            if (await _userManager.IsInRoleAsync(currentUser, "Admin") && user == currentUser && roles.Contains("Admin"))
+            if (await _userManager.IsInRoleAsync(currentUser, "Admin") && user == currentUser)
             {
                 ModelState.AddModelError("", "Cannot remove Admin Role from admin. Admins are forever!");
                 return View(model);
