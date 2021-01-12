@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DarboOrganizavimoPlatforma.Data.Migrations
 {
-    public partial class AssignmentTask : Migration
+    public partial class final : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,49 +11,49 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
                 schema: "Identity",
                 table: "UserRoles",
                 keyColumns: new[] { "UserId", "RoleId" },
-                keyValues: new object[] { new Guid("78868282-42d2-4ef2-8a6f-5d3f2a5f7527"), new Guid("f9145751-3e31-49da-83bc-8be88473c784") });
+                keyValues: new object[] { new Guid("bfcba01a-e31b-4686-9207-c8f97f85ab5a"), new Guid("e0ff5917-ed14-4bee-b90d-4b6278fb195e") });
 
             migrationBuilder.DeleteData(
                 schema: "Identity",
                 table: "Role",
                 keyColumn: "Id",
-                keyValue: new Guid("f9145751-3e31-49da-83bc-8be88473c784"));
+                keyValue: new Guid("e0ff5917-ed14-4bee-b90d-4b6278fb195e"));
 
             migrationBuilder.DeleteData(
                 schema: "Identity",
                 table: "User",
                 keyColumn: "Id",
-                keyValue: new Guid("78868282-42d2-4ef2-8a6f-5d3f2a5f7527"));
+                keyValue: new Guid("bfcba01a-e31b-4686-9207-c8f97f85ab5a"));
 
             migrationBuilder.DeleteData(
                 schema: "Identity",
                 table: "Companies",
                 keyColumn: "CompanyId",
-                keyValue: new Guid("660486ea-ef6d-42d0-870c-82396bbb6cc1"));
+                keyValue: new Guid("3768038d-91af-4052-b0f3-d8257ef2bddb"));
 
             migrationBuilder.InsertData(
                 schema: "Identity",
                 table: "Companies",
                 columns: new[] { "CompanyId", "CompanyDescription", "CompanyMemberSize", "CompanyName", "CreateTime" },
-                values: new object[] { new Guid("c90f5069-15e9-47b7-8c7c-156cd1a61c49"), "Admin Company", 0, "Admin Company", new DateTime(2021, 1, 10, 16, 51, 4, 343, DateTimeKind.Local).AddTicks(2923) });
+                values: new object[] { new Guid("f3048dd9-0ad8-447b-8c9b-7d52db0a5943"), "Admin Company", 0, "Admin Company", new DateTime(2021, 1, 12, 22, 12, 32, 666, DateTimeKind.Local).AddTicks(4512) });
 
             migrationBuilder.InsertData(
                 schema: "Identity",
                 table: "Role",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { new Guid("674dbadf-8b93-4c18-9296-aeab7dd4d322"), "27747190-7b7d-453d-ba7b-5bfa31119160", "Admin", "ADMIN" });
+                values: new object[] { new Guid("072f7292-79c2-4e6a-836f-d50dc45ddbfd"), "27747190-7b7d-453d-ba7b-5bfa31119160", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 schema: "Identity",
                 table: "User",
                 columns: new[] { "Id", "AccessFailedCount", "CompanyId", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "JoinDateTime", "LastName", "Location", "LockoutEnabled", "LockoutEnd", "MemberName", "NormalizedEmail", "NormalizedUserName", "Notes", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "Position", "ProfilePicture", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { new Guid("d1d2b97f-69e0-4e01-a36f-fc20448e0568"), 0, new Guid("c90f5069-15e9-47b7-8c7c-156cd1a61c49"), "27747190-7b7d-453d-ba7b-5bfa31119160", "admin@admin.com", true, null, new DateTime(2021, 1, 10, 16, 51, 4, 343, DateTimeKind.Local).AddTicks(9007), null, null, false, null, "Mindaugas", "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", null, "AQAAAAEAACcQAAAAEOpvPVTNsK5osJyR0T+4qh/+6m4CKrv7u+KH+rrB+ptHxAyVknaIysUmJm/UTPOhkw==", null, false, null, null, "IHDXOW62GL33UAOIJKMU6JBSKSBC63JJ", false, "admin@admin.com" });
+                values: new object[] { new Guid("8c1f2956-698b-436e-97cb-3f858a877f96"), 0, new Guid("f3048dd9-0ad8-447b-8c9b-7d52db0a5943"), "27747190-7b7d-453d-ba7b-5bfa31119160", "admin@admin.com", true, null, new DateTime(2021, 1, 12, 22, 12, 32, 666, DateTimeKind.Local).AddTicks(9696), null, null, false, null, "Mindaugas", "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", null, "AQAAAAEAACcQAAAAEOpvPVTNsK5osJyR0T+4qh/+6m4CKrv7u+KH+rrB+ptHxAyVknaIysUmJm/UTPOhkw==", null, false, null, null, "IHDXOW62GL33UAOIJKMU6JBSKSBC63JJ", false, "admin@admin.com" });
 
             migrationBuilder.InsertData(
                 schema: "Identity",
                 table: "UserRoles",
                 columns: new[] { "UserId", "RoleId" },
-                values: new object[] { new Guid("d1d2b97f-69e0-4e01-a36f-fc20448e0568"), new Guid("674dbadf-8b93-4c18-9296-aeab7dd4d322") });
+                values: new object[] { new Guid("8c1f2956-698b-436e-97cb-3f858a877f96"), new Guid("072f7292-79c2-4e6a-836f-d50dc45ddbfd") });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -62,49 +62,49 @@ namespace DarboOrganizavimoPlatforma.Data.Migrations
                 schema: "Identity",
                 table: "UserRoles",
                 keyColumns: new[] { "UserId", "RoleId" },
-                keyValues: new object[] { new Guid("d1d2b97f-69e0-4e01-a36f-fc20448e0568"), new Guid("674dbadf-8b93-4c18-9296-aeab7dd4d322") });
+                keyValues: new object[] { new Guid("8c1f2956-698b-436e-97cb-3f858a877f96"), new Guid("072f7292-79c2-4e6a-836f-d50dc45ddbfd") });
 
             migrationBuilder.DeleteData(
                 schema: "Identity",
                 table: "Role",
                 keyColumn: "Id",
-                keyValue: new Guid("674dbadf-8b93-4c18-9296-aeab7dd4d322"));
+                keyValue: new Guid("072f7292-79c2-4e6a-836f-d50dc45ddbfd"));
 
             migrationBuilder.DeleteData(
                 schema: "Identity",
                 table: "User",
                 keyColumn: "Id",
-                keyValue: new Guid("d1d2b97f-69e0-4e01-a36f-fc20448e0568"));
+                keyValue: new Guid("8c1f2956-698b-436e-97cb-3f858a877f96"));
 
             migrationBuilder.DeleteData(
                 schema: "Identity",
                 table: "Companies",
                 keyColumn: "CompanyId",
-                keyValue: new Guid("c90f5069-15e9-47b7-8c7c-156cd1a61c49"));
+                keyValue: new Guid("f3048dd9-0ad8-447b-8c9b-7d52db0a5943"));
 
             migrationBuilder.InsertData(
                 schema: "Identity",
                 table: "Companies",
                 columns: new[] { "CompanyId", "CompanyDescription", "CompanyMemberSize", "CompanyName", "CreateTime" },
-                values: new object[] { new Guid("660486ea-ef6d-42d0-870c-82396bbb6cc1"), "Admin Company", 0, "Admin Company", new DateTime(2021, 1, 10, 16, 12, 31, 800, DateTimeKind.Local).AddTicks(2969) });
+                values: new object[] { new Guid("3768038d-91af-4052-b0f3-d8257ef2bddb"), "Admin Company", 0, "Admin Company", new DateTime(2021, 1, 11, 9, 8, 37, 29, DateTimeKind.Local).AddTicks(6337) });
 
             migrationBuilder.InsertData(
                 schema: "Identity",
                 table: "Role",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { new Guid("f9145751-3e31-49da-83bc-8be88473c784"), "27747190-7b7d-453d-ba7b-5bfa31119160", "Admin", "ADMIN" });
+                values: new object[] { new Guid("e0ff5917-ed14-4bee-b90d-4b6278fb195e"), "27747190-7b7d-453d-ba7b-5bfa31119160", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 schema: "Identity",
                 table: "User",
                 columns: new[] { "Id", "AccessFailedCount", "CompanyId", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "JoinDateTime", "LastName", "Location", "LockoutEnabled", "LockoutEnd", "MemberName", "NormalizedEmail", "NormalizedUserName", "Notes", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "Position", "ProfilePicture", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { new Guid("78868282-42d2-4ef2-8a6f-5d3f2a5f7527"), 0, new Guid("660486ea-ef6d-42d0-870c-82396bbb6cc1"), "27747190-7b7d-453d-ba7b-5bfa31119160", "admin@admin.com", true, null, new DateTime(2021, 1, 10, 16, 12, 31, 800, DateTimeKind.Local).AddTicks(7869), null, null, false, null, "Mindaugas", "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", null, "AQAAAAEAACcQAAAAEOpvPVTNsK5osJyR0T+4qh/+6m4CKrv7u+KH+rrB+ptHxAyVknaIysUmJm/UTPOhkw==", null, false, null, null, "IHDXOW62GL33UAOIJKMU6JBSKSBC63JJ", false, "admin@admin.com" });
+                values: new object[] { new Guid("bfcba01a-e31b-4686-9207-c8f97f85ab5a"), 0, new Guid("3768038d-91af-4052-b0f3-d8257ef2bddb"), "27747190-7b7d-453d-ba7b-5bfa31119160", "admin@admin.com", true, null, new DateTime(2021, 1, 11, 9, 8, 37, 30, DateTimeKind.Local).AddTicks(1072), null, null, false, null, "Mindaugas", "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", null, "AQAAAAEAACcQAAAAEOpvPVTNsK5osJyR0T+4qh/+6m4CKrv7u+KH+rrB+ptHxAyVknaIysUmJm/UTPOhkw==", null, false, null, null, "IHDXOW62GL33UAOIJKMU6JBSKSBC63JJ", false, "admin@admin.com" });
 
             migrationBuilder.InsertData(
                 schema: "Identity",
                 table: "UserRoles",
                 columns: new[] { "UserId", "RoleId" },
-                values: new object[] { new Guid("78868282-42d2-4ef2-8a6f-5d3f2a5f7527"), new Guid("f9145751-3e31-49da-83bc-8be88473c784") });
+                values: new object[] { new Guid("bfcba01a-e31b-4686-9207-c8f97f85ab5a"), new Guid("e0ff5917-ed14-4bee-b90d-4b6278fb195e") });
         }
     }
 }
