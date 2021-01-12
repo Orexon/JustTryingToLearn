@@ -19,11 +19,19 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly Context _context;
         private readonly IPasswordHasher<AppUser> _passwordHasher;
-        public MemberController(UserManager<AppUser> userManager,IPasswordHasher<AppUser> passwordHasher, Context context)
+        private readonly ICompanyService _companyService;
+        private readonly ITeamService _teamService;
+        private readonly IAssignmentService _assignmentService;
+        private readonly ITaskService _taskService;
+        public MemberController(UserManager<AppUser> userManager, IPasswordHasher<AppUser> passwordHasher, Context context, ICompanyService companyService, ITeamService teamService, IAssignmentService assignmentService, ITaskService taskService)
         {
             _userManager = userManager;
             _passwordHasher = passwordHasher;
             _context = context;
+            _companyService = companyService;
+            _teamService = teamService;
+            _assignmentService = assignmentService;
+            _taskService = taskService;
         }
 
         public async Task<IActionResult> Profile()
@@ -40,7 +48,7 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             AppUser user = _userManager.GetUserAsync(User).Result;
             Guid userGuidId = user.Id;
             string userStringId = userGuidId.ToString();
-            
+
             EditUserProfileViewModel model = new EditUserProfileViewModel()
             {
                 UserId = userStringId,
@@ -58,7 +66,7 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
 
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public async Task<IActionResult> EditUserProfile(string id,EditUserProfileViewModel model)
+        public async Task<IActionResult> EditUserProfile(EditUserProfileViewModel model)
         {
             AppUser currentUser = _userManager.GetUserAsync(User).Result;
             Guid userGuidId = currentUser.Id;
@@ -110,8 +118,8 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
                 return RedirectToAction("Profile", "Member");
             }
             return View(model);
-        } 
-        
+        }
+
         [HttpGet]
         public IActionResult ChangePasswordAndEmail()
         {
@@ -132,24 +140,121 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
         public async Task<IActionResult> ChangePasswordAndEmail(ChangePassAndEmailViewModel model)
         {
             AppUser currentUser = _userManager.GetUserAsync(User).Result;
-            Guid userGuidId = currentUser.Id;
-            string userStringId = userGuidId.ToString();
+            //Guid userGuidId = currentUser.Id;
+            //string userStringId = userGuidId.ToString();
 
             if (ModelState.IsValid)
             {
-                AppUser user = await _userManager.FindByIdAsync(userStringId);
                 if (!string.IsNullOrEmpty(model.Email))
                 {
-                    user.Email = model.Email;
+                    currentUser.Email = model.Email;
                 }
                 if (!string.IsNullOrEmpty(model.ConfirmPassword))
                 {
-                    user.PasswordHash = _passwordHasher.HashPassword(user, model.ConfirmPassword);
+                    //_userManager.ChangePasswordAsync(token)
+                    currentUser.PasswordHash = _passwordHasher.HashPassword(currentUser, model.ConfirmPassword);
                 }
-                await _userManager.UpdateAsync(user);
+                await _userManager.UpdateAsync(currentUser);
                 return RedirectToAction("Profile");
             }
             return View(model);
+        }
+
+        // Member Company Details view. Simple available(less) details.
+        public async Task<IActionResult> MemberCompanyDetails()
+        {
+            AppUser currentUser = _userManager.GetUserAsync(User).Result;
+            Guid companyId = currentUser.CompanyId;
+
+            Company company = await _companyService.GetCompanyById(companyId);
+            if (company == null)
+            {
+                return NotFound();
+            }
+            return View(company);
+        }
+
+        public async Task<IActionResult> GetMemberTeams()
+        {
+            AppUser currentUser = _userManager.GetUserAsync(User).Result;
+            Guid userId = currentUser.Id;
+
+            List<Team> memberTeams = await _teamService.GetMemberTeamsByUserId(userId);
+
+            return View(memberTeams);
+        }
+
+        //Specific Team members of a logged in User Specific team.
+        public async Task<IActionResult> GetTeamsMemberList(Guid id)
+        {
+            List<AppUser> TeamsMemberList = await _teamService.GetTeamsMemberList(id);
+            var teamUserListViewModel = new List<UserListViewModel>();
+
+            foreach (AppUser member in TeamsMemberList)
+            {
+                var thisViewModel = new UserListViewModel
+                {
+                    UserId = member.Id,
+                    User = member,
+                    Roles = new List<string>(await _userManager.GetRolesAsync(member))
+                };
+                teamUserListViewModel.Add(thisViewModel);
+            }
+            return View(teamUserListViewModel);
+        }
+
+        //Gets ALL assignments of Current logged in User in a specific Team. // Member Controller
+        public async Task<IActionResult> GetTeamMemberAssignmentList(Guid TeamId)
+        {
+            AppUser user = _userManager.GetUserAsync(User).Result;
+            Guid UserId = user.Id;
+            return View(await _assignmentService.GetUserTeamAssignmentList(UserId, TeamId));
+        }
+
+        public async Task<IActionResult> MemberTeamDetails(Guid id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            Team team = await _teamService.GetTeamById(id);
+
+            if (team == null)
+            {
+                return NotFound();
+            }
+            return View(team);
+        }
+
+        public async Task<IActionResult> UserDetails(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();  //Add NotFound View. 
+            }
+            return View(await _userManager.FindByIdAsync(id));
+        }
+
+        //Gets ALL assignments of Current logged in User. // Member Controller
+        public async Task<IActionResult> GetMemberAssignmentList()
+        {
+            AppUser user = _userManager.GetUserAsync(User).Result;
+            Guid UserId = user.Id;
+            return View(await _assignmentService.GetUserAssignmentList(UserId));
+        }
+
+        //Get All member tasks && all member Written tasks
+        public async Task<IActionResult> GetMemberAssignmentsTasks()
+        {
+            AppUser user = _userManager.GetUserAsync(User).Result;
+
+            var taskViewModel = new UserTaskViewModel
+            {
+                UserTasks = await _taskService.GetUserAssignmentTaskList(user.Id),
+                UserWrittenTasks = await _taskService.GetUseWrittenTaskList(user.Id)
+            };
+
+            return View(taskViewModel);
         }
     }
 }

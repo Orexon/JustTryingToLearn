@@ -1,0 +1,87 @@
+﻿@model DarboOrganizavimoPlatforma.Domains.AppUser
+
+@{
+    ViewData["Title"] = "UserDetails";
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-8 offset-sm-2">
+                <h1 class="text-center">@Model.MemberName UserDetails</h1>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Horizontal Form -->
+<section class="content">
+    <div class="row justify-content-center">
+        <div class="col-sm-8">
+            <div class="card card-info">
+                <div class="card-header">
+                    <h3 class="card-title">@Model.MemberName</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <label class="col-sm-12">@Html.DisplayNameFor(model => model.Email)</label>
+                                <div class="col-sm-12">@Html.DisplayFor(model => model.Email)</div>
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-12">@Html.DisplayNameFor(model => model.MemberName)</label>
+                                <div class="col-sm-12">@Html.DisplayFor(model => model.MemberName)</div>
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-12">@Html.DisplayNameFor(model => model.UserName)</label>
+                                <div class="col-sm-12">@Html.DisplayFor(model => model.UserName)</div>
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-12">@Html.DisplayNameFor(model => model.PhoneNumber)</label>
+                                <div class="col-sm-12">@Html.DisplayFor(model => model.PhoneNumber)</div>
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-12">@Html.DisplayNameFor(model => model.Company.CompanyName)</label>
+                                <div class="col-sm-12">@Html.DisplayFor(model => model.Company.CompanyName)</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <label class="col-sm-12">@Html.DisplayNameFor(model => model.FirstName)</label>
+                                <div class="col-sm-12">@Html.DisplayFor(model => model.FirstName)</div>
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-12">@Html.DisplayNameFor(model => model.LastName)</label>
+                                <div class="col-sm-12">@Html.DisplayFor(model => model.LastName)</div>
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-12">@Html.DisplayNameFor(model => model.Position)</label>
+                                <div class="col-sm-12">@Html.DisplayFor(model => model.Position)</div>
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-12">@Html.DisplayNameFor(model => model.Location)</label>
+                                <div class="col-sm-12">@Html.DisplayFor(model => model.Location)</div>
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-12">@Html.DisplayNameFor(model => model.JoinDateTime)</label>
+                                <div class="col-sm-12">@Html.DisplayFor(model => model.JoinDateTime)</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <label class="col-sm-12">@Html.DisplayNameFor(model => model.Notes)</label>
+                            <div class="col-sm-12">@Html.DisplayFor(model => model.Notes)</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                    <a class="btn btn-primary float-right" onClick="history.go(-1)" >Back to List</a>
+                </div>
+                <!-- /.card-footer -->
+            </div>
+        </div>
+    </div>
+</section>

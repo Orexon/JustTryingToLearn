@@ -43,16 +43,17 @@ namespace DarboOrganizavimoPlatforma.Services
             return await _context.Teams.FirstOrDefaultAsync(m => m.TeamId == guidid);
         }
 
-        public async Task<Team> GetTeamByUserId(string id)
+        public async Task<List<Team>> GetMemberTeamsByUserId(Guid id)
         {
-            Guid guidid = Guid.Parse(id);
-            return await _context.Teams.FirstOrDefaultAsync(m => m.TeamId == guidid);
+            return await _context.TeamUsers.Where(x => x.AppUserId == id).Include(x=>x.AppUser).Include(x => x.Team).Select(x => x.Team).ToListAsync();
         }
 
+        //all teamusers.
         public async Task<List<TeamUser>> GetTeamsUsers()
         {
             return await _context.TeamUsers.ToListAsync();
         }
+
         // "Points" to a team and gives list of TeamMembers.
         public async Task<List<AppUser>> GetTeamsMemberList(Guid id)
         {

@@ -32,22 +32,6 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             return View(await _assignmentService.GetAssignments());
         }
 
-        //Gets ALL assignments of Current logged in User. // Member Controller
-        public async Task<IActionResult> GetMemberAssignmentList()
-        {
-            AppUser user = _userManager.GetUserAsync(User).Result;
-            Guid UserId = user.Id;
-            return View(await _assignmentService.GetUserAssignmentList(UserId));
-        }
-
-        //Gets ALL assignments of Current logged in User in a specific Team. // Member Controller
-        public async Task<IActionResult> GetTeamMemberAssignmentList(Guid TeamId)
-        {
-            AppUser user = _userManager.GetUserAsync(User).Result;
-            Guid UserId = user.Id;
-            return View(await _assignmentService.GetUserTeamAssignmentList(UserId, TeamId));
-        }
-
         //When team ID is passed. Admin/Manager/TeamLeader/Member. Gets Specific Teams Assignments.
         public async Task<IActionResult> GetTeamAssignmentList(Guid TeamId)
         {
@@ -280,7 +264,7 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
                 }
                 return RedirectToAction("AssignUsersToAssignment", new { AssignmentId });
             }
-            return View(newAssignViewModel);
+            return RedirectToAction("AssignUsersToAssignment", new { AssignmentId });
         }
 
         //Remove User from an assignment.

@@ -343,7 +343,7 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
             }
             return View(model);
         }
-
+        
         [HttpGet]
         public async Task<IActionResult> RemoveUserFromTeam(Guid teamid, string id)
         { 

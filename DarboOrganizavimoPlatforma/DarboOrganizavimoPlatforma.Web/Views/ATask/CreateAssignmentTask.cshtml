@@ -11,9 +11,24 @@
             <div class="col-sm-6">
                 <h1> Assignment Task List </h1>
             </div>
-            <div class="col-sm-6 ">
-                <a class="btn btn-primary float-right" asp-route-TeamId="@Model.AssignmentTeamId" asp-controller="Assignment" asp-action="GetTeamAssignmentList">Back to Teams Assignment List</a>
-            </div>
+            @if (User.IsInRole("Admin"))
+            {
+                <div class="col-sm-6 ">
+                    <a class="btn btn-primary float-right" asp-route-TeamId="@Model.AssignmentTeamId" asp-controller="Assignment" asp-action="GetTeamAssignmentList">Back to Teams Assignment List</a>
+                </div>
+            }
+            else if (User.IsInRole("Manager"))
+            {
+                <div class="col-sm-6 ">
+                    <a class="btn btn-primary float-right" onClick="history.go(-1);">Back to Teams Assignment List</a>
+                </div>
+            }
+            else
+            {
+                <div class="col-sm-6 ">
+                    <a class="btn btn-primary float-right" onClick="history.go(-1);">Back to Teams Assignment List</a>
+                </div>
+            }
         </div>
     </div><!-- /.container-fluid -->
 </section>

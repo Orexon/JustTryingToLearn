@@ -21,5 +21,6 @@ namespace DarboOrganizavimoPlatforma.Services.Interfaces
         Task<int> EditTeam(Team team);
         Task<int> DeleteTeam(Team team);
         Task<int> RemoveTeamUser(Guid teamid, Team team, string id, AppUser appUser);
+        Task<List<Team>> GetMemberTeamsByUserId(Guid id);
     }
 }

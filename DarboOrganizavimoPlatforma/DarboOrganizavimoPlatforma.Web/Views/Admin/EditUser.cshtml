@@ -24,7 +24,7 @@
                 <div class="card-header">
                     <h3 class="card-title">@Model.MemberName</h3>
                 </div>
-                    <form asp-controller="Admin" asp-action="EditUser">
+                <form asp-controller="Admin" asp-action="EditUser">
                     <div class="card-body">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="row">
@@ -92,10 +92,17 @@
                             <a asp-controller="Admin" asp-action="GetUserList" class="btn btn-secondary float-right">Cancel</a>
                         </div>
                     </div>
-                    </form>
+                </form>
             </div>
             <!-- /.card -->
         </div>
     </div>
 </section>
 <!-- /.content -->
+
+@section Scripts
+{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

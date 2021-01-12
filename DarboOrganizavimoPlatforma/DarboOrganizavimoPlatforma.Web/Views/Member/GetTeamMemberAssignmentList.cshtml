@@ -1,0 +1,89 @@
+﻿@model IEnumerable<DarboOrganizavimoPlatforma.Domains.Assignment>
+
+@{
+    ViewData["Title"] = "GetTeamMemberAssignmentList";
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-6 col-sm-6">
+                <h1>Assignment List</h1>
+            </div>
+            <div class="col-6 col-sm-6">
+                <a class="btn btn-primary float-right" asp-controller="Member" asp-action="GetMemberTeams">Back to Team List</a>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card mt-2">
+                    <div class="card-header">
+                        <h3 class="card-title">Team Assignments</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="example1" class="table table-bordered table-hover">
+                            <!-- /Table-Header -->
+                            <thead>
+                                <tr>
+                                    <th>@Html.DisplayNameFor(model => model.AssignmentName)</th>
+                                    <th>@Html.DisplayNameFor(model => model.AssignmentStatus)</th>
+                                    <th>@Html.DisplayNameFor(model => model.UsersAssigned)</th>
+                                    <th>View Tasks</th>
+                                </tr>
+                            </thead>
+                            <!-- /Table-Body -->
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => item.AssignmentName)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.AssignmentStatus)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.UsersAssigned.Count)</td>
+                                        <td><a class="btn btn-secondary" asp-controller="ATask" asp-action="CreateAssignmentTask" asp-route-AssignmentId="@item.AssignmentId">Tasks</a></td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <!-- /Table-footer -->
+                            <tfoot>
+                                <tr>
+                                    <th>@Html.DisplayNameFor(model => model.AssignmentName)</th>
+                                    <th>@Html.DisplayNameFor(model => model.AssignmentStatus)</th>
+                                    <th>@Html.DisplayNameFor(model => model.UsersAssigned)</th>
+                                    <th>View/Add Tasks</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+
+@section Scripts
+    {
+    <script type="text/javascript">
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        });
+    </script>
+}

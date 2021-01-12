@@ -1,0 +1,91 @@
+﻿@model IEnumerable<DarboOrganizavimoPlatforma.Web.Models.UserListViewModel>
+
+@{
+    ViewData["Title"] = "GetUserList";
+}
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-6 col-sm-6">
+                <h1>Team members</h1>
+            </div>
+            <div class="col-6 col-sm-6">
+                <a class="btn btn-primary float-right" onClick="history.go(-1)">Back to List</a>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card mt-2">
+                    <div class="card-header">
+                        <h3 class="card-title">Team Members</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="example1" class="table table-bordered table-hover">
+                            <!-- /Table-Header -->
+                            <thead>
+                                <tr>
+                                    <th> @Html.DisplayNameFor(model => model.User.UserName)</th>
+                                    <th> @Html.DisplayNameFor(model => model.User.Email)</th>
+                                    <th> @Html.DisplayNameFor(model => model.Roles)</th>
+                                    <th> Details </th>
+                                </tr>
+                            </thead>
+                            <!-- /Table-Body -->
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => item.User.UserName)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.User.Email)</td>
+                                        <td>@string.Join(" , ", item.Roles.ToList())</td>
+                                        <td><a class="btn btn-info" asp-controller="Member" asp-action="UserDetails" asp-route-id="@item.User.Id"> Details</a></td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <!-- /Table-footer -->
+                            <tfoot>
+                                <tr>
+                                    <th> @Html.DisplayNameFor(model => model.User.UserName)</th>
+                                    <th> @Html.DisplayNameFor(model => model.User.Email)</th>
+                                    <th> @Html.DisplayNameFor(model => model.Roles)</th>
+                                    <th> Details </th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+
+@section Scripts
+    {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script type="text/javascript">
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        });
+    </script>
+}

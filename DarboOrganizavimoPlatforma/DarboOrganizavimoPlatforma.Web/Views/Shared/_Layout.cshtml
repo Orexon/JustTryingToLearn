@@ -22,7 +22,6 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="~/css/adminlte.min.css">
     <link rel="stylesheet" href="~/css/site - Copy.css">
-
 </head>
 <body class="hold-transition sidebar-mini">
     @{
@@ -85,15 +84,16 @@
                             }
                             else if (User.IsInRole("Manager"))
                             {
-                                <a class="nav-link" asp-controller="Admin" asp-action="Index">
+                                <a class="nav-link" asp-controller="Manager" asp-action="Dashboard">
                                     <i class="nav-icon fas fa-home"></i>
-                                    <p>Home</p>
+                                    <p>Dashboard</p>
                                 </a>
-                            } else
+                            }
+                            else
                             {
-                                <a class="nav-link" asp-controller="Admin" asp-action="Index">
+                                <a class="nav-link" asp-controller="Member" asp-action="Dashboard">
                                     <i class="nav-icon fas fa-home"></i>
-                                    <p>Home</p>
+                                    <p>Dashboard</p>
                                 </a>
                             }
                         </li>
@@ -260,6 +260,41 @@
                                 </ul>
                             </li>
                         }
+                        @if (User.IsInRole("Member"))
+                        {
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-mail-bulk"></i>
+                                    <p>Member Activities<i class="right fas fa-angle-left"></i></p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a class="nav-link " asp-controller="Member" asp-action="MemberCompanyDetails">
+                                            <i class="fas fa-building nav-icon"></i>
+                                            <p>Company info</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="Member" asp-action="GetMemberTeams">
+                                            <i class="fas fa-users-cog nav-icon"></i>
+                                            <p>View Teams</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="Member" asp-action="GetMemberAssignmentList">
+                                            <i class="fas fa-clipboard-list nav-icon"></i>
+                                            <p>Assignments</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="Member" asp-action="GetMemberAssignmentsTasks">
+                                            <i class="fas fa-check nav-icon"></i>
+                                            <p>Tasks</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -295,7 +330,6 @@
     <!-- jQuery -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/bootstrap.bundle.min.js"></script>
-    <!-- DataTables  & Plugins -->
     <!-- DataTables  & Plugins -->
     <script src="~/js/jquery.dataTables.min.js"></script>
     <script src="~/js/dataTables.bootstrap4.min.js"></script>

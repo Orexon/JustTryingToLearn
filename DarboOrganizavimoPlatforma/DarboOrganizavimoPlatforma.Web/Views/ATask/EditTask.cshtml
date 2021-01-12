@@ -49,16 +49,32 @@
                             {
                                 <a asp-controller="ATask" asp-action="GetAllTasks" class="btn btn-secondary float-right">Cancel</a>
                             }
-                            else
+                            else if (User.IsInRole("Manager") && User.IsInRole("Member"))
                             {
-                                if (Model.AssignmentId != null)
+                                @if (Model.AssignmentId != null)
                                 {
                                     <a asp-controller="ATask" asp-action="CreateAssignmentTask" asp-route-assignmentId="@Model.AssignmentId" class="btn btn-primary float-right">Back to Assignment Task List</a>
                                 }
                                 else
                                 {
-                                    <a asp-controller="ATask" asp-action="GetCompanyTasks" class="btn btn-primary float-right">Back to task List</a>
+                                    @*<a asp-controller="ATask" asp-action="GetCompanyTasks" class="btn btn-primary float-right">Back to task List</a>*@
+                                    <a onClick="history.go(-1)" class="btn btn-primary float-right">Back to task List</a>
                                 }
+                            }
+                            @*else if (User.IsInRole("Manager"))
+                                {
+                                    @if (Model.AssignmentId != null)
+                                    {
+                                        <a asp-controller="ATask" asp-action="CreateAssignmentTask" asp-route-assignmentId="@Model.AssignmentId" class="btn btn-primary float-right">Back to Assignment Task List</a>
+                                    }
+                                    else
+                                    {
+                                        <a asp-controller="ATask" asp-action="GetCompanyTasks" class="btn btn-primary float-right">Back to task List</a>
+                                    }
+                                }*@
+                            else
+                            {
+                                <a asp-controller="Member" asp-action="GetMemberAssignmentsTasks" class="btn btn-primary float-right">Back to member task List</a>
                             }
                         </div>
                     </form>
@@ -70,3 +86,10 @@
     </div>
 </section>
 <!-- /.content -->
+
+@section Scripts
+{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

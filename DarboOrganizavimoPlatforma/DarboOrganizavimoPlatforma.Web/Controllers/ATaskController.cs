@@ -13,12 +13,6 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
 {
     public class ATaskController : Controller
     {
-        //User Specific Tasks
-        //Change Task status.
-        //Set To In Progress - appuser name to list.
-        //Number of a Task ->
-
-
         private readonly UserManager<AppUser> _userManager;
         private readonly IAssignmentService _assignmentService;
         private readonly ITaskService _taskService;
@@ -52,7 +46,6 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
         }
 
         //Create Task When Choosing Assignment.
-
         [HttpGet]
         public async Task<IActionResult> CreateTask()
         {
@@ -185,6 +178,10 @@ namespace DarboOrganizavimoPlatforma.Web.Controllers
                         return RedirectToAction("CreateAssignmentTask", "ATask", new { assignmentId });
                     }
                     return RedirectToAction("GetCompanyTasks", "ATask");
+                }
+                else if (await _userManager.IsInRoleAsync(currentUser, "Member")) 
+                {
+                    return RedirectToAction("GetMemberAssignmentTasks", "Member");
                 }
                 return RedirectToAction("GetAllTasks", "ATask");
             }

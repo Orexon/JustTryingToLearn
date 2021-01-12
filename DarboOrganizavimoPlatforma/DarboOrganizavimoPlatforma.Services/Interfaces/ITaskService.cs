@@ -19,5 +19,7 @@ namespace DarboOrganizavimoPlatforma.Services.Interfaces
         Task<List<ATask>> GetCompanyToDoTasks(Guid companyId);
         Task<List<ATask>> GetCompanyInProgressTasks(Guid companyId);
         Task<List<ATask>> GetCompanyCompletedTasks(Guid companyId);
+        Task<List<ATask>> GetUserAssignmentTaskList(Guid UserId);
+        Task<List<ATask>> GetUseWrittenTaskList(Guid UserId);
     }
 }

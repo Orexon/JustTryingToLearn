@@ -1,0 +1,55 @@
+﻿@model DarboOrganizavimoPlatforma.Domains.Team
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-8 offset-sm-2">
+                <h1 class="text-center">@Model.TeamName Details</h1>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Horizontal Form -->
+<section class="content">
+    <div class="row justify-content-center">
+        <div class="col-sm-8">
+            <div class="card card-info">
+                <div class="card-header">
+                    <h3 class="card-title">@Model.TeamName</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <label class="col-sm-5">@Html.DisplayNameFor(model => model.TeamName)</label>
+                                <div class="col-sm-7">@Html.DisplayFor(model => model.TeamName)</div>
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-5">@Html.DisplayNameFor(model => model.CreateTime)</label>
+                                <div class="col-sm-7">@Html.DisplayFor(model => model.CreateTime)</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="col-sm-12">
+                                <label class="col-sm-12">@Html.DisplayNameFor(model => model.TeamDescription)</label>
+                                <div class="col-sm-12">@Html.DisplayFor(model => model.TeamDescription)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                        <a asp-controller="Member" asp-action="GetMemberTeams" class="btn btn-primary float-right" style="width:auto">Back to Member Teams List</a>
+                </div>
+                <!-- /.card-footer -->
+            </div>
+        </div>
+    </div>
+</section>

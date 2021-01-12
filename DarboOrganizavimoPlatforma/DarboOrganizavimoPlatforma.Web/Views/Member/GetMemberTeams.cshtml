@@ -1,0 +1,88 @@
+﻿@model IEnumerable<DarboOrganizavimoPlatforma.Domains.Team>
+
+@{
+    ViewData["Title"] = "CompanyTeamsList";
+}
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-12 col-sm-12">
+                <h1>Member Teams List</h1>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card mt-2">
+                    <div class="card-header">
+                        <h3 class="card-title">Teams list</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="example1" class="table table-bordered table-hover">
+                            <!-- /Table-Header -->
+                            <thead>
+                                <tr>
+                                    <th>@Html.DisplayNameFor(model => model.TeamName)</th>
+                                    <th>@Html.DisplayNameFor(model => model.TeamDescription)</th>
+                                    <th>View Members</th>
+                                    <th>Team Assignments</th>
+                                    <th>Details</th>
+                                </tr>
+                            </thead>
+                            <!-- /Table-Body -->
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => item.TeamName)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.TeamDescription)</td>
+                                        <td><a class="btn btn-warning" asp-controller="Member" asp-action="GetTeamsMemberList" asp-route-id="@item.TeamId">View</a></td>
+                                        <td><a class="btn btn-secondary" asp-controller="Member" asp-action="GetTeamMemberAssignmentList" asp-route-TeamId="@item.TeamId">View</a></td>
+                                        <td><a class="btn btn-info" asp-controller="Member" asp-action="MemberTeamDetails" asp-route-id="@item.TeamId">Details</a></td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <!-- /Table-footer -->
+                            <tfoot>
+                                <tr>
+                                    <th>@Html.DisplayNameFor(model => model.TeamName)</th>
+                                    <th>@Html.DisplayNameFor(model => model.TeamDescription)</th>
+                                    <th>View Members</th>
+                                    <th>Team Assignments</th>
+                                    <th>Details</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+
+@section Scripts
+    {
+    <script type="text/javascript">
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        });
+    </script>
+}

@@ -84,7 +84,6 @@
     <!-- /.container-fluid -->
 </section>
 <!-- /.content -->
-
 <!-- Modal on Delete Click-->
 <div class="modal fade" data-backdrop="static" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -108,6 +107,9 @@
 
 @section Scripts
     {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
     <script type="text/javascript">
         $("#myModal").on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget) // Button that triggered the modal
@@ -132,4 +134,3 @@
         });
     </script>
 }
-

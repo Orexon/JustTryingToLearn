@@ -57,6 +57,19 @@ namespace DarboOrganizavimoPlatforma.Services
             return await _context.SaveChangesAsync();
         }
 
+        //Gets ALL Tasks of User.
+        public async Task<List<ATask>> GetUserAssignmentTaskList(Guid UserId)
+        {
+            List<ATask> userTasks = await _context.UserAssignments.Include(x => x.AppUser).Where(e => e.AppUser.Id == UserId).SelectMany(e => e.Assignment.AssignmentTasks).ToListAsync();
+            return userTasks;
+        }
+
+        public async Task<List<ATask>> GetUseWrittenTaskList(Guid UserId)
+        {
+            List<ATask> userTasks = await _context.UserAssignments.Include(x => x.AppUser).Where(e => e.AppUser.Id == UserId).SelectMany(e => e.Assignment.AssignmentTasks.Where(x=>x.AppUserId == UserId)).ToListAsync();
+            return userTasks;
+        }
+
         //Gets All Company Tasks
         public async Task<List<ATask>> GetCompanyTasks(Guid companyId)
         {
