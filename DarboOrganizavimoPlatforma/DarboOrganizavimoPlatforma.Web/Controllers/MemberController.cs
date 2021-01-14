@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace DarboOrganizavimoPlatforma.Web.Controllers
 {
-    [Authorize(Roles = "Member")]
+    [Authorize(Roles = "Admin,Manager,Member")]
     public class MemberController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
